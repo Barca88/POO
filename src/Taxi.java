@@ -9,24 +9,24 @@ public abstract class Taxi implements Serializable{
 
     //construtores
     public Taxi(){
-        this.velMedia=0.0;
-        this.preco=0.0;
-        this.fiabilidade=0.0;
-        this.local=null;
+        this.velMedia = 0.0;
+        this.preco = 0.0;
+        this.fiabilidade = 0.0;
+        this.local = null;
     }
     
     public Taxi(double velMedia,double preco,double fiabilidade){
-        this.velMedia=velMedia;
-        this.preco=preco;
-        this.fiabilidade=fiabilidade;
-        this.local=null;
+        this.velMedia = velMedia;
+        this.preco = preco;
+        this.fiabilidade = fiabilidade;
+        this.local = null;
     }
     
     public Taxi(Taxi t){
-       this.velMedia=t.getVelMedia();
-       this.preco=t.getPreco();
-       this.fiabilidade=t.getFiab();
-       this.local=t.getLocal();
+       this.velMedia = t.getVelMedia();
+       this.preco = t.getPreco();
+       this.fiabilidade = t.getFiab();
+       this.local = t.getLocal();
     }
     
     //metodos
@@ -43,24 +43,24 @@ public abstract class Taxi implements Serializable{
     }
     
     public Localizacao getLocal() throws NullPointerException{
-        if(this.local==null)
+        if(this.local == null)
             throw new NullPointerException("No location is defined");
         return this.local;
     }
 
     public void setVelMedia(double velMedia){
-        this.velMedia=velMedia;
+        this.velMedia = velMedia;
     }
     
     public void setPreco(double preco){
-        this.preco=preco;
+        this.preco = preco;
     }
     
     public void setFiab(double fiabilidade){
-        this.fiabilidade=fiabilidade;
+        this.fiabilidade = fiabilidade;
     }
     
     public void setLocal(Localizacao local){
-        this.local=local;
+        this.local = local;
     }
 }

@@ -1,14 +1,12 @@
 import java.io.Serializable;
 
-public abstract class Utilizador implements Serializable
-{
+public abstract class Utilizador implements Serializable{
     // var. de instancia
     private String email;
     private String nome;
     private String password;
     private String morada;
     private String dataNasc;
-    
     // Construtor
     public Utilizador(){
         email = null;
@@ -33,7 +31,6 @@ public abstract class Utilizador implements Serializable
         this.morada = u.getMorada();
         this.dataNasc = u.getData();
     }
-
     //Métodos
     public String getEmail(){
         return email;
