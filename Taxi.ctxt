@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Taxi()
+comment1.params=velMedia\ preco\ fiabilidade
+comment1.target=Taxi(double,\ double,\ double)
+comment10.params=local
+comment10.target=void\ setLocal(Localizacao)
+comment2.params=t
+comment2.target=Taxi(Taxi)
+comment3.params=
+comment3.target=double\ getVelMedia()
+comment4.params=
+comment4.target=double\ getPreco()
+comment5.params=
+comment5.target=double\ getFiab()
+comment6.params=
+comment6.target=Localizacao\ getLocal()
+comment7.params=velMedia
+comment7.target=void\ setVelMedia(double)
+comment8.params=preco
+comment8.target=void\ setPreco(double)
+comment9.params=fiabilidade
+comment9.target=void\ setFiab(double)
+numComments=11

@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=email\ nome\ password\ morada\ dataNasc\ grauCump\ classificacao\ totalKms\ disponibilidade
+comment0.target=Motorista(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ int,\ int,\ int,\ boolean)
+comment1.params=
+comment1.target=int\ getGrauCump()
+comment2.params=
+comment2.target=int\ getClassificacao()
+comment3.params=
+comment3.target=int\ getTotalKms()
+comment4.params=
+comment4.target=boolean\ getDisponibilidade()
+comment5.params=grauCump
+comment5.target=void\ setGrauCump(int)
+comment6.params=classificacao
+comment6.target=void\ setClassificacao(int)
+comment7.params=totalKms
+comment7.target=void\ setTotalKms(int)
+comment8.params=disponibilidade
+comment8.target=void\ setDisponibilidade(boolean)
+numComments=9
