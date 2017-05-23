@@ -64,8 +64,7 @@ public abstract class Utilizador implements Serializable{
         this.password=password;
     }
     
-    public void setMorada(String morada)
-    {
+    public void setMorada(String morada){
         this.morada=morada;
     }
     
