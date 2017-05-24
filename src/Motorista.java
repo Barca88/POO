@@ -30,18 +30,18 @@ public class Motorista extends Utilizador{
     }
     
     public void setGrauCump(int grauCump){
-        this.grauCump=grauCump;
+        this.grauCump = grauCump;
     }
     
     public void setClassificacao(int classificacao){
-        this.classificacao=classificacao;
+        this.classificacao = classificacao;
     }
     
     public void setTotalKms(int totalKms){
-        this.totalKms=totalKms;
+        this.totalKms = totalKms;
     }
     
     public void setDisponibilidade(boolean disponibilidade){
-        this.disponibilidade=disponibilidade;
+        this.disponibilidade = disponibilidade;
     }
 }

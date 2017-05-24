@@ -53,23 +53,23 @@ public abstract class Utilizador implements Serializable{
     }
     
     public void setEmail(String email){
-        this.email=email;
+        this.email = email;
     }
     
     public void setNome(String nome){
-        this.nome=nome;
+        this.nome = nome;
     }
     
     public void setPass(String password){
-        this.password=password;
+        this.password = password;
     }
     
     public void setMorada(String morada){
-        this.morada=morada;
+        this.morada = morada;
     }
     
     public void setData(String dataNasc){
-        this.dataNasc=dataNasc;
+        this.dataNasc = dataNasc;
     }
     
     

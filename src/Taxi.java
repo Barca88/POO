@@ -29,7 +29,7 @@ public abstract class Taxi implements Serializable{
        this.local = t.getLocal();
     }
     
-    //metodos
+    //Getters
     public double getVelMedia(){
         return velMedia;
     }
@@ -47,7 +47,8 @@ public abstract class Taxi implements Serializable{
             throw new NullPointerException("No location is defined");
         return this.local;
     }
-
+    
+    //Setters
     public void setVelMedia(double velMedia){
         this.velMedia = velMedia;
     }
@@ -63,4 +64,5 @@ public abstract class Taxi implements Serializable{
     public void setLocal(Localizacao local){
         this.local = local;
     }
+
 }

@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 
 public class Localizacao{
     // instance variables - replace the example below with your own
@@ -6,8 +8,8 @@ public class Localizacao{
 
     //Construtores
     public Localizacao(int x,int y){
-        this.x=x;
-        this.y=y;
+        this.x = x;
+        this.y = y;
     }
     
     public int getX(){
@@ -25,4 +27,16 @@ public class Localizacao{
     public void setY(int y){
         this.y=y;
     }
+    
+    public static double Distancia(Localizacao a, Localizacao b){
+        double dist = Math.sqrt((b.x - a.x)^2 + (b.y - b.y)^2)*10000;
+        return dist;
+    }
+    
+    public static double TempoDesloca( double VelMedia, Localizacao a, Localizacao b){
+        double dist = Distancia(a,b);
+        double tempo = dist * VelMedia;
+        return tempo;
+    }
+        
 }
