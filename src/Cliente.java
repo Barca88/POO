@@ -1,9 +1,9 @@
 
 public class Cliente extends Utilizador{
     // construtor
-    public Cliente(String email, String nome, String password,
-                        String morada, String dataNasc){
-        super(email, nome, password, morada, dataNasc);
+    public Cliente(String fname, String lname,String email, 
+        String username, String password, String morada, String dataNasc){
+        super(fname, lname, email, username, password, morada, dataNasc);
     }
     
 }

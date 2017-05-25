@@ -8,8 +8,10 @@ public class Motorista extends Utilizador{
     private boolean disponibilidade;
 
     //Construtor
-    public Motorista(String email,String nome,String password,String morada,String dataNasc,int grauCump,int classificacao,int totalKms,boolean disponibilidade){
-        super(email,nome,password,morada,dataNasc);
+    public Motorista(String fname, String lname, String email, String username, 
+        String password, String morada, String dataNasc, int grauCump, 
+        int classificacao, int totalKms, boolean disponibilidade){
+        super(fname, lname, email, username, password, morada, dataNasc);
     }
 
     //Metodos
