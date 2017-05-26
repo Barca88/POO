@@ -8,12 +8,18 @@ public class Motorista extends Utilizador{
     private boolean disponibilidade;
 
     //Construtor
-    public Motorista(String fname, String lname, String email, String username, 
-        String password, String morada, String dataNasc, int grauCump, 
-        int classificacao, int totalKms, boolean disponibilidade){
-        super(fname, lname, email, username, password, morada, dataNasc);
+    public Motorista(int type, double gpsX, double gpsY, String fname, 
+        String lname, String email, String username, String password, 
+        String morada, String dataNasc, int grauCump, int classificacao,
+        int totalKms, boolean disponibilidade){
+        
+        super(type, gpsX, gpsY, fname, lname, email, username, password, 
+            morada, dataNasc);
+        this.setType(2);
     }
-
+    
+    public Motorista(){
+    }
     //Metodos
     public int getGrauCump(){
         return grauCump;
