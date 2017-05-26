@@ -2,7 +2,9 @@ import java.io.Serializable;
 
 public abstract class Utilizador implements Serializable{
     // var. de instancia
- 
+    private int type;
+    private double gpsX;
+    private double gpsY;
     private String fname;
     private String lname;
     private String email;
@@ -13,6 +15,9 @@ public abstract class Utilizador implements Serializable{
    
     // Construtor
     public Utilizador(){
+        type = 0;
+        gpsX = 0.0;
+        gpsY = 0.0;
         fname = null;
         lname = null;
         email = null;
@@ -22,8 +27,12 @@ public abstract class Utilizador implements Serializable{
         dataNasc = null;
     }
     
-    public Utilizador ( String fname, String lname, String email,
-        String username, String password, String morada, String dataNasc){
+    public Utilizador (int type, double gpsX, double gpsY, String fname, 
+        String lname, String email, String username, String password, 
+        String morada, String dataNasc){
+        this.type = type;
+        this.gpsX = gpsX;
+        this.gpsY = gpsY;
         this.fname = fname;
         this.lname = lname;
         this.email = email;
@@ -34,16 +43,31 @@ public abstract class Utilizador implements Serializable{
     }
     
     public Utilizador (Utilizador u){
+        this.type = u.getType();
+        this.gpsX = u.getGpsX();
+        this.gpsY = u.getGpsY();
         this.fname = u.getFname();
         this.lname = u.getLname();
         this.email = u.getEmail();
         this.username = u.getUsername();
-        this.password = u.getPass();
+        this.password = u.getPassword();
         this.morada = u.getMorada();
         this.dataNasc = u.getData();
     }
     
     //Getters
+    public int getType(){
+        return type;
+    }
+    
+    public double getGpsX(){
+        return gpsX;
+    }
+    
+    public double getGpsY(){
+        return gpsY;
+    }
+    
     public String getFname(){
         return fname;
     }
@@ -60,7 +84,7 @@ public abstract class Utilizador implements Serializable{
         return username;
     }
     
-    public String getPass(){
+    public String getPassword(){
         return password;
     }
 
@@ -73,6 +97,18 @@ public abstract class Utilizador implements Serializable{
     }
     
     //Setters
+    public void setType(int type){
+        this.type = type;
+    }
+    
+    public void setGpsX(double gpsX){
+        this.gpsX = gpsX;
+    }
+    
+    public void setGpsY(double gpsY){
+        this.gpsY = gpsY;
+    }
+    
      public void setFname(String fname){
         this.fname = fname;
     }
@@ -89,7 +125,7 @@ public abstract class Utilizador implements Serializable{
         this.username = username;
     }
     
-    public void setPass(String password){
+    public void setPassword(String password){
         this.password = password;
     }
     
