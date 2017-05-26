@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=
+comment0.target=CatalogoUser()
+comment1.params=username
+comment1.target=boolean\ checkUser(java.lang.String)
+comment2.params=username
+comment2.target=Utilizador\ getUser(java.lang.String)
+comment3.params=user
+comment3.target=boolean\ isCliente(Utilizador)
+numComments=4

@@ -1,4 +1,6 @@
 #BlueJ class context
-comment0.params=fname\ lname\ email\ username\ password\ morada\ dataNasc
-comment0.target=Cliente(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
-numComments=1
+comment0.params=type\ gpsX\ gpsY\ fname\ lname\ email\ username\ password\ morada\ dataNasc
+comment0.target=Cliente(int,\ double,\ double,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment1.params=
+comment1.target=Cliente()
+numComments=2
