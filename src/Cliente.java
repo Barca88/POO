@@ -14,7 +14,7 @@ public class Cliente extends Utilizador{
     
     }
     
- //   public Cliente(){
+    //public Cliente(){
         
         
 }

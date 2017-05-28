@@ -1,4 +1,4 @@
 #BlueJ class context
-comment0.params=velMedia\ preco\ fiabilidade
-comment0.target=Carrinhas(double,\ double,\ double)
+comment0.params=id\ velMedia\ preco\ fiabilidade
+comment0.target=Carrinhas(long,\ double,\ double,\ double)
 numComments=1

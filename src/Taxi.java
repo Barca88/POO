@@ -2,20 +2,23 @@ import java.io.Serializable;
 
 public abstract class Taxi implements Serializable{
     // var. instancia
+    private long id;
     private double velMedia;
     private double preco;
     private double fiabilidade;
     private Localizacao local;
 
     //construtores
-    public Taxi(){
+    public Taxi(long id){
+        this.id = id;
         this.velMedia = 0.0;
         this.preco = 0.0;
         this.fiabilidade = 0.0;
         this.local = null;
     }
     
-    public Taxi(double velMedia,double preco,double fiabilidade){
+    public Taxi(long id, double velMedia,double preco,double fiabilidade){
+        this.id = id;
         this.velMedia = velMedia;
         this.preco = preco;
         this.fiabilidade = fiabilidade;
@@ -23,6 +26,7 @@ public abstract class Taxi implements Serializable{
     }
     
     public Taxi(Taxi t){
+       this.id = t.getId();
        this.velMedia = t.getVelMedia();
        this.preco = t.getPreco();
        this.fiabilidade = t.getFiab();
@@ -30,6 +34,10 @@ public abstract class Taxi implements Serializable{
     }
     
     //Getters
+    public long getId(){
+        return id;
+    }
+    
     public double getVelMedia(){
         return velMedia;
     }
@@ -64,5 +72,4 @@ public abstract class Taxi implements Serializable{
     public void setLocal(Localizacao local){
         this.local = local;
     }
-
 }

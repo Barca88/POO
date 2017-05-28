@@ -1,10 +1,16 @@
 #BlueJ class context
 comment0.params=
 comment0.target=CatalogoUser()
-comment1.params=username
-comment1.target=boolean\ checkUser(java.lang.String)
-comment2.params=username
-comment2.target=Utilizador\ getUser(java.lang.String)
-comment3.params=user
-comment3.target=boolean\ isCliente(Utilizador)
-numComments=4
+comment1.params=users
+comment1.target=CatalogoUser(java.util.TreeMap)
+comment2.params=c
+comment2.target=CatalogoUser(CatalogoUser)
+comment3.params=email
+comment3.target=boolean\ checkUser(java.lang.String)
+comment4.params=email
+comment4.target=Utilizador\ getUser(java.lang.String)
+comment5.params=
+comment5.target=java.util.Map\ getCatalog()
+comment6.params=user
+comment6.target=boolean\ isCliente(Utilizador)
+numComments=7

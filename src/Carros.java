@@ -1,7 +1,7 @@
 
 
 public class Carros extends Taxi{
-    public Carros(double velMedia,double preco,double fiabilidade){
-        super(velMedia,preco,fiabilidade);
+    public Carros(long id, double velMedia,double preco,double fiabilidade){
+        super(id, velMedia, preco, fiabilidade);
     }
 }
