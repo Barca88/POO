@@ -1,5 +1,3 @@
-
-
 public class Motorista extends Utilizador{
     //var. de instancia
 
@@ -9,18 +7,22 @@ public class Motorista extends Utilizador{
     private boolean disponibilidade;
 
     //Construtor
-    public Motorista(int type, double gpsX, double gpsY, String fname, 
-        String lname, String email, String username, String password, 
-        String morada, String dataNasc, int grauCump, int classificacao,
+    public Motorista (){
+        super(0.0,0.0,"n/a","n/a","n/a","n/a","n/a");
+    }
+
+    public Motorista (double gpsX, double gpsY, String nome, 
+        String email, String password, String morada, 
+        String dataNasc, int grauCump, int classificacao,
         int totalKms, boolean disponibilidade){
         
-        super(type, gpsX, gpsY, fname, lname, email, username, password, 
-            morada, dataNasc);
-        this.setType(2);
+        super(gpsX, gpsY, nome, email, password, morada, dataNasc);
     }
     
-    public Motorista(){
+    public Motorista (Motorista m){
+        super(m);
     }
+
     //Metodos
     public int getGrauCump(){
         return grauCump;
@@ -52,5 +54,26 @@ public class Motorista extends Utilizador{
     
     public void setDisponibilidade(boolean disponibilidade){
         this.disponibilidade = disponibilidade;
+    }
+
+    public Motorista clone (){
+        return new Motorista (this);
+    }
+
+    /*  **falta o return**
+    public boolean equals (Object obj){
+        if (obj == this)
+            return true;
+        if (obj == null || obj.getClass() != this.getClass())
+            return false;
+        Motorista m = (Motorista) obj;
+        return;
+    }
+    */
+
+    // falta fazer
+    public String toString (){
+        StringBuilder sb = new StringBuilder();
+        return sb.toString();
     }
 }

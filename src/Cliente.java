@@ -1,20 +1,42 @@
-
 public class Cliente extends Utilizador{
     
-    // construtor
-    public Cliente(int type, double gpsX, double gpsY, String fname, 
-        String lname,String email, String username, String password, 
+
+
+
+    public Cliente (){
+        super(0.0,0.0,"n/a","n/a","n/a","n/a","n/a");
+    }
+
+    public Cliente (double gpsX, double gpsY, String nome,
+        String email, String password, 
         String morada, String dataNasc){
-        super(type, gpsX, gpsY, fname, lname, email, username, password, 
-            morada, dataNasc);
-        this.setType(1);
+        super(gpsX, gpsY, nome, email, password, morada, dataNasc);
+    }
+
+    public Cliente (Cliente c){
+        super(c);
     }
     
-    public Cliente(){
-    
+    public Cliente clone (){
+        return new Cliente(this);
     }
-    
-    //public Cliente(){
+
+    /* ***falta o return***
+    public boolean equals (Object obj){
+        if (obj == this)
+            return true;
+        if (obj == null || obj.getClass() != this.getClass())
+            return false;
+        Cliente c = (Cliente) obj;
+        return;
+    }  
+    */
+
+    public String toString (){
+        StringBuilder sb = new StringBuilder();
+        return sb.toString();
+    }
+
         
         
 }

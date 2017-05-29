@@ -2,63 +2,47 @@ import java.io.Serializable;
 
 public abstract class Utilizador implements Serializable{
     // var. de instancia
-    private int type;
     private double gpsX;
     private double gpsY;
-    private String fname;
-    private String lname;
+    private String nome;
     private String email;
-    private String username;
     private String password;
     private String morada;
     private String dataNasc;
    
     // Construtor
     public Utilizador(){
-        type = 0;
-        gpsX = 0.0;
-        gpsY = 0.0;
-        fname = null;
-        lname = null;
-        email = null;
-        username = null;
-        password = null;
-        morada = null;
-        dataNasc = null;
+        this.gpsX = 0.0;
+        this.gpsY = 0.0;
+        this.nome = null;
+        this.email = null;
+        this.password = null;
+        this.morada = null;
+        this.dataNasc = null;
     }
     
-    public Utilizador (int type, double gpsX, double gpsY, String fname, 
-        String lname, String email, String username, String password, 
+    public Utilizador (double gpsX, double gpsY, String nome, String email, String password, 
         String morada, String dataNasc){
-        this.type = type;
         this.gpsX = gpsX;
         this.gpsY = gpsY;
-        this.fname = fname;
-        this.lname = lname;
+        this.nome=nome;
         this.email = email;
-        this.username = username;
         this.password = password;
         this.morada = morada;
         this.dataNasc = dataNasc;
     }
     
     public Utilizador (Utilizador u){
-        this.type = u.getType();
         this.gpsX = u.getGpsX();
         this.gpsY = u.getGpsY();
-        this.fname = u.getFname();
-        this.lname = u.getLname();
+        this.nome=u.getNome();
         this.email = u.getEmail();
-        this.username = u.getUsername();
         this.password = u.getPassword();
         this.morada = u.getMorada();
         this.dataNasc = u.getData();
     }
     
     //Getters
-    public int getType(){
-        return type;
-    }
     
     public double getGpsX(){
         return gpsX;
@@ -68,20 +52,12 @@ public abstract class Utilizador implements Serializable{
         return gpsY;
     }
     
-    public String getFname(){
-        return fname;
-    }
-    
-     public String getLname(){
-        return lname;
+    public String getNome(){
+        return nome;
     }
     
     public String getEmail(){
         return email;
-    }
-    
-    public String getUsername(){
-        return username;
     }
     
     public String getPassword(){
@@ -97,10 +73,6 @@ public abstract class Utilizador implements Serializable{
     }
     
     //Setters
-    public void setType(int type){
-        this.type = type;
-    }
-    
     public void setGpsX(double gpsX){
         this.gpsX = gpsX;
     }
@@ -109,22 +81,14 @@ public abstract class Utilizador implements Serializable{
         this.gpsY = gpsY;
     }
     
-     public void setFname(String fname){
-        this.fname = fname;
-    }
-    
-     public void setLname(String lname){
-        this.lname = lname;
+    public void setNome(String nome){
+        this.nome = nome;
     }
     
     public void setEmail(String email){
         this.email = email;
     }
-    
-    public void setUsername(String username){
-        this.username = username;
-    }
-    
+
     public void setPassword(String password){
         this.password = password;
     }
@@ -137,26 +101,28 @@ public abstract class Utilizador implements Serializable{
         this.dataNasc = dataNasc;
     }
     
-    
-    //id generator
-    public String idGen(String lastId, int tipo){
-        long id;
-        lastId = lastId.substring(1);
-        id = Long.parseLong(lastId) + 1;
-        if (tipo == 0){
-            lastId = "0"+id;
-        }
-        else{
-            lastId = "1"+id;
-        }
-        return lastId;
-    }
-    
+    public abstract Utilizador clone();
        
-    public boolean equals(Utilizador a){
-        if(a != null){
-            if (this.username.equals(a.getUsername()) && this.email.equals(a.getEmail())) return true;
-        }
-        return false;
+    public boolean equals(Object obj){
+        if (obj == this)
+            return true;
+        if (obj ==null || obj.getClass() != this.getClass())
+            return false;
+        Utilizador u = (Utilizador) obj;
+        return u.getEmail().equals(email)
+        && u.getNome().equals(nome)
+        && u.getPassword().equals(password)
+        && u.getMorada().equals(morada)
+        && u.getData().equals(dataNasc);
     }
-}    
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Email: ").append(email).append("\n");
+        sb.append("Nome: ").append(nome).append("\n");
+        sb.append("Password: ").append(password).append("\n");
+        sb.append("Morada: ").append(morada).append("\n");
+        sb.append("Data de nascimento: ").append(dataNasc).append("\n");
+        return sb.toString();
+    }
+}
