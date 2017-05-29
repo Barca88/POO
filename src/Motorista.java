@@ -2,6 +2,7 @@
 
 public class Motorista extends Utilizador{
     //var. de instancia
+
     private int grauCump;
     private int classificacao;
     private int totalKms;

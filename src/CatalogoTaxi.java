@@ -1,13 +1,14 @@
-/**
-import java.util.HashMap;
+import java.util.TreeMap;
 
 public class CatalogoTaxi {
-    private HashMap<Long,Taxi> taxis;
+    private TreeMap<Long,Taxi> taxis;
 
     public CatalogoTaxi(){
-        taxis = new HashMap<>();        
+        taxis = new TreeMap<Long,Taxi>();        
     }
  
+    public CatalogUser(Catalog
+    
     public boolean checkTaxi(long id){
         return taxis.containsKey(id);
     }
@@ -17,4 +18,3 @@ public class CatalogoTaxi {
     }
     
 }
-*/
