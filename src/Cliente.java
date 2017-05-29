@@ -32,6 +32,7 @@ public class Cliente extends Utilizador{
     }  
     */
 
+    //falta fazer
     public String toString (){
         StringBuilder sb = new StringBuilder();
         return sb.toString();
