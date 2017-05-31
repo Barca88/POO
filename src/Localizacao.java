@@ -1,42 +1,46 @@
 import java.lang.Math;
 
-
 public class Localizacao{
     // instance variables - replace the example below with your own
-    private int x;
-    private int y;
+    private double x;
+    private double y;
 
     //Construtores
-    public Localizacao(int x,int y){
+    public Localizacao(){
+        this.x = 0.0;
+        this.y = 0.0;
+    }
+    public Localizacao(double x,double y){
         this.x = x;
         this.y = y;
     }
-    
-    public int getX(){
+
+    //Getters
+    public double getX(){
         return x;
     }
-    
-    public int getY(){
+    public double getY(){
         return y;
     }
-    
-    public void setX(int x){
-        this.x=x;
+
+    //Setters
+    public void setX(double x){
+        this.x = x;
     }
-    
-    public void setY(int y){
-        this.y=y;
+    public void setY(double y){
+        this.y = y;
     }
-    
+
+    //Métodos
     public static double Distancia(Localizacao a, Localizacao b){
-        double dist = Math.sqrt((b.x - a.x)^2 + (b.y - b.y)^2)*10000;
+        double dist = Math.sqrt((b.x - a.x)^2 + (b.y - b.y)^2);
         return dist;
     }
-    
-    public static double TempoDesloca( double VelMedia, Localizacao a, Localizacao b){
+    public static double TempoDesloca(double VelMedia,
+                Localizacao a, Localizacao b){
         double dist = Distancia(a,b);
         double tempo = dist * VelMedia;
         return tempo;
     }
-        
+
 }
