@@ -10,15 +10,13 @@ public class Motorista extends Utilizador{
     public Motorista (){
         super(0.0,0.0,"n/a","n/a","n/a","n/a","n/a");
     }
-
-    public Motorista (double gpsX, double gpsY, String nome, 
-        String email, String password, String morada, 
+    public Motorista (Localizacao gps, String nome,
+        String email, String password, String morada,
         String dataNasc, int grauCump, int classificacao,
         int totalKms, boolean disponibilidade){
-        
-        super(gpsX, gpsY, nome, email, password, morada, dataNasc);
+
+        super(gps, nome, email, password, morada, dataNasc);
     }
-    
     public Motorista (Motorista m){
         super(m);
     }
@@ -27,35 +25,31 @@ public class Motorista extends Utilizador{
     public int getGrauCump(){
         return grauCump;
     }
-    
     public int getClassificacao(){
         return classificacao;
     }
-    
     public int getTotalKms(){
         return totalKms;
     }
-    
     public boolean getDisponibilidade(){
         return disponibilidade;
     }
-    
+
+    //Setters
     public void setGrauCump(int grauCump){
         this.grauCump = grauCump;
     }
-    
     public void setClassificacao(int classificacao){
         this.classificacao = classificacao;
     }
-    
     public void setTotalKms(int totalKms){
         this.totalKms = totalKms;
     }
-    
     public void setDisponibilidade(boolean disponibilidade){
         this.disponibilidade = disponibilidade;
     }
 
+    //Métodos
     public Motorista clone (){
         return new Motorista (this);
     }
