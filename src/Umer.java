@@ -1,5 +1,9 @@
 import com.sun.org.apache.bcel.internal.generic.NEW;
 import com.sun.org.apache.xalan.internal.xsltc.dom.SAXImpl.NamespaceWildcardIterator;
+import java.io.ObjectOutputStream;
+import java.io.FileWriter;
+import java.util.*;
+
 
 public /**
  * Empresa
@@ -8,6 +12,7 @@ public class Umer {
     private CatalogoUser cUser;
     private CatalogoTaxi cTaxi;
     private Utilizador user; // utilizador registado no momento
+
     public Umer(){
         this.cUser = new CatalogoUser();
         this.cTaxi = new CatalogoTaxi();
@@ -16,7 +21,7 @@ public class Umer {
     public Umer (CatalogUser cUser, CatalogoTaxi cTaxi, Utilizador user) {
         this.cUser = cUser;
         this.cTaxi = cTaxi;
-        this.user = user;     
+        this.user = user;
     }
     public Umer (Umer e){ // copia
         this.cUser = e.getCUser();
@@ -26,6 +31,7 @@ public class Umer {
     public Umer clone(){
         return new Umer(this);
     }
+
     //Getters
     public CatalogoUser getCUser(){
         return new CatalogUser(this.cUser);
@@ -36,6 +42,7 @@ public class Umer {
     public Utilizador getUser(){
         return user;
     }
+
     //Setters
     public void setCUser(CatalogoUser cUser){
         this.cUser.setCatalog(cUser.getCatalog());
@@ -45,5 +52,22 @@ public class Umer {
     }
     public void setUser(Utilizador user){
         this.user = user;
+    }
+
+    //Métodos
+    public void gravaObj(String fich) throws IOException {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fich));
+        oos.writeObject(this);
+
+        oos.flush();
+        oos.close();
+    }
+    public void log(String f, boolean ap) throws IOException {
+        FileWriter fw = new FileWriter(f, ap);
+        fw.write("\n-------------------------- LOG --------------------------\n");
+        fw.write(this.toString());
+        fw.write("\n-------------------------- LOG --------------------------\n");
+        fw.flush();
+        fw.close();
     }
 }
