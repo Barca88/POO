@@ -54,7 +54,11 @@ public class Umer {
         this.user = user;
     }
 
-    //Métodos
+    // GRAVAR
+    /**
+     * Gravar o estado da aplicação num determinado ficheiro.
+     * @param fich
+     */
     public void gravaObj(String fich) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fich));
         oos.writeObject(this);
@@ -62,11 +66,31 @@ public class Umer {
         oos.flush();
         oos.close();
     }
+
+    /**
+     * Iniciar a aplicação com o estado guardado num determinado ficheiro.
+     * @param fich
+     * @return
+     */
+    public static Umer leObj(String fich) throws IOException, ClassNotFoundException {
+        ObjectInputStream oi = new ObjectInputStream(new FileInputStream(fich));
+
+        Umer um = (Umer) oi.readObject();
+
+        ois.close();
+        return um;
+    }
+
+    /**
+     * Fazer um ficheiro de texto log com toda a informação na Imobiliária no momento em que é fechada.
+     * @param f
+     * @param ap
+     */
     public void log(String f, boolean ap) throws IOException {
         FileWriter fw = new FileWriter(f, ap);
-        fw.write("\n-------------------------- LOG --------------------------\n");
+        fw.write("\n========================== LOG ==========================\n");
         fw.write(this.toString());
-        fw.write("\n-------------------------- LOG --------------------------\n");
+        fw.write("\n========================== LOG ==========================\n");
         fw.flush();
         fw.close();
     }

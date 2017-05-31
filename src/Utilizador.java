@@ -21,7 +21,7 @@ public abstract class Utilizador implements Serializable{
     public Utilizador (Localizacao gps, String nome, String email, String password,
         String morada, String dataNasc){
         this.gps = gps;
-        this.nome=nome;
+        this.nome = nome;
         this.email = email;
         this.password = password;
         this.morada = morada;
@@ -78,7 +78,7 @@ public abstract class Utilizador implements Serializable{
 
     //Metodos
     public abstract Utilizador clone();
-    
+
     public boolean equals(Object obj){
         if (obj == this)
             return true;
