@@ -7,7 +7,7 @@ public class CatalogoTaxi {
         taxis = new TreeMap<Long,Taxi>();        
     }
  
-    public CatalogUser(Catalog
+    public CatalogUser(CatalogoTaxi c){}
     
     public boolean checkTaxi(long id){
         return taxis.containsKey(id);
