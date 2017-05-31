@@ -70,32 +70,30 @@ public class Motorista extends Utilizador{
             return true;
         if (obj == null || obj.getClass() != this.getClass())
             return false;
-        Motorista m = (Motorista) obj;
+        Motorista o = (Motorista) obj;
         return o.getEmail().equals(this.getEmail()) &&
                o.getNome().equals(this.getNome()) &&
                o.getPassword().equals(this.getPassword()) &&
                o.getMorada().equals(this.getMorada()) &&
-               o.getData().equals(this.getDataNasc()) &&
-               o.getGrauCump().equals(this.getGrauCump()) &&
-               o.getClassificacao().equals(this.getClassificacao()) &&
-               o.getTotalKms().equals(this.getTotalKms()) &&
-               o.getDisponibilidade().equals(this.getDisponibilidade());
+               o.getData().equals(this.getData()) &&
+               o.getGrauCump() == this.getGrauCump() &&
+               o.getClassificacao() == this.getClassificacao() &&
+               o.getTotalKms() == this.getTotalKms() &&
+               o.getDisponibilidade() == this.getDisponibilidade();
     }
-    */
-
     public String toString() {
         StringBuilder str;
         str = new StringBuilder();
         str.append("Nome: \n");
-        str.append(this.nome+"\n");
+        str.append(this.getNome()+"\n");
         str.append("Email: \n");
-        str.append(this.email+"\n");
+        str.append(this.getEmail()+"\n");
         str.append("Localizacao: \n");
-        str.append(this.gps+"\n");
+        str.append(this.getLocal()+"\n");
         str.append("Morada: \n");
-        str.append(this.morada+"\n");
+        str.append(this.getMorada()+"\n");
         str.append("Data de Nascimento: \n");
-        str.append(this.dataNasc+"\n");
+        str.append(this.getData()+"\n");
 
         return str.toString();
     }
