@@ -4,11 +4,8 @@ public class Viagem{
     //duracao
     //Inicio da viagem
     //fim de viagem
-    private Motorista motorista;
     private Cliente cliente;
-    private Motos moto;
-    private Carrinhas carrinha;
-    private Carros carro;
+    private Taxi carro;
     //data
 
     public Viagem(){

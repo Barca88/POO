@@ -4,27 +4,27 @@ import com.sun.org.apache.xalan.internal.xsltc.dom.SAXImpl.NamespaceWildcardIter
 public /**
  * Empresa
  */
-public class Empresa {
+public class Umer {
     private CatalogoUser cUser;
     private CatalogoTaxi cTaxi;
     private Utilizador user; // utilizador registado no momento
-    public Empresa(){
+    public Umer(){
         this.cUser = new CatalogoUser();
         this.cTaxi = new CatalogoTaxi();
         this.user = new Utilizador();
     }
-    public Empresa (CatalogUser cUser, CatalogoTaxi cTaxi, Utilizador user) {
+    public Umer (CatalogUser cUser, CatalogoTaxi cTaxi, Utilizador user) {
         this.cUser = cUser;
         this.cTaxi = cTaxi;
         this.user = user;     
     }
-    public Empresa (Empresa e){ // copia
+    public Umer (Umer e){ // copia
         this.cUser = e.getCUser();
         this.cTaxi = e.getCTaxi();
         this.user = e.getUser();
     }
-    public Empresa clone(){
-        return new Empresa(this);
+    public Umer clone(){
+        return new Umer(this);
     }
     //Getters
     public CatalogoUser getCUser(){
