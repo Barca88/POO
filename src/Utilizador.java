@@ -91,13 +91,4 @@ public abstract class Utilizador implements Serializable{
         && u.getMorada().equals(morada)
         && u.getData().equals(dataNasc);
     }
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Email: ").append(email).append("\n");
-        sb.append("Nome: ").append(nome).append("\n");
-        sb.append("Password: ").append(password).append("\n");
-        sb.append("Morada: ").append(morada).append("\n");
-        sb.append("Data de nascimento: ").append(dataNasc).append("\n");
-        return sb.toString();
-    }
 }

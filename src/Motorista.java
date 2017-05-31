@@ -79,7 +79,7 @@ public class Motorista extends Utilizador{
                o.getGrauCump().equals(this.getGrauCump()) &&
                o.getClassificacao().equals(this.getClassificacao()) &&
                o.getTotalKms().equals(this.getTotalKms()) &&
-               o.getDisponibilidade().equals(this.getDisponibilidade()); 
+               o.getDisponibilidade().equals(this.getDisponibilidade());
     }
     */
 
