@@ -1,7 +1,8 @@
 public class Cliente extends Utilizador{
-    private doube totalGasto;
+    private double totalGasto;
     public Cliente (){
-        super(0.0,0.0,"n/a","n/a","n/a","n/a","n/a",0.0);
+        super();
+        this.totalGasto = 0.0;
     }
 
     public Cliente (Localizacao gps, String nome, String email,
@@ -13,7 +14,7 @@ public class Cliente extends Utilizador{
         this.totalGasto = c.getTotalGasto();
     }
     //Getters
-    public double getTotalGasto{
+    public double getTotalGasto(){
         return this.totalGasto;
     }
     //adiciona valor gasto em viagem
