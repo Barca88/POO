@@ -15,12 +15,12 @@ public class Viagem{
         this.liTaxi = new Localizacao();
         this.liDestino = new Localizacao();
         this.cliente = new Cliente();
-        this.taxi = new taxi();
+        this.taxi = new Taxi();
         this.motorista = new Motorista();
     }
     
-    public Viagem(double preco, Localizacao pICliente, Localizacao pITaxi,
-                  Localizacao pDestino, Cliente cliente, 
+    public Viagem(double preco, Localizacao liCliente, Localizacao liTaxi,
+                  Localizacao liDestino, Cliente cliente, 
                   Taxi taxi, Motorista motorista){
         this.preco = preco;
         this.liCliente = liCliente;
@@ -77,11 +77,11 @@ public class Viagem{
     public void setLiCliente(Localizacao liCLiente){
         this.liCliente = liCliente;
     }
-    public void setLITaxi(Localizacao liTaxi){
+    public void setLiTaxi(Localizacao liTaxi){
         this.liTaxi = liTaxi;
     }
-    public void setLDestino(Localizacao lDestino){
-        this.lDestino = lDestino;
+    public void setLiDestino(Localizacao liDestino){
+        this.liDestino = liDestino;
     }
     public void setTaxi(Taxi taxi){
         this.taxi = taxi;
@@ -94,22 +94,29 @@ public class Viagem{
     }
 
     //Metodos
-    public double precoViagem(Taxi taxi, Cliente cliente,
-                                            Localizacao destino){
+
+    /*
+    public double precoViagem(Taxi taxi, Cliente cliente, Localizacao destino){
         double custo;
         custo = Distancia(taxi.getLocal(),cliente.getLocal());
-        custo = custo + Distancia(cliente.getLocal(),destino);
+        custo += Distancia(cliente.getLocal(),destino);
         custo = custo * taxi.getPreco();
         return custo;
-    }
-    public double tempoViagem(Taxi taxi, Cliente cliente,
-                                            Localizacao destino){
-        double tempo = TempoDesloca
+    } */
+
+    /*
+    public double tempoViagem(Taxi taxi, Cliente cliente, Localizacao destino){
+        double tempo = 0;
             (taxi.getVelMedia(),taxi.getLocal,cliente.getLocal());
         tempo = tempo + TempoDesloca(taxi.getVelMedia(),
                                     cliente.getLocal(),destino);
         return tempo;
+    }*/
+
+    public Viagem clone(){
+        return new Viagem(this);
     }
+
     public boolean equals(Object obj) {
         if(obj == this) {
             return true;
@@ -119,27 +126,21 @@ public class Viagem{
         }
         Viagem o = (Viagem) obj;
         
-        return super.equals(o) && o.getPreco() == this.getPreco() && 
-        o.getPreco() == this.getPreco() && o.getLICliente() == this.getLICliente() &&
-        o.getLTaxi() == this.getLTaxi() && o.getLDestino() == this.getLDestino() && 
+        return o.getPreco() == this.getPreco() && 
+        o.getPreco() == this.getPreco() && o.getLiCliente() == this.getLiCliente() &&
+        o.getLiTaxi() == this.getLiTaxi() && o.getLiDestino() == this.getLiDestino() && 
         o.getCliente() == this.getCliente() && o.getTaxi() == this.getTaxi() &&
         o.getMotorista() == this.getMotorista();
     }
-    public Viagem clone(){
-        return new Viagem(this);
-    }
+    
+
+    
     public String toString(){
-        StringBuilder str;
-        str = new StringBuilder();
-        
-        
-    private double preco;
-    private Localizacao pICliente;
-    private Localizacao pITaxi;
-    private Localizacao pDestino;
-    private Cliente cliente;
-    private Taxi taxi;
-    private Motorista motorista;
-        
+        StringBuilder sb = new StringBuilder();
+        sb.append("Preço da Viagem: ").append(preco).append("\n");
+        sb.append("Cliente: ").toString(cliente);
+        sb.append("Taxi: ").toString(taxi);
+        sb.append("Motorista: ").toString(motorista);
+        return sb.toString();
     }
 }
