@@ -22,7 +22,6 @@ public class AppUMeR {
 		String [] principal = {
 								"Iniciar Sessão",
 								"Registar Utilizador",
-								
 		};
 		String [] motoristas = {
 
@@ -37,7 +36,7 @@ public class AppUMeR {
 		menuMain = new Menu(principal);
 		menuMotoristas = new Menu(motoristas);
 		menuClientes = new Menu(clientes);
-		menuRegistar = new Menu(registar); 
+		menuRegistar = new Menu(registar);
 	}
 
 	private static void executaMenuPrincipal() {
@@ -155,7 +154,7 @@ public class AppUMeR {
 		}
 	}
 
-	
+
 
 
 
