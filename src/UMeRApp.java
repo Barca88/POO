@@ -13,8 +13,6 @@ public class UMeRApp{
     private static Umer umer;
     private static Menu menuPrincipal, menuRegistar, menuMotoristas,
                    menuClientes, menuLogado;
-                   /** menu_comprador_registado,
-                   menu_cria_imovel,  menu_leilao_vendedor; **/
 
     private Umer() {}
 
@@ -103,24 +101,13 @@ public class UMeRApp{
         String [] menu4 = {"Solicitar Viagem",
                            "Total Gasto em Viagens",
                            "Histórico de Viagens"};
-/**     String [] menu5 = {"Lista de Imóveis de um dado tipo",
-                           "Lista de Imóveis habitáveis",
-                           "Todos os Imóveis e respectivos vendedores",
-                           "Marcar um Imóvel como favorito",
-                           "Consultar favoritos"};
-        String[] menu6 = {"Loja","Loja Habitável","Apartamento","Moradia",
-                          "Terreno"};
-        String[] menu7 = {"Iniciar leilão"};
-**/
+
         menuLogado = new Menu(menu0);
         menuPrincipal = new Menu(menu1);
         menuRegistar = new Menu(menu2);
         menuMotoristas = new Menu(menu3);
         menuCliente = new Menu(menu4);
-/**     menu_comprador_registado = new Menu(menu5);
-        menu_cria_imovel = new Menu(menu6);
-        menu_leilao_vendedor = new Menu(menu7);
-**/ }
+
 
     /**
      * Carrega o estado da aplicação da última vez que esta foi fechada.
