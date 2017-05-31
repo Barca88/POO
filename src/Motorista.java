@@ -8,7 +8,7 @@ public class Motorista extends Utilizador{
 
     //Construtor
     public Motorista (){
-        super(0.0,0.0,"n/a","n/a","n/a","n/a","n/a");
+        super(new Localizacao(),"","","","","",0,0,0,false);
     }
     public Motorista (Localizacao gps, String nome,
         String email, String password, String morada,
