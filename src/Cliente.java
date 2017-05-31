@@ -1,22 +1,18 @@
 public class Cliente extends Utilizador{
-    
-
-
-
-    public Cliente (){
+        public Cliente (){
         super(0.0,0.0,"n/a","n/a","n/a","n/a","n/a");
     }
 
-    public Cliente (double gpsX, double gpsY, String nome,
-        String email, String password, 
+    public Cliente (Localizacao gps, String nome,
+        String email, String password,
         String morada, String dataNasc){
-        super(gpsX, gpsY, nome, email, password, morada, dataNasc);
+        super(gps, nome, email, password, morada, dataNasc);
     }
 
     public Cliente (Cliente c){
         super(c);
     }
-    
+
     public Cliente clone (){
         return new Cliente(this);
     }
@@ -29,7 +25,7 @@ public class Cliente extends Utilizador{
             return false;
         Cliente c = (Cliente) obj;
         return;
-    }  
+    }
     */
 
     //falta fazer
@@ -38,6 +34,6 @@ public class Cliente extends Utilizador{
         return sb.toString();
     }
 
-        
-        
+
+
 }
