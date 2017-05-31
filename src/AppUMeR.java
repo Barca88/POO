@@ -16,24 +16,31 @@ public class AppUMeR {
 		catch(IOException e){
 			System.out.println("Não consegui gravar os dados!");
 		}
+		System.out.println("Até á proxima!...");
 	}
 
 	private static void carregarMenus(){
-		String [] principal = {
+		String [] ops = {
 								"Iniciar Sessão",
 								"Registar Utilizador",
 		};
 		String [] motoristas = {
-
+								"Disponibilidade",
+								"Histórico",
+								"Terminar Sessão"
 		};
 		String [] clientes = {
+								"Procurar Taxi",
+								"Taxi Mais proximo",
+								"Histórico",
+								"Terminar Sessão"
 
 		};
 		String [] registar = {
 								"Registar Motorista",
 								"Registar Cliente"
 		};
-		menuMain = new Menu(principal);
+		menuMain = new Menu(ops);
 		menuMotoristas = new Menu(motoristas);
 		menuClientes = new Menu(clientes);
 		menuRegistar = new Menu(registar);
