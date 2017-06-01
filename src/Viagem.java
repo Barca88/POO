@@ -9,7 +9,7 @@ public class Viagem implements Serializable {
     private Cliente cliente;
     private Taxi taxi;
     private Motorista motorista;
-    //data
+    
 
     public Viagem(){
         this.preco = 0.0;
@@ -140,9 +140,6 @@ public class Viagem implements Serializable {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Preço da Viagem: ").append(preco).append("\n");
-        sb.append("Cliente: ").toString(cliente);
-        sb.append("Taxi: ").toString(taxi);
-        sb.append("Motorista: ").toString(motorista);
         return sb.toString();
     }
 }

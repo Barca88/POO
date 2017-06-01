@@ -1,27 +1,37 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class Cliente extends Utilizador{
+    
     private double totalGasto;
+    private List<Viagem> viagens; 
+
     public Cliente (){
         super();
         this.totalGasto = 0.0;
+        this.viagens = new ArrayList<Viagem>();
     }
 
     public Cliente (Localizacao gps, String nome, String email,
-        String password,String morada,String dataNasc, double totalGasto){
+        String password,String morada,String dataNasc, double totalGasto, List<Viagem> viagens){
         super(gps, nome, email, password, morada, dataNasc);
         this.totalGasto = totalGasto;
+        this.viagens = viagens;       
     }
     public Cliente (Cliente c){
         super(c);
         this.totalGasto = c.getTotalGasto();
+        this.viagens = c.getViagens();
     }
     //Getters
     public double getTotalGasto(){
         return this.totalGasto;
     }
-    //adiciona valor gasto em viagem
-    public void addViagem(double x){
-        this.totalGasto += x;
+    
+    public List<Viagem> getViagens(){
+        return this.viagens;
     }
+
     public Cliente clone (){
         return new Cliente(this);
     }
@@ -36,25 +46,24 @@ public class Cliente extends Utilizador{
         Cliente o = (Cliente) obj;
         return o.getEmail().equals(this.getEmail()) && o.getNome().equals(this.getNome()) &&
             o.getPassword().equals(this.getPassword()) && o.getMorada().equals(this.getMorada())
-            && o.getData().equals(this.getData()) &&
-            o.getTotalGasto() == this.getTotalGasto();
-    }
+            && o.getData().equals(this.getData()) && o.getTotalGasto() == this.getTotalGasto()
+            && o.getViagens() == this.viagens;
+    }        
     public String toString() {
-        StringBuilder str;
-        str = new StringBuilder();
-        str.append("Nome: \n");
-        str.append(this.getNome()+"\n");
-        str.append("Email: \n");
-        str.append(this.getEmail()+"\n");
-        str.append("Localizacao: \n");
-        str.append(this.getLocal()+"\n");
-        str.append("Morada: \n");
-        str.append(this.getMorada()+"\n");
-        str.append("Data de Nascimento: \n");
-        str.append(this.getData()+"\n");
-        str.append("Total Gasto: \n");
-        str.append(this.getTotalGasto()+"\n");
-        return str.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nome: \n");
+        sb.append(this.getNome()+"\n");
+        sb.append("Email: \n");
+        sb.append(this.getEmail()+"\n");
+        sb.append("Localizacao: \n");
+        sb.append(this.getLocal()+"\n");
+        sb.append("Morada: \n");
+        sb.append(this.getMorada()+"\n");
+        sb.append("Data de Nascimento: \n");
+        sb.append(this.getData()+"\n");
+        sb.append("Total Gasto: \n");
+        sb.append(this.getTotalGasto()+"\n");
+        return sb.toString();
     }
 
 

@@ -91,24 +91,26 @@ public class Umer implements Serializable{
         fw.flush();
         fw.close();
     } */
-    
-    /*
-    public void registarUtilizador(Utilizador utilizador) throws UtilizadorExistenteException{
 
-        if(this.utilizador.containsKey(utilizador.getEmail())){
+    
+    public void registarUtilizador (Utilizador utilizador) throws UtilizadorExistenteException{
+
+        if(this.users.containsKey(utilizador.getEmail())){
             throw new UtilizadorExistenteException ("Ja existe este Utilizador");
         }
         else {
-            this.utilizador.put(utilizador.getEmail(),utilizador);
+            this.users.put(utilizador.getEmail(),utilizador);
         }
-    }*/
+    }
 
-    /*
+    
+
     public void iniciaSessao(String email, String password) throws SemAutorizacaoException {
 
         if(this.utilizador == null){
-            if(utilizador.containsKey(email)){
-                Utilizador user = utilizador.get(email);
+
+            if(users.containsKey(email)){
+                Utilizador user = users.get(email);
                 if (password.equals(user.getPassword())){
                     utilizador = user;
                 }
@@ -120,7 +122,7 @@ public class Umer implements Serializable{
         }else {
             throw new SemAutorizacaoException("Ja tem uma sessão iniciada");
         }
-    } */
+    }
     
 
     
