@@ -15,7 +15,8 @@ public class Umer implements Serializable{
         this.taxis = new HashMap<String,Taxi>();
         this.utilizador = null;
     }
-    public Umer (HashMap<String,Utilizador> users, HashMap<String,Taxi> taxis, Utilizador utilizador) {
+    public Umer (HashMap<String,Utilizador> users, HashMap<String,Taxi> taxis,
+        Utilizador utilizador) {
         this.users = users;
         this.taxis = taxis;
         this.utilizador = utilizador;
@@ -56,13 +57,13 @@ public class Umer implements Serializable{
      * Gravar o estado da aplicação num determinado ficheiro.
      * @param fich
      */
-    
+
     public void gravaObj(String fich) throws IOException {
         ObjectOutputStream sv = new ObjectOutputStream(new FileOutputStream(fich));
         sv.writeObject(this);
         sv.flush();
         sv.close();
-    } 
+    }
 
     /**
      * Iniciar a aplicação com o estado guardado num determinado ficheiro.
@@ -87,14 +88,14 @@ public class Umer implements Serializable{
     /*
     public void log(String f, boolean ap) throws IOException {
         FileWriter fw = new FileWriter(f, ap);
-        fw.write("\n========================== LOG ==========================\n");
+        fw.write("\n========================= LOG ==========================\n");
         fw.write(this.toString());
-        fw.write("\n========================== LOG ==========================\n");
+        fw.write("\n========================= LOG ==========================\n");
         fw.flush();
         fw.close();
     } */
 
-    
+
     public void registarUtilizador (Utilizador utilizador) throws UtilizadorExistenteException{
 
         if(this.users.containsKey(utilizador.getEmail())){
@@ -105,7 +106,7 @@ public class Umer implements Serializable{
         }
     }
 
-    
+
 
     public void iniciaSessao(String email, String password) throws SemAutorizacaoException {
 
@@ -125,10 +126,36 @@ public class Umer implements Serializable{
             throw new SemAutorizacaoException("Ja tem sessão iniciada");
         }
     }
-    
+    public static void solicitarViagem() {}  // --TODO
+    public static Viagem criaViagem(Localizacao lDest, Taxi taxi, Cliente clie){
+        Viagem viagem = new Viagem();
+        viagem.setLiCliente(clie.getLocal());
+        viagem.setLiTaxi(taxi.getLocal());
+        viagem.setLiDestino(lDest0);
+        viagem.setTaxi(taxi);
+        viagem.setCliente(clie);
+        viagem.setMotorista(taxi.getMotorista());
 
-    
+    }
+    /*
+    * recebe lista de taxi e um cliente e devolve o taxi mais proximo
+    */
+    public static String compLoaclizacao(Map taxis, Localizacao gps){
+        double dist = 10000000000000000000.0
+        string matricula = null;
+        for(taxi t: taxis){
+            if ((Distancia(gps,t.getLocal())) < dist) {
+                matricula = t.getMatricula();
+            }
+        }
+        return matricula;
+    }
+    return matricula;
+    }
+
+
+    }
     public void terminaSessao(){
         this.utilizador = null;
-    } 
+    }
 }
