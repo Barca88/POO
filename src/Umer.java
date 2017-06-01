@@ -1,6 +1,9 @@
 import java.io.Serializable;
 import java.util.HashMap;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 public class Umer implements Serializable{
     private HashMap<String,Utilizador> users;
@@ -53,14 +56,13 @@ public class Umer implements Serializable{
      * Gravar o estado da aplicação num determinado ficheiro.
      * @param fich
      */
-    /*
+    
     public void gravaObj(String fich) throws IOException {
-        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fich));
-        oos.writeObject(this);
-
-        oos.flush();
-        oos.close();
-    } */
+        ObjectOutputStream sv = new ObjectOutputStream(new FileOutputStream(fich));
+        sv.writeObject(this);
+        sv.flush();
+        sv.close();
+    } 
 
     /**
      * Iniciar a aplicação com o estado guardado num determinado ficheiro.

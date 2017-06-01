@@ -27,15 +27,27 @@ public class Cliente extends Utilizador{
         this.totalGasto = c.getTotalGasto();
         this.viagens = c.getViagens();
     }
+    
     //Getters
 
-    
+    public Localizacao getLocalizacao(){
+        return this.gps;
+    }
+
     public double getTotalGasto(){
         return this.totalGasto;
     }
-    
+
     public List<Viagem> getViagens(){
         return this.viagens;
+    }
+
+    public void setLocalizacao(){
+        this.gps = gps;
+    }
+
+    public void setTotalGasto(){
+        this.totalGasto = totalGasto;
     }
 
     public Cliente clone (){
