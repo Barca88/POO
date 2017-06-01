@@ -4,10 +4,6 @@ import java.io.ObjectOutputStream;
 import java.io.FileWriter;
 import java.util.*;
 
-
-public /**
- * Empresa
- */
 public class Umer {
     private CatalogoUser cUser;
     private CatalogoTaxi cTaxi;
@@ -72,7 +68,7 @@ public class Umer {
      * @param fich
      * @return
      */
-    public static Umer leObj(String fich) throws IOException, ClassNotFoundException {
+     public static Umer leObj(String fich) throws IOException, ClassNotFoundException {
         ObjectInputStream oi = new ObjectInputStream(new FileInputStream(fich));
 
         Umer um = (Umer) oi.readObject();
@@ -93,5 +89,46 @@ public class Umer {
         fw.write("\n========================== LOG ==========================\n");
         fw.flush();
         fw.close();
+    }
+    /**
+    * Registar um utilizador na Imobiliária.
+    * @param utilizador
+    */
+    public void registarUtilizador(Utilizador user) throws UtilizadorExistenteException{
+
+        if(this.cUser.containsKey(user.getEmail())){
+            throw new UtilizadorExistenteException ("Ja existe este Utilizador");
+        }
+        else {
+            this.cUser.put(user.getEmail(),user);
+        }
+    }
+    /**
+    * Iniciar sessão na aplicação.
+    * @param email
+    * @param password
+    */
+    public void iniciaSessao(String email, String password) throws SemAutorizacaoException {
+
+        if(this.user == null){
+            if(cUser.containsKey(email)){
+                Utilizador utilizador = cUser.get(email);
+                if (password.equals(utilizador.getPassword())){
+                    user = utilizador;
+                }
+                else {
+                    throw new SemAutorizacaoException("Credenciais Erradas");
+                }
+            }else
+                throw new SemAutorizacaoException("Credenciais Erradas");
+        }else {
+            throw new SemAutorizacaoException("Ja tem uma sessão iniciada");
+        }
+    }
+    /**
+    * Fechar sessão na aplicação.
+    */
+    public void terminaSessao(){
+        this.user = null;
     }
 }

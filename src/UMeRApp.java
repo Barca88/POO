@@ -14,15 +14,15 @@ public class UMeRApp{
     private static Menu menuPrincipal, menuRegistar, menuMotoristas,
                    menuClientes, menuLogado;
 
-    private Umer() {}
+
 
     /**
      * Função que faz executar toda a aplicação UMeRApp.
      */
     public static void main(String[] args) {
         String file_name = "umer_estado";
-        carregarMenus();
-        initApp(file_name);
+        carregaMenus();
+        carregaEstado(file_name);
         apresentarMenu();
         try {
             umer.gravaObj(file_name);
@@ -41,16 +41,15 @@ public class UMeRApp{
         int running = 1;
 
         do {
-            if(umer.getUtilizador() != null){
+            if(umer.getUser() != null){
                 menuLogado.executa();
                 switch(menuLogado.getOpcao()){
                     case 1: menu();
                             break;
-                    case 2: fecharSessao();
+                    case 2: terminarSessao();
                             break;
                     case 0: running = 0;
                 }
-
             }
             else{
                 menuPrincipal.executa();
@@ -73,20 +72,20 @@ public class UMeRApp{
      */
     private static void menu(){
 
-        if(umer.getUtilizador() == null)
-            running_menu_comprador();
+        if(umer.getUser() == null)
+            runMenu();
         else{
-            Utilizador util = umer.getUtilizador();
-            if(util.getClass().getSimpleName().equals("Vendedor"))
-                running_menu_vendedor();
-            else running_menu_comprador_registado();
+            Utilizador util = umer.getUser();
+            if(util.getClass().getSimpleName().equals("Cliente"))
+                runMenuCliente();
+            else runMenuMotorista();
         }
     }
 
     /**
      * Carrega todos os menus para apresentar.
      */
-    private static void carregarMenus() {
+    private static void carregaMenus() {
         String [] menu0 = {"Menu",
                            "Terminar sessão"};
         String [] menu1 = {"Registar Utilizador",
@@ -96,7 +95,7 @@ public class UMeRApp{
                            "Cliente"};
         String [] menu3 = {"Disponibilidade",
                            "Histórico de Viagens",
-                           "Total Faturado na Viatura"
+                           "Total Faturado na Viatura",
                            "Associar-me a Viatura"};
         String [] menu4 = {"Solicitar Viagem",
                            "Total Gasto em Viagens",
@@ -107,57 +106,57 @@ public class UMeRApp{
         menuRegistar = new Menu(menu2);
         menuMotoristas = new Menu(menu3);
         menuCliente = new Menu(menu4);
+    }
 
 
     /**
      * Carrega o estado da aplicação da última vez que esta foi fechada.
      * @param fich
      */
-    private static void initApp(String fich){
+    private static void carregaEstado(String fich){
         try {
-            umer = Imoobiliaria.leObj(fich);
+            umer = Umer.leObj(fich);
         }
         catch (IOException e) {
-            umer = new Imoobiliaria();
-            System.out.println("Não consegui ler os dados!\nErro de leitura.");
+            umer = new Umer();
+            System.out.println("Error 404!\nErro de leitura do ficheiro.");
         }
         catch (ClassNotFoundException e) {
-            umer = new Imoobiliaria();
-            System.out.println("Não consegui ler os dados!\nFicheiro com formato desconhecido.");
+            umer = new Umer();
+            System.out.println("Error 404!\nFicheiro com formato desconhecido do ficheiro.");
         }
         catch (ClassCastException e) {
-            umer = new Imoobiliaria();
-            System.out.println("Não consegui ler os dados!\nErro de formato.");
+            umer = new Umer();
+            System.out.println("Error 404!\nErro de formato do ficheiro.");
         }
     }
-
     /**
-     * Registo na ImobiliáriaApp.
+     * Registo na UMeRApp.
      */
     private static void registo(){
         Utilizador user;
-        Scanner is = new Scanner(System.in);
+        Scanner pt = new Scanner(System.in);
 
         menuRegistar.executa();
         if(menuRegistar.getOpcao() !=0){
             String nome,email,password,morada,dataNasc,info;
             System.out.print("Nome: ");
-            nome = is.nextLine();
+            nome = pt.nextLine();
             System.out.print("Email: ");
-            email = is.nextLine();
+            email = pt.nextLine();
             System.out.print("Password: ");
-            password = is.nextLine();
+            password = pt.nextLine();
             System.out.print("Morada: ");
-            morada = is.nextLine();
+            morada = pt.nextLine();
             System.out.print("Data de nascimento: ");
-            dataNasc = is.nextLine();
+            dataNasc = pt.nextLine();
 
             switch(menuRegistar.getOpcao()){
-                case 1: user = new Vendedor(email,nome,password,morada,data,null,null);
+                case 1: user = new Motorista(null,nome,email,password,morada,data,0,0,0,false);
                         break;
-                case 2: user = new Comprador(email,nome,password,morada,data,null);
+                case 2: user = new Cliente(null,nome,email,password,morada,data,0.0);
                         break;
-                default: user = new Comprador();
+                default: user = new Utilizador();
             }
             try{
                 umer.registarUtilizador(user);
@@ -167,19 +166,18 @@ public class UMeRApp{
             }
         }
         else System.out.println("Registo cancelado!");
-        is.close();
+        pt.close();
     }
-
     /**
      * Inicio de sessão na ImobiliariaApp.
      */
     private static void iniciarSessao(){
-        Scanner is = new Scanner(System.in);
+        Scanner pt = new Scanner(System.in);
         String email,password;
         System.out.print("E-mail: ");
-        email = is.nextLine();
+        email = pt.nextLine();
         System.out.print("Password: ");
-        password = is.nextLine();
+        password = pt.nextLine();
 
         try{
             umer.iniciaSessao(email,password);
@@ -188,16 +186,16 @@ public class UMeRApp{
             System.out.println(e.getMessage());
         }
 
-        is.close();
+        pt.close();
     }
 
     /**
      * Fechar sessão na ImobiliariaApp.
      */
-    private static void fecharSessao(){
-        umer.fechaSessao();
+    private static void terminarSessao(){
+        umer.terminaSessao();
     }
-
+//====================================================
     /**
      * Executar o menu para utilizadores não registados na ImobiliariaApp.
      */
@@ -276,32 +274,13 @@ public class UMeRApp{
 
         }while(menu_leilao_vendedor.getOpcao()!=0);
     }
-
-    /**
-     * Iniciar e simular um leilão.
-     */
-    private static void iniciar_leilao(){
-        Scanner is = new Scanner(System.in);
-        int tempo;
-        Imovel imovel = inputID();
-        System.out.print("Tempo (segundos): ");
-        tempo = is.nextInt();
-
-        try{
-            umer.iniciaLeilao(imovel,tempo);
-        }
-        catch(SemAutorizacaoException e){
-            System.out.println(e.getMessage());
-        }
-    }
-
     /**
      * Consultar favoritos de um comprador.
      */
     private static void consultarFavoritos(){
 
         Map<String,Imovel> favoritos = new HashMap<String,Imovel>();
-        Comprador utilizador = (Comprador) umer.getUtilizador();
+        Comprador utilizador = (Comprador) umer.getUser();
         favoritos = utilizador.getFavoritos();
         for(Imovel i : favoritos.values())
             System.out.println(i);
@@ -312,112 +291,32 @@ public class UMeRApp{
      * Definir um Imóvel como favorito de um comprador.
      */
     private static void favoritoImovel(){
-        Scanner is = new Scanner(System.in);
+        Scanner pt = new Scanner(System.in);
         String idImovel;
         System.out.print("ID Imóvel: ");
-        idImovel = is.nextLine();
+        idImovel = pt.nextLine();
         try{
             umer.setFavorito(idImovel);
         }
         catch(SemAutorizacaoException | ImovelInexistenteException e){
             System.out.println(e.getMessage());
         }
-        is.close();
+        pt.close();
     }
 
-    /**
-     * Fazer mapeamento de todos os Imóveis e respectivos vendedores.
-     */
-    private static void imoveisVendedores(){
-        Map<Imovel,Vendedor> imoveisVendedores = new TreeMap<Imovel,Vendedor>();
-        imoveisVendedores = umer.getMapeamentoImoveis();
-        for(Map.Entry<Imovel,Vendedor> entry : imoveisVendedores.entrySet()){
-            Imovel i = entry.getKey();
-            Vendedor v = entry.getValue();
-            System.out.println("\n******************* Vendedor *******************");
-            System.out.println(v);
-            System.out.println(i);
-            System.out.println("************************************************");
-        }
-    }
-
-    /**
-     * Listagem de Imóveis Habitáveis até um determinado preço.
-     */
-    private static void habitaveisPreco(){
-        Scanner is = new Scanner(System.in);
-        List<Habitavel> lista = new ArrayList<Habitavel>();
-        int preco;
-        preco = (int) inputPreco();
 
 
-        lista = umer.getHabitaveis(preco);
-        for(Habitavel i: lista)
-            System.out.println(i);
-
-        is.close();
-    }
-
-    /**
-     * Consultar todos os Imóveis de um determinado tipo.
-     */
-    private static void consultarImoveisTipo(){
-        Scanner is = new Scanner(System.in);
-        List<Imovel> lista = new ArrayList<Imovel>();
-        String tipo; int preco;
-        tipo = inputTipo();
-        preco = (int) inputPreco();
-
-        lista = umer.getImovel(tipo,preco);
-        for(Imovel i: lista)
-            System.out.println(i);
-
-        is.close();
-    }
-
-    /**
-     * Listagem das consultas feitas aos Imóveis de um determinado vendedor.
-     */
-    private static void consultarImoveis(){
-       List<Consulta> lista = new ArrayList<Consulta>();
-       try{
-            lista = umer.getConsultas();
-        }
-        catch(SemAutorizacaoException e){
-            System.out.println(e.getMessage());
-       }
-
-       for(Consulta c: lista){
-            String x = c.toString();
-            System.out.println(x);
-       }
-
-    }
-
-    /**
-     * Listagem de Imóveis com consultas superiores a um determinado número.
-     */
-    private static void topConsultados(){
-        Scanner is = new Scanner(System.in);
-        int numero;
-        Set<String> lista = new HashSet<String>();
-        numero = inputConsultas();
-        lista = umer.getTopImoveis(numero);
-        for(String i:lista){
-            System.out.println(i);
-        }
-    }
 
     /**
      * Alterar o estado de um determinado Imóvel existente.
      */
     private static void alterarEstado(){
         String id,estado;
-        Scanner is = new Scanner(System.in);
+        Scanner pt = new Scanner(System.in);
         System.out.print("ID do Imóvel: ");
-        id = is.nextLine();
+        id = pt.nextLine();
         System.out.print("Estado: ");
-        estado = is.nextLine();
+        estado = pt.nextLine();
         try{
             umer.setEstado(id,estado);
         }
@@ -425,7 +324,7 @@ public class UMeRApp{
         EstadoInvalidoException e){
             System.out.println(e.getMessage());
         }
-        is.close();
+        pt.close();
     }
 
     /**
@@ -446,17 +345,17 @@ public class UMeRApp{
     /**
      * Criar um Imóvel para ser adicionado à Imobiliária.
      * @return
-     */
+     
     private static Imovel criaImovel(){
         Imovel imovel = null;
-        Scanner is = new Scanner(System.in);
+        Scanner pt = new Scanner(System.in);
 
         menu_cria_imovel.executa();
         if(menu_cria_imovel.getOpcao() !=0){
             String rua,estado;
             Double preco, preco_Minimo; String id;
             System.out.print("Rua: ");
-            rua = is.nextLine();
+            rua = pt.nextLine();
             preco = inputPreco();
             preco_Minimo = inputPrecoMinimo();
             estado = "em venda";
@@ -534,41 +433,10 @@ public class UMeRApp{
                         break;
             }
 
-        is.close();
+        pt.close();
        }
        return imovel;
-    }
-
-    /**
-     * Input de informação para um WC.
-     * @return
-     */
-    private static boolean inputWC(){
-        String wc_string; boolean wc;
-        System.out.print("Wc (S/N): ");
-        Scanner is = new Scanner(System.in);
-        wc_string = is.nextLine();
-        if(wc_string.equals("S")|| wc_string.equals("s")) wc = true;
-        else wc = false;
-        is.close();
-        return wc;
-    }
-
-    /**
-     * Input de informação para uma garagem.
-     * @return
-     */
-    private static boolean inputGaragem(){
-        String garagem_string; boolean garagem;
-        System.out.print("Garagem (S/N): ");
-        Scanner is = new Scanner(System.in);
-        garagem_string = is.nextLine();
-        if(garagem_string.equals("S")|| garagem_string.equals("s")) garagem = true;
-        else garagem = false;
-        is.close();
-        return garagem;
-    }
-
+    }*/
     /**
      * Input de informação para um preço.
      * @return
@@ -576,15 +444,15 @@ public class UMeRApp{
     private static double inputPreco(){
         double preco;
         System.out.print("Preço: ");
-        Scanner is = new Scanner(System.in);
+        Scanner pt = new Scanner(System.in);
         try{
-            preco = is.nextDouble();
+            preco = pt.nextDouble();
         }
         catch(InputMismatchException e){
             System.out.println("Preço inválido!");
             preco = inputPreco();
         }
-        is.close();
+        pt.close();
         return preco;
     }
 
@@ -595,75 +463,17 @@ public class UMeRApp{
      private static double inputPrecoMinimo(){
         double preco;
         System.out.print("Preço Mínimo: ");
-        Scanner is = new Scanner(System.in);
+        Scanner pt = new Scanner(System.in);
         try{
-            preco = is.nextDouble();
+            preco = pt.nextDouble();
         }
         catch(InputMismatchException e){
             System.out.println("Preço inválido!");
             preco = inputPrecoMinimo();
         } ;
-        is.close();
+        pt.close();
         return preco;
     }
-
-    /**
-     * Input de informação para uma área.
-     * @return
-     */
-    private static double inputArea(){
-        double area;
-        System.out.print("Área: ");
-        Scanner is = new Scanner(System.in);
-        try{
-            area = is.nextDouble();
-        }
-        catch(InputMismatchException e){
-            System.out.println("Área inválida!");
-            area = inputArea();
-        }
-        is.close();
-        return area;
-    }
-
-    /**
-     * Input de informação para uma área coberta.
-     * @return
-     */
-    private static double inputAreaCoberta(){
-        double area;
-        System.out.print("Área Coberta: ");
-        Scanner is = new Scanner(System.in);
-        try{
-            area = is.nextDouble();
-        }
-        catch(InputMismatchException e){
-            System.out.println("Área coberta inválida");
-            area = inputAreaCoberta();
-        }
-        is.close();
-        return area;
-    }
-
-    /**
-     * Input de informação para uma área de um terreno.
-     * @return
-     */
-    private static double inputAreaTerreno(){
-        double area;
-        System.out.print("Área Terreno: ");
-        Scanner is = new Scanner(System.in);
-        try{
-            area = is.nextDouble();
-        }
-        catch(InputMismatchException e){
-            System.out.println("Área do terreno inválida!");
-            area = inputAreaTerreno();
-        } ;
-        is.close();
-        return area;
-    }
-
     /**
      * Input de informação para um número.
      * @return
@@ -671,190 +481,23 @@ public class UMeRApp{
     private static int inputNumero(){
         int numero;
         System.out.print("Número: ");
-        Scanner is = new Scanner(System.in);
+        Scanner pt = new Scanner(System.in);
         try{
-            numero = is.nextInt();
+            numero = pt.nextInt();
         }
         catch(InputMismatchException e){
             System.out.println("Número inválido!");
             numero = inputNumero();
         }
-        is.close();
+        pt.close();
         return numero;
     }
+   /** private static void runMenu(){
+        do{
+            menuPrincipal.executa();
+            switch(menuPrincipal.getOpcao()){
 
-    /**
-     * Input de informação para um número de quartos.
-     * @return
-     */
-    private static int inputQuartos(){
-        int quartos;
-        System.out.print("Quartos: ");
-        Scanner is = new Scanner(System.in);
-        try{
-            quartos = is.nextInt();
+            }
         }
-        catch(InputMismatchException e){
-            System.out.println("Número de quartos inválido!");
-            quartos = inputQuartos();
-        }
-        is.close();
-        return quartos;
-    }
-
-    /**
-     * Input de informação para um andar.
-     * @return
-     */
-    private static int inputAndar(){
-        int andar;
-        System.out.print("Andar: ");
-        Scanner is = new Scanner(System.in);
-        try{
-            andar = is.nextInt();
-        }
-        catch(InputMismatchException e){
-            System.out.println("Andar inválido!");
-            andar = inputAndar();
-        }
-        is.close();
-        return andar;
-    }
-
-    /**
-     * Input de informação para um número de consultas.
-     * @return
-     */
-    private static int inputConsultas(){
-        int consultas;
-        System.out.print("Número de consultas: ");
-        Scanner is = new Scanner(System.in);
-        try{
-            consultas = is.nextInt();
-        }
-        catch(InputMismatchException e){
-            System.out.println("Número de consultas inválido!");
-            consultas = inputConsultas();
-        }
-        is.close();
-        return consultas;
-    }
-
-    /**
-     * Input de informação para um número de casas de banho.
-     * @return
-     */
-    private static int inputCasasBanho(){
-        int casas_banho;
-        System.out.print("Casas de banho: ");
-        Scanner is = new Scanner(System.in);
-        try{
-            casas_banho = is.nextInt();
-        }
-        catch(InputMismatchException e){
-            System.out.println("Número de casas de banho inválido!");
-            casas_banho = inputCasasBanho();
-        }
-        is.close();
-        return casas_banho;
-    }
-
-    /**
-     * Input de informação para um tipo de negócio.
-     * @return
-     */
-    private static String inputTipoNegocio(){
-        String tipo_negocio;
-        System.out.print("Tipo de negócio: ");
-        Scanner is = new Scanner(System.in);
-        tipo_negocio = is.nextLine();
-        is.close();
-        return tipo_negocio;
-    }
-
-    /**
-     * Input de informação para um tipo.
-     * @return
-     */
-    private static String inputTipo(){
-        String tipo;
-        System.out.print("Tipo: ");
-        Scanner is = new Scanner(System.in);
-        tipo = is.nextLine();
-        is.close();
-        return tipo;
-    }
-
-    /**
-     * Input de informação para o número de canalizações.
-     * @return
-     */
-    private static float inputCanalizacoes(){
-        float total;
-        System.out.print("Canalizações: ");
-        Scanner is = new Scanner(System.in);
-        try{
-            total = is.nextFloat();
-        }
-        catch(InputMismatchException e){
-            System.out.println("Valor inválido!");
-            total = inputCanalizacoes();
-        }
-        is.close();
-        return total;
-    }
-
-    /**
-     * Input de informação para o número da carga elétrica.
-     * @return
-     */
-    private static float inputCargaEletrica(){
-        float total;
-        System.out.print("Carga Elétrica: ");
-        Scanner is = new Scanner(System.in);
-        try{
-            total = is.nextFloat();
-        }
-        catch(InputMismatchException e){
-            System.out.println("Valor inválido!");
-            total = inputCargaEletrica();
-        }
-        is.close();
-        return total;
-    }
-
-    /**
-     * Input de informação para o número do saneamento.
-     * @return
-     */
-    private static boolean inputSaneamento(){
-        String saneamento_string; boolean saneamento;
-        System.out.print("Saneamento (S/N): ");
-        Scanner is = new Scanner(System.in);
-        saneamento_string = is.nextLine();
-        if(saneamento_string.equals("S")|| saneamento_string.equals("s")) saneamento = true;
-        else saneamento = false;
-        is.close();
-        return saneamento;
-    }
-
-    /**
-     * Input de informação para um id_imóvel.
-     * @return
-     */
-    private static Imovel inputID(){
-        Scanner is = new Scanner(System.in);
-        String id;
-        System.out.print("ID_Imóvel: ");
-        id = is.nextLine();
-        Imovel imovel;
-        try{
-            imovel = umer.getImovelLeilao(id);
-        }
-        catch(ImovelInexistenteException e){
-            System.out.println(e.getMessage());
-            imovel = inputID();
-        }
-        return imovel;
-    }
+    }**/
 }

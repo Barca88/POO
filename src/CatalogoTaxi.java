@@ -7,14 +7,14 @@ public class CatalogoTaxi {
         taxis = new TreeMap<Long,Taxi>();        
     }
  
-    public CatalogUser(CatalogoTaxi c){}
+    // public CatalogUser(CatalogoTaxi c){}
     
     public boolean checkTaxi(long id){
         return taxis.containsKey(id);
     }
     
-    public Utilizador getTaxi(long id){
-        return users.get(taxi);
+    public Taxi getTaxi(long id){
+        return taxis.get(id);
     }
     
 }
