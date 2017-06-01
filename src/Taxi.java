@@ -2,7 +2,8 @@ import java.io.Serializable;
 
 public class Taxi implements Serializable{
     // var. instancia
-    private long id;
+    private String matricula;
+    private Motorista motorista;
     private double velMedia;
     private double preco;
     private double fiabilidade;
@@ -10,21 +11,24 @@ public class Taxi implements Serializable{
 
     //construtores
     public Taxi(){
-        this.id = 0;
+        this.matricula = "null";
+        this.motorista = new Motorista();
         this.velMedia = 0.0;
         this.preco = 0.0;
         this.fiabilidade = 0.0;
         this.local = new Localizacao();
     }
-    public Taxi(long id, double velMedia,double preco, double fiabilidade){
-        this.id = id;
+    public Taxi(String matricula, Motorista motorista, double velMedia,double preco, double fiabilidade, Localizacao local){
+        this.matricula = matricula;
+        this.motorista = motorista;
         this.velMedia = velMedia;
         this.preco = preco;
         this.fiabilidade = fiabilidade;
-        this.local = null;
+        this.local = local;
     }
     public Taxi(Taxi t){
-       this.id = t.getId();
+       this.matricula = t.getMatricula();
+       this.motorista = t.getMotorista();
        this.velMedia = t.getVelMedia();
        this.preco = t.getPreco();
        this.fiabilidade = t.getFiab();
@@ -32,9 +36,14 @@ public class Taxi implements Serializable{
     }
 
     //Getters
-    public long getId(){
-        return id;
+    public String getMatricula(){
+        return matricula;
     }
+
+    public Motorista getMotorista(){
+        return motorista;
+    }
+
     public double getVelMedia(){
         return velMedia;
     }
@@ -52,8 +61,12 @@ public class Taxi implements Serializable{
 
     //Setters
     
-    public void setId(){
-        this.id = id;
+    public void setMatricula(String matricula){
+        this.matricula = matricula;
+    }
+
+    public void setMotorista(Motorista motorista){
+        this.motorista = motorista;
     }
 
     public void setVelMedia(double velMedia){
@@ -82,7 +95,7 @@ public class Taxi implements Serializable{
         if (obj == null || obj.getClass() != this.getClass())
             return false;
         Taxi o = (Taxi) obj;
-        return o.getId() == this.getId()
+        return o.getMatricula() == this.getMatricula()
         && o.getVelMedia() == this.getVelMedia()
         && o.getPreco() == this.getPreco()
         && o.getFiab() == this.getFiab()
@@ -91,7 +104,7 @@ public class Taxi implements Serializable{
 
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Id do taxi: ").append(id).append("\n");
+        sb.append("Matricula do taxi: ").append(matricula).append("\n");
         sb.append("Velocidade média: ").append(velMedia).append("\n");
         sb.append("Preço base por km: ").append(preco).append("\n");
         return sb.toString();

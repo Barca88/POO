@@ -1,53 +1,51 @@
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import com.sun.org.apache.xalan.internal.xsltc.dom.SAXImpl.NamespaceWildcardIterator;
-import java.io.ObjectOutputStream;
-import java.io.FileWriter;
-import java.util.*;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.io.IOException;
 
-public class Umer {
-    private CatalogoUser cUser;
-    private CatalogoTaxi cTaxi;
-    private Utilizador user; // utilizador registado no momento
+public class Umer implements Serializable{
+    private HashMap<String,Utilizador> users;
+    private HashMap<String,Taxi> taxis;
+    private Utilizador utilizador; // utilizador registado no momento
 
     public Umer(){
-        this.cUser = new CatalogoUser();
-        this.cTaxi = new CatalogoTaxi();
-        this.user = new Utilizador();
+        this.users = new HashMap<String,Utilizador>();
+        this.taxis = new HashMap<String,Taxi>();
+        this.utilizador = null;
     }
-    public Umer (CatalogUser cUser, CatalogoTaxi cTaxi, Utilizador user) {
-        this.cUser = cUser;
-        this.cTaxi = cTaxi;
-        this.user = user;
+    public Umer (HashMap<String,Utilizador> users, HashMap<String,Taxi> taxis, Utilizador utilizador) {
+        this.users = users;
+        this.taxis = taxis;
+        this.utilizador = utilizador;
     }
-    public Umer (Umer e){ // copia
-        this.cUser = e.getCUser();
-        this.cTaxi = e.getCTaxi();
-        this.user = e.getUser();
+    public Umer (Umer e){
+        this.users = e.getUsers();
+        this.taxis = e.getTaxis();
+        this.utilizador = e.getUtilizador();
     }
     public Umer clone(){
         return new Umer(this);
     }
 
     //Getters
-    public CatalogoUser getCUser(){
-        return new CatalogUser(this.cUser);
+    public HashMap<String,Utilizador> getUsers(){
+        return users;
     }
-    public CatalogoTaxi getCTaxi(){
-        return new CatalogoTaxi(this.cTaxi);
+    public HashMap<String,Taxi> getTaxis(){
+        return taxis;
     }
-    public Utilizador getUser(){
-        return user;
+    public Utilizador getUtilizador(){
+        return utilizador;
     }
 
     //Setters
-    public void setCUser(CatalogoUser cUser){
-        this.cUser.setCatalog(cUser.getCatalog());
+    public void setUsers (HashMap<String,Utilizador> users){
+        this.users = users;
     }
-    public void setCTaxi(CatalogoTaxi cTaxi){
-        this.cTaxi.setCatalog(cTaxi.getCatalog());
+    public void setTaxis (HashMap<String,Taxi> taxis){
+        this.taxis = taxis;
     }
-    public void setUser(Utilizador user){
-        this.user = user;
+    public void setUtilizador (Utilizador utilizador){
+        this.utilizador = utilizador;
     }
 
     // GRAVAR
@@ -55,19 +53,21 @@ public class Umer {
      * Gravar o estado da aplicação num determinado ficheiro.
      * @param fich
      */
+    /*
     public void gravaObj(String fich) throws IOException {
         ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fich));
         oos.writeObject(this);
 
         oos.flush();
         oos.close();
-    }
+    } */
 
     /**
      * Iniciar a aplicação com o estado guardado num determinado ficheiro.
      * @param fich
      * @return
      */
+    /*
      public static Umer leObj(String fich) throws IOException, ClassNotFoundException {
         ObjectInputStream oi = new ObjectInputStream(new FileInputStream(fich));
 
@@ -82,6 +82,7 @@ public class Umer {
      * @param f
      * @param ap
      */
+    /*
     public void log(String f, boolean ap) throws IOException {
         FileWriter fw = new FileWriter(f, ap);
         fw.write("\n========================== LOG ==========================\n");
@@ -89,32 +90,27 @@ public class Umer {
         fw.write("\n========================== LOG ==========================\n");
         fw.flush();
         fw.close();
-    }
-    /**
-    * Registar um utilizador na Imobiliária.
-    * @param utilizador
-    */
-    public void registarUtilizador(Utilizador user) throws UtilizadorExistenteException{
+    } */
+    
+    /*
+    public void registarUtilizador(Utilizador utilizador) throws UtilizadorExistenteException{
 
-        if(this.cUser.containsKey(user.getEmail())){
+        if(this.utilizador.containsKey(utilizador.getEmail())){
             throw new UtilizadorExistenteException ("Ja existe este Utilizador");
         }
         else {
-            this.cUser.put(user.getEmail(),user);
+            this.utilizador.put(utilizador.getEmail(),utilizador);
         }
-    }
-    /**
-    * Iniciar sessão na aplicação.
-    * @param email
-    * @param password
-    */
+    }*/
+
+    /*
     public void iniciaSessao(String email, String password) throws SemAutorizacaoException {
 
-        if(this.user == null){
-            if(cUser.containsKey(email)){
-                Utilizador utilizador = cUser.get(email);
-                if (password.equals(utilizador.getPassword())){
-                    user = utilizador;
+        if(this.utilizador == null){
+            if(utilizador.containsKey(email)){
+                Utilizador user = utilizador.get(email);
+                if (password.equals(user.getPassword())){
+                    utilizador = user;
                 }
                 else {
                     throw new SemAutorizacaoException("Credenciais Erradas");
@@ -124,11 +120,11 @@ public class Umer {
         }else {
             throw new SemAutorizacaoException("Ja tem uma sessão iniciada");
         }
-    }
-    /**
-    * Fechar sessão na aplicação.
-    */
+    } */
+    
+
+    
     public void terminaSessao(){
-        this.user = null;
-    }
+        this.utilizador = null;
+    } 
 }
