@@ -1,4 +1,6 @@
-public class Viagem{
+import java.io.Serializable;
+
+public class Viagem implements Serializable {
 
     private double preco;
     private Localizacao liCliente;
