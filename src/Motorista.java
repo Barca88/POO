@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public class Motorista extends Utilizador{
     //var. de instancia
 
@@ -5,6 +8,7 @@ public class Motorista extends Utilizador{
     private int classificacao;
     private int totalKms;
     private boolean disponibilidade;
+    private List<Integer> classificacoes;
 
     //Construtor
     public Motorista (){
@@ -13,17 +17,19 @@ public class Motorista extends Utilizador{
         this.classificacao = 0;
         this.totalKms = 0;
         this.disponibilidade = false;
+        this.classificacoes = new ArrayList<Integer>();
     }
-    public Motorista (Localizacao gps, String nome,
+    public Motorista (String nome,
         String email, String password, String morada,
         String dataNasc, int grauCump, int classificacao,
-        int totalKms, boolean disponibilidade){
+        int totalKms, boolean disponibilidade, ArrayList<Integer> classificacoes){
 
-        super(gps, nome, email, password, morada, dataNasc);
+        super(nome, email, password, morada, dataNasc);
         this.grauCump = grauCump;
         this.classificacao = classificacao;
         this.totalKms = totalKms;
         this.disponibilidade = disponibilidade;
+        this.classificacoes = classificacoes;
     }
     public Motorista (Motorista m){
         super(m);
@@ -31,6 +37,7 @@ public class Motorista extends Utilizador{
         this.classificacao = m.getClassificacao();
         this.totalKms = m.getTotalKms();
         this.disponibilidade = m.getDisponibilidade();
+        this.classificacoes = m.getClassificacoes();
     }
 
     //Metodos
@@ -47,6 +54,10 @@ public class Motorista extends Utilizador{
         return disponibilidade;
     }
 
+    public List<Integer> getClassificacoes(){
+        return classificacoes;
+    }
+
     //Setters
     public void setGrauCump(int grauCump){
         this.grauCump = grauCump;
@@ -61,7 +72,11 @@ public class Motorista extends Utilizador{
         this.disponibilidade = disponibilidade;
     }
 
-    //Métodos
+    public void setClassificacao (List<Integer> classificacoes){
+        this.classificacoes = classificacoes;
+    }
+
+    
     public Motorista clone (){
         return new Motorista (this);
     }
@@ -80,21 +95,5 @@ public class Motorista extends Utilizador{
                o.getClassificacao() == this.getClassificacao() &&
                o.getTotalKms() == this.getTotalKms() &&
                o.getDisponibilidade() == this.getDisponibilidade();
-    }
-    public String toString() {
-        StringBuilder str;
-        str = new StringBuilder();
-        str.append("Nome: \n");
-        str.append(this.getNome()+"\n");
-        str.append("Email: \n");
-        str.append(this.getEmail()+"\n");
-        str.append("Localizacao: \n");
-        str.append(this.getLocal()+"\n");
-        str.append("Morada: \n");
-        str.append(this.getMorada()+"\n");
-        str.append("Data de Nascimento: \n");
-        str.append(this.getData()+"\n");
-
-        return str.toString();
     }
 }

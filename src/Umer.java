@@ -120,7 +120,7 @@ public class Umer implements Serializable{
             }else
                 throw new SemAutorizacaoException("Credenciais Erradas");
         }else {
-            throw new SemAutorizacaoException("Ja tem uma sessão iniciada");
+            throw new SemAutorizacaoException("Ja tem sessão iniciada");
         }
     }
     

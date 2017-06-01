@@ -2,7 +2,6 @@ import java.io.Serializable;
 
 public abstract class Utilizador implements Serializable{
     // var. de instancia
-    private Localizacao gps;
     private String nome;
     private String email;
     private String password;
@@ -11,16 +10,14 @@ public abstract class Utilizador implements Serializable{
 
     // Construtores
     public Utilizador(){
-        this.gps = new Localizacao();
         this.nome = "null";
         this.email = "null";
         this.password = "null";
         this.morada = "null";
         this.dataNasc = "null";
     }
-    public Utilizador (Localizacao gps, String nome, String email,
+    public Utilizador (String nome, String email,
         String password, String morada, String dataNasc){
-        this.gps = gps;
         this.nome = nome;
         this.email = email;
         this.password = password;
@@ -28,7 +25,6 @@ public abstract class Utilizador implements Serializable{
         this.dataNasc = dataNasc;
     }
     public Utilizador (Utilizador u){
-        this.gps = u.getLocal();
         this.nome = u.getNome();
         this.email = u.getEmail();
         this.password = u.getPassword();
@@ -37,9 +33,6 @@ public abstract class Utilizador implements Serializable{
     }
 
     //Getters
-    public Localizacao getLocal(){
-        return gps;
-    }
     public String getNome(){
         return nome;
     }
@@ -57,9 +50,6 @@ public abstract class Utilizador implements Serializable{
     }
 
     //Setters
-    public void setLocal(Localizacao gps){
-        this.gps = gps;
-    }
     public void setNome(String nome){
         this.nome = nome;
     }
