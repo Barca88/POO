@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Motorista extends Utilizador{
     //var. de instancia
@@ -9,20 +10,23 @@ public class Motorista extends Utilizador{
     private int totalKms;
     private boolean disponibilidade;
     private List<Integer> classificacoes;
+    private List<Viagem> viagens; 
+
 
     //Construtor
     public Motorista (){
-        super();
+        super("","","","","");
         this.grauCump = 0;
         this.classificacao = 0;
         this.totalKms = 0;
         this.disponibilidade = false;
         this.classificacoes = new ArrayList<Integer>();
+        this.viagens = new ArrayList<Viagem>();
     }
     public Motorista (String nome,
         String email, String password, String morada,
         String dataNasc, int grauCump, int classificacao,
-        int totalKms, boolean disponibilidade, ArrayList<Integer> classificacoes){
+        int totalKms, boolean disponibilidade, ArrayList<Integer> classificacoes, ArrayList<Viagem> viagens){
 
         super(nome, email, password, morada, dataNasc);
         this.grauCump = grauCump;
@@ -30,6 +34,8 @@ public class Motorista extends Utilizador{
         this.totalKms = totalKms;
         this.disponibilidade = disponibilidade;
         this.classificacoes = classificacoes;
+        this.viagens = viagens;
+
     }
     public Motorista (Motorista m){
         super(m);
@@ -38,6 +44,7 @@ public class Motorista extends Utilizador{
         this.totalKms = m.getTotalKms();
         this.disponibilidade = m.getDisponibilidade();
         this.classificacoes = m.getClassificacoes();
+        this.viagens = m.getViagens();
     }
 
     //Metodos
@@ -55,7 +62,11 @@ public class Motorista extends Utilizador{
     }
 
     public List<Integer> getClassificacoes(){
-        return classificacoes;
+        return this.classificacoes.stream().collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public List<Viagem> getViagens(){
+        return this.viagens.stream().collect(Collectors.toCollection(ArrayList::new));
     }
 
     //Setters
@@ -73,9 +84,12 @@ public class Motorista extends Utilizador{
     }
 
     public void setClassificacao (List<Integer> classificacoes){
-        this.classificacoes = classificacoes;
+        this.classificacoes.stream().collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public void setViagens (List<Viagem> viagens){
+        this.viagens.stream().collect(Collectors.toCollection(ArrayList::new));
+    }
     
     public Motorista clone (){
         return new Motorista (this);
@@ -86,14 +100,18 @@ public class Motorista extends Utilizador{
         if (obj == null || obj.getClass() != this.getClass())
             return false;
         Motorista o = (Motorista) obj;
-        return o.getEmail().equals(this.getEmail()) &&
-               o.getNome().equals(this.getNome()) &&
-               o.getPassword().equals(this.getPassword()) &&
-               o.getMorada().equals(this.getMorada()) &&
-               o.getData().equals(this.getData()) &&
-               o.getGrauCump() == this.getGrauCump() &&
+        return o.getGrauCump() == this.getGrauCump() &&
                o.getClassificacao() == this.getClassificacao() &&
                o.getTotalKms() == this.getTotalKms() &&
                o.getDisponibilidade() == this.getDisponibilidade();
+    }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Grau de Cumprimento: ").append(grauCump).append("\n");
+        sb.append("Classificacão: ").append(classificacao).append("\n");
+        sb.append("Total de kms: ").append(totalKms).append("\n");
+        sb.append("Disponibilidade: ").append(disponibilidade).append("\n");
+        return sb.toString();   
     }
 }

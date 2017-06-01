@@ -1,9 +1,11 @@
 import java.io.Serializable;
-import java.util.HashMap;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.HashMap;
 
 public class Umer implements Serializable{
     private HashMap<String,Utilizador> users;
@@ -31,26 +33,32 @@ public class Umer implements Serializable{
     }
 
     //Getters
-    public HashMap<String,Utilizador> getUsers(){
-        return users;
+    
+    public Map<String,Utilizador> getUsers(){
+        return this.users.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
-    public HashMap<String,Taxi> getTaxis(){
-        return taxis;
+    public Map<String,Taxi> getTaxis(){
+        return this.taxis.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
+    
     public Utilizador getUtilizador(){
         return utilizador;
     }
 
     //Setters
+   
     public void setUsers (HashMap<String,Utilizador> users){
-        this.users = users;
+        this.users.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
+
     public void setTaxis (HashMap<String,Taxi> taxis){
-        this.taxis = taxis;
+        this.taxis.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
+
     public void setUtilizador (Utilizador utilizador){
         this.utilizador = utilizador;
     }
+
 
     // GRAVAR
     /**
@@ -141,7 +149,7 @@ public class Umer implements Serializable{
     * recebe lista de taxi e um cliente e devolve o taxi mais proximo
     */
     public static String compLoaclizacao(Map taxis, Localizacao gps){
-        double dist = 10000000000000000000.0
+        double dist = 10000000000000000000.0;
         string matricula = null;
         for(taxi t: taxis){
             if ((Distancia(gps,t.getLocal())) < dist) {
@@ -150,11 +158,9 @@ public class Umer implements Serializable{
         }
         return matricula;
     }
-    return matricula;
-    }
 
 
-    }
+
     public void terminaSessao(){
         this.utilizador = null;
     }

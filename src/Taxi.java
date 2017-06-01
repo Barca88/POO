@@ -7,7 +7,7 @@ public class Taxi implements Serializable{
     private double velMedia;
     private double preco;
     private double fiabilidade;
-    private Localizacao local;
+    private Localizacao gps;
 
     //construtores
     public Taxi(){
@@ -16,15 +16,15 @@ public class Taxi implements Serializable{
         this.velMedia = 0.0;
         this.preco = 0.0;
         this.fiabilidade = 0.0;
-        this.local = new Localizacao();
+        this.gps = new Localizacao();
     }
-    public Taxi(String matricula, Motorista motorista, double velMedia,double preco, double fiabilidade, Localizacao local){
+    public Taxi(String matricula, Motorista motorista, double velMedia,double preco, double fiabilidade, Localizacao gps){
         this.matricula = matricula;
         this.motorista = motorista;
         this.velMedia = velMedia;
         this.preco = preco;
         this.fiabilidade = fiabilidade;
-        this.local = local;
+        this.gps = gps;
     }
     public Taxi(Taxi t){
        this.matricula = t.getMatricula();
@@ -32,7 +32,7 @@ public class Taxi implements Serializable{
        this.velMedia = t.getVelMedia();
        this.preco = t.getPreco();
        this.fiabilidade = t.getFiab();
-       this.local = t.getLocal();
+       this.gps = t.getLocal();
     }
 
     //Getters
@@ -81,8 +81,8 @@ public class Taxi implements Serializable{
         this.fiabilidade = fiabilidade;
     }
 
-    public void setLocal(Localizacao local){
-        this.local = local;
+    public void setLocal(Localizacao gps){
+        this.gps = gps;
     }
 
     public Taxi clone(){
