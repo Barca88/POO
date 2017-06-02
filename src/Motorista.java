@@ -10,7 +10,7 @@ public class Motorista extends Utilizador{
     private int totalKms;
     private boolean disponibilidade;
     private List<Integer> classificacoes;
-    private List<Viagem> viagens; 
+    private List<Viagem> viagens;
 
 
     //Construtor
@@ -35,7 +35,6 @@ public class Motorista extends Utilizador{
         this.disponibilidade = disponibilidade;
         this.classificacoes = classificacoes;
         this.viagens = viagens;
-
     }
     public Motorista (Motorista m){
         super(m);
@@ -47,7 +46,7 @@ public class Motorista extends Utilizador{
         this.viagens = m.getViagens();
     }
 
-    //Metodos
+    //Getters
     public int getGrauCump(){
         return grauCump;
     }
@@ -60,11 +59,9 @@ public class Motorista extends Utilizador{
     public boolean getDisponibilidade(){
         return disponibilidade;
     }
-
     public List<Integer> getClassificacoes(){
         return this.classificacoes.stream().collect(Collectors.toCollection(ArrayList::new));
     }
-
     public List<Viagem> getViagens(){
         return this.viagens.stream().collect(Collectors.toCollection(ArrayList::new));
     }
@@ -82,14 +79,13 @@ public class Motorista extends Utilizador{
     public void setDisponibilidade(boolean disponibilidade){
         this.disponibilidade = disponibilidade;
     }
-
     public void setClassificacao (List<Integer> classificacoes){
         this.classificacoes.stream().collect(Collectors.toCollection(ArrayList::new));
     }
-
     public void setViagens (List<Viagem> viagens){
         this.viagens.stream().collect(Collectors.toCollection(ArrayList::new));
     }
+<<<<<<< HEAD
     
     public void insereClassificacao (int aval) {
         this.classificacoes.add(aval);
@@ -100,6 +96,11 @@ public class Motorista extends Utilizador{
     }
 
     public Motorista clone (){
+=======
+
+    //Metodos
+    public Motorista clone(){
+>>>>>>> e39509e9be9b90eb0d4a21b13c5a94fe689afa74
         return new Motorista (this);
     }
     public boolean equals (Object obj){
@@ -113,13 +114,12 @@ public class Motorista extends Utilizador{
                o.getTotalKms() == this.getTotalKms() &&
                o.getDisponibilidade() == this.getDisponibilidade();
     }
-
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Grau de Cumprimento: ").append(grauCump).append("\n");
         sb.append("Classificacão: ").append(classiFinal).append("\n");
         sb.append("Total de kms: ").append(totalKms).append("\n");
         sb.append("Disponibilidade: ").append(disponibilidade).append("\n");
-        return sb.toString();   
+        return sb.toString();
     }
 }

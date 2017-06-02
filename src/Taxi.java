@@ -11,14 +11,15 @@ public class Taxi implements Serializable{
 
     //construtores
     public Taxi(){
-        this.matricula = "null";
+        this.matricula ="";
         this.motorista = new Motorista();
         this.velMedia = 0.0;
         this.preco = 0.0;
         this.fiabilidade = 0.0;
         this.gps = new Localizacao();
     }
-    public Taxi(String matricula, Motorista motorista, double velMedia,double preco, double fiabilidade, Localizacao gps){
+    public Taxi(String matricula, Motorista motorista, double velMedia,
+            double preco, double fiabilidade, Localizacao gps){
         this.matricula = matricula;
         this.motorista = motorista;
         this.velMedia = velMedia;
@@ -39,11 +40,9 @@ public class Taxi implements Serializable{
     public String getMatricula(){
         return matricula;
     }
-
     public Motorista getMotorista(){
-        return motorista;
+        return motorista.clone();
     }
-
     public double getVelMedia(){
         return velMedia;
     }
@@ -54,41 +53,33 @@ public class Taxi implements Serializable{
         return fiabilidade;
     }
     public Localizacao getLocal() throws NullPointerException{
-        if(this.local == null)
+        if(this.gps == null)
             throw new NullPointerException("No location is defined");
-        return this.local;
+        return this.gps;
     }
 
     //Setters
-    
     public void setMatricula(String matricula){
         this.matricula = matricula;
     }
-
     public void setMotorista(Motorista motorista){
         this.motorista = motorista;
     }
-
     public void setVelMedia(double velMedia){
         this.velMedia = velMedia;
     }
-
     public void setPreco(double preco){
         this.preco = preco;
     }
-
     public void setFiab(double fiabilidade){
         this.fiabilidade = fiabilidade;
     }
-
     public void setLocal(Localizacao gps){
         this.gps = gps;
     }
-
     public Taxi clone(){
         return new Taxi(this);
     }
-
     public boolean equals(Object obj){
         if (obj == this)
             return true;
@@ -101,7 +92,6 @@ public class Taxi implements Serializable{
         && o.getFiab() == this.getFiab()
         && o.getLocal() == this.getLocal();
     }
-
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Matricula do taxi: ").append(matricula).append("\n");

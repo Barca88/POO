@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Cliente extends Utilizador{
     
@@ -23,7 +24,7 @@ public class Cliente extends Utilizador{
     }
     public Cliente (Cliente c){
         super(c);
-        this.gps = c.getLocalizacao();
+        this.gps = c.getLocal();
         this.totalGasto = c.getTotalGasto();
         this.viagens = c.getViagens();
     }
