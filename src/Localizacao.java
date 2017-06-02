@@ -38,14 +38,14 @@ public class Localizacao{
     }
 
     //Métodos
-    public static double Distancia(Localizacao a, Localizacao b){
+    public static double distancia(Localizacao a, Localizacao b){
         double dist = Math.sqrt(Math.pow((b.getX() - a.getX()),2) + Math.pow((b.getY() - b.getY()),2));
         return dist;
     }
 
     public static double TempoDesloca(double VelMedia,
                 Localizacao a, Localizacao b){
-        double dist = Distancia(a,b);
+        double dist = distancia(a,b);
         double tempo = dist * VelMedia;
         return tempo;
     }

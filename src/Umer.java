@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 
-public class Umer implements Serializable{
+public class Umer implements Serializable {
     private HashMap<String,Utilizador> users;
     private HashMap<String,Taxi> taxis;
     private Utilizador utilizador; // utilizador registado no momento
@@ -145,8 +145,19 @@ public class Umer implements Serializable{
             throw new SemAutorizacaoException("Ja tem sessão iniciada");
         }
     }
-    public static void solicitarViagem() {}  // --TODO
-    public static Viagem criaViagem(Localizacao lDest, Taxi taxi, Cliente clie){
+    public void solicitarViagem(Localizacao lDest) {
+        Taxi taxi = this.compLoaclizacao();
+        taxi.getMotorista().setDisponibilidade(false);
+        Viagem viagem = criaViagem(lDest,taxi,(Cliente) this.utilizador.clone());
+
+
+    }  
+    // --TODO
+
+    /*public static void solicitarViagem(String matricula){
+
+    }*/
+    private Viagem criaViagem(Localizacao lDest, Taxi taxi, Cliente clie){
         Viagem viagem = new Viagem();
         viagem.setLiCliente(clie.getLocal());
         viagem.setLiTaxi(taxi.getLocal());
@@ -154,22 +165,23 @@ public class Umer implements Serializable{
         viagem.setTaxi(taxi);
         viagem.setCliente(clie);
         viagem.setMotorista(taxi.getMotorista());
+        return viagem;
 
     }
     /*
     * Devolve o taxi mais proximo do cliente registado
     */
-     private String compLoaclizacao(){
+    private Taxi compLoaclizacao(){
         double dist = 10000000000000000000.0;
-        String matricula = null;
+        Taxi taxi = null;
         Cliente c = (Cliente) this.utilizador;
         this.taxis.values().stream().filter(t->t.getMotorista().getDisponibilidade()).forEach(t->{
             if ((Localizacao.distancia(c.getLocal(),t.getLocal())) < dist){
-                matricula = t.getMatricula();
+                taxi = t.clone();
                 dist = Localizacao.distancia(c.getLocal(),t.getLocal());
             }
         });
-        return matricula;
+        return taxi;
     }
 
 
@@ -180,4 +192,5 @@ public class Umer implements Serializable{
         this.utilizador = null;
     }
 }
+
 

@@ -11,7 +11,7 @@ public class Taxi implements Serializable{
 
     //construtores
     public Taxi(){
-        this.matricula = "null";
+        this.matricula ="";
         this.motorista = new Motorista();
         this.velMedia = 0.0;
         this.preco = 0.0;
@@ -54,9 +54,9 @@ public class Taxi implements Serializable{
         return fiabilidade;
     }
     public Localizacao getLocal() throws NullPointerException{
-        if(this.local == null)
+        if(this.gps == null)
             throw new NullPointerException("No location is defined");
-        return this.local;
+        return this.gps;
     }
 
     //Setters
