@@ -6,7 +6,7 @@ public class Motorista extends Utilizador{
     //var. de instancia
 
     private int grauCump;
-    private int classificacao;
+    private int classiFinal;
     private int totalKms;
     private boolean disponibilidade;
     private List<Integer> classificacoes;
@@ -17,7 +17,7 @@ public class Motorista extends Utilizador{
     public Motorista (){
         super("","","","","");
         this.grauCump = 0;
-        this.classificacao = 0;
+        this.classiFinal = 0;
         this.totalKms = 0;
         this.disponibilidade = false;
         this.classificacoes = new ArrayList<Integer>();
@@ -25,12 +25,12 @@ public class Motorista extends Utilizador{
     }
     public Motorista (String nome,
         String email, String password, String morada,
-        String dataNasc, int grauCump, int classificacao,
+        String dataNasc, int grauCump, int classiFinal,
         int totalKms, boolean disponibilidade, ArrayList<Integer> classificacoes, ArrayList<Viagem> viagens){
 
         super(nome, email, password, morada, dataNasc);
         this.grauCump = grauCump;
-        this.classificacao = classificacao;
+        this.classiFinal = classiFinal;
         this.totalKms = totalKms;
         this.disponibilidade = disponibilidade;
         this.classificacoes = classificacoes;
@@ -39,7 +39,7 @@ public class Motorista extends Utilizador{
     public Motorista (Motorista m){
         super(m);
         this.grauCump = m.getGrauCump();
-        this.classificacao = m.getClassificacao();
+        this.classiFinal = m.getclassiFinal();
         this.totalKms = m.getTotalKms();
         this.disponibilidade = m.getDisponibilidade();
         this.classificacoes = m.getClassificacoes();
@@ -50,8 +50,8 @@ public class Motorista extends Utilizador{
     public int getGrauCump(){
         return grauCump;
     }
-    public int getClassificacao(){
-        return classificacao;
+    public int getclassiFinal(){
+        return classiFinal;
     }
     public int getTotalKms(){
         return totalKms;
@@ -70,8 +70,8 @@ public class Motorista extends Utilizador{
     public void setGrauCump(int grauCump){
         this.grauCump = grauCump;
     }
-    public void setClassificacao(int classificacao){
-        this.classificacao = classificacao;
+    public void setClassiFinal(int classiFinal){
+        this.classiFinal = classiFinal;
     }
     public void setTotalKms(int totalKms){
         this.totalKms = totalKms;
@@ -86,7 +86,17 @@ public class Motorista extends Utilizador{
         this.viagens.stream().collect(Collectors.toCollection(ArrayList::new));
     }
 
-    //Metodos
+    //Métodos
+    public void insereViagem (Viagem viagem){
+        this.viagens.add(viagem);
+    }
+    
+    public void insereClassificacao (int aval) {
+        this.classificacoes.add(aval);
+    }
+    public int mediaClassificacoes (List<Integer> avals) {
+        return (avals.stream().mapToInt(Integer::intValue).sum() / avals.size());
+    }
     public Motorista clone(){
         return new Motorista (this);
     }
@@ -97,14 +107,14 @@ public class Motorista extends Utilizador{
             return false;
         Motorista o = (Motorista) obj;
         return o.getGrauCump() == this.getGrauCump() &&
-               o.getClassificacao() == this.getClassificacao() &&
+               o.getclassiFinal() == this.getclassiFinal() &&
                o.getTotalKms() == this.getTotalKms() &&
                o.getDisponibilidade() == this.getDisponibilidade();
     }
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Grau de Cumprimento: ").append(grauCump).append("\n");
-        sb.append("Classificacão: ").append(classificacao).append("\n");
+        sb.append("Classificacão: ").append(classiFinal).append("\n");
         sb.append("Total de kms: ").append(totalKms).append("\n");
         sb.append("Disponibilidade: ").append(disponibilidade).append("\n");
         return sb.toString();

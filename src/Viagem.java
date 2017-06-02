@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 public class Viagem implements Serializable {
 
@@ -9,7 +10,7 @@ public class Viagem implements Serializable {
     private Cliente cliente;
     private Taxi taxi;
     private Motorista motorista;
-    
+    private LocalDateTime dia;
 
     public Viagem(){
         this.preco = 0.0;
@@ -20,9 +21,8 @@ public class Viagem implements Serializable {
         this.taxi = new Taxi();
         this.motorista = new Motorista();
     }
-    
     public Viagem(double preco, Localizacao liCliente, Localizacao liTaxi,
-                  Localizacao liDestino, Cliente cliente, 
+                  Localizacao liDestino, Cliente cliente,
                   Taxi taxi, Motorista motorista){
         this.preco = preco;
         this.liCliente = liCliente;
@@ -31,7 +31,6 @@ public class Viagem implements Serializable {
         this.cliente = cliente;
         this.taxi = taxi;
         this.motorista = motorista;
-        
     }
     public Viagem(Viagem v){
     	this.preco = v.getPreco();
@@ -42,34 +41,31 @@ public class Viagem implements Serializable {
         this.taxi = v.getTaxi();
         this.motorista = v.getMotorista();
     }
-    
+
     //Getters
     public double getPreco(){
     	return preco;
     }
-    
     public Localizacao getLiCliente(){
     	return liCliente;
     }
-    
     public Localizacao getLiTaxi(){
     	return liTaxi;
     }
-    
     public Localizacao getLiDestino(){
     	return liDestino;
     }
-    
     public Cliente getCliente(){
         return cliente;
     }
-    
     public Taxi getTaxi(){
         return taxi;
     }
-    
     public Motorista getMotorista(){
     	return motorista;
+    }
+    public LocalDateTime getDia(){
+        return dia;
     }
 
     //Setters
@@ -94,49 +90,49 @@ public class Viagem implements Serializable {
     public void setMotorista(Motorista motorista){
     	this.motorista = motorista;
     }
+    public void setDia(LocalDateTime dia){
+        this.dia = dia;
+    }
+
+    public void avaliaMotorista(int aval){
+        motorista.insereClassificacao(aval);
+    }
 
     //Metodos
-
-    
-    public double precoViagem(Localizacao destino){
+    public double precoViagem(Taxi taxi, Cliente cliente, Localizacao destino){
         double custo;
         custo = Localizacao.distancia(this.taxi.getLocal(),cliente.getLocal());
         custo += Localizacao.distancia(this.cliente.getLocal(),destino);
         custo = custo * this.taxi.getPreco();
         return custo;
     }
-
-    /*
     public double tempoViagem(Taxi taxi, Cliente cliente, Localizacao destino){
         double tempo = 0;
             (taxi.getVelMedia(),taxi.getLocal,cliente.getLocal());
         tempo = tempo + TempoDesloca(taxi.getVelMedia(),
                                     cliente.getLocal(),destino);
         return tempo;
-    }*/
-
+    }
     public Viagem clone(){
         return new Viagem(this);
     }
-
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj){
         if(obj == this) {
             return true;
         }
-        if(obj == null || obj.getClass() != this.getClass()) {
+        if(obj == null || obj.getClass() != this.getClass()){
             return false;
         }
         Viagem o = (Viagem) obj;
-        
-        return o.getPreco() == this.getPreco() && 
-        o.getPreco() == this.getPreco() && o.getLiCliente() == this.getLiCliente() &&
-        o.getLiTaxi() == this.getLiTaxi() && o.getLiDestino() == this.getLiDestino() && 
-        o.getCliente() == this.getCliente() && o.getTaxi() == this.getTaxi() &&
+        return o.getPreco() == this.getPreco() &&
+        o.getPreco() == this.getPreco() &&
+        o.getLiCliente() == this.getLiCliente() &&
+        o.getLiTaxi() == this.getLiTaxi() &&
+        o.getLiDestino() == this.getLiDestino() &&
+        o.getCliente() == this.getCliente() &&
+        o.getTaxi() == this.getTaxi() &&
         o.getMotorista() == this.getMotorista();
     }
-    
-
-    
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Preço da Viagem: ").append(preco).append("\n");
