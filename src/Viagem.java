@@ -97,14 +97,14 @@ public class Viagem implements Serializable {
 
     //Metodos
 
-    /*
-    public double precoViagem(Taxi taxi, Cliente cliente, Localizacao destino){
+    
+    public double precoViagem(Localizacao destino){
         double custo;
-        custo = Distancia(taxi.getLocal(),cliente.getLocal());
-        custo += Distancia(cliente.getLocal(),destino);
-        custo = custo * taxi.getPreco();
+        custo = Localizacao.distancia(this.taxi.getLocal(),cliente.getLocal());
+        custo += Localizacao.distancia(this.cliente.getLocal(),destino);
+        custo = custo * this.taxi.getPreco();
         return custo;
-    } */
+    }
 
     /*
     public double tempoViagem(Taxi taxi, Cliente cliente, Localizacao destino){
