@@ -8,6 +8,7 @@ public class Taxi implements Serializable{
     private double preco;
     private double fiabilidade;
     private Localizacao gps;
+    private double totalFaturado;
 
     //construtores
     public Taxi(){
@@ -17,6 +18,7 @@ public class Taxi implements Serializable{
         this.preco = 0.0;
         this.fiabilidade = 0.0;
         this.gps = new Localizacao();
+        this.totalFaturado = 0.0;
     }
     public Taxi(String matricula, Motorista motorista, double velMedia,
             double preco, double fiabilidade, Localizacao gps){
@@ -26,6 +28,7 @@ public class Taxi implements Serializable{
         this.preco = preco;
         this.fiabilidade = fiabilidade;
         this.gps = gps;
+        this.totalFaturado = totalFaturado;
     }
     public Taxi(Taxi t){
        this.matricula = t.getMatricula();
@@ -34,6 +37,7 @@ public class Taxi implements Serializable{
        this.preco = t.getPreco();
        this.fiabilidade = t.getFiab();
        this.gps = t.getLocal();
+       this.totalFaturado = t.getTotalFaturado();
     }
 
     //Getters
@@ -56,6 +60,9 @@ public class Taxi implements Serializable{
         if(this.gps == null)
             throw new NullPointerException("No location is defined");
         return this.gps;
+    }
+    public double getTotalFaturado(){
+        return this.totalFaturado;
     }
 
     //Setters

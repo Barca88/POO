@@ -94,6 +94,10 @@ public class Viagem implements Serializable {
         this.dia = dia;
     }
 
+    public void avaliaMotorista(int aval){
+        motorista.insereClassificacao(aval);
+    }
+
     //Metodos
     /*
     public double precoViagem(Taxi taxi, Cliente cliente, Localizacao destino){

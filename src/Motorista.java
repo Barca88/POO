@@ -87,6 +87,10 @@ public class Motorista extends Utilizador{
     }
 
     //Métodos
+    public void insereViagem (Viagem viagem){
+        this.viagens.add(viagem);
+    }
+    
     public void insereClassificacao (int aval) {
         this.classificacoes.add(aval);
     }
