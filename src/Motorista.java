@@ -85,22 +85,15 @@ public class Motorista extends Utilizador{
     public void setViagens (List<Viagem> viagens){
         this.viagens.stream().collect(Collectors.toCollection(ArrayList::new));
     }
-<<<<<<< HEAD
-    
+
+    //Métodos
     public void insereClassificacao (int aval) {
         this.classificacoes.add(aval);
     }
-
     public int mediaClassificacoes (List<Integer> avals) {
         return (avals.stream().mapToInt(Integer::intValue).sum() / avals.size());
     }
-
-    public Motorista clone (){
-=======
-
-    //Metodos
     public Motorista clone(){
->>>>>>> e39509e9be9b90eb0d4a21b13c5a94fe689afa74
         return new Motorista (this);
     }
     public boolean equals (Object obj){
