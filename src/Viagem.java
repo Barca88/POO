@@ -94,22 +94,27 @@ public class Viagem implements Serializable {
         this.dia = dia;
     }
 
+    public void avaliaMotorista(int aval){
+        motorista.insereClassificacao(aval);
+    }
+
     //Metodos
-    /*
-    public double precoViagem(Taxi taxi, Cliente cliente, Localizacao destino){
+    public double precoViagem(Localizacao destino){
         double custo;
-        custo = Distancia(taxi.getLocal(),cliente.getLocal());
-        custo += Distancia(cliente.getLocal(),destino);
-        custo = custo * taxi.getPreco();
+        custo = Localizacao.distancia(this.taxi.getLocal(),cliente.getLocal());
+        custo += Localizacao.distancia(this.cliente.getLocal(),destino);
+        custo = custo * this.taxi.getPreco();
         return custo;
     }
-    public double tempoViagem(Taxi taxi, Cliente cliente, Localizacao destino){
+    
+    /*public double tempoViagem(Taxi taxi, Cliente cliente, Localizacao destino){
         double tempo = 0;
             (taxi.getVelMedia(),taxi.getLocal,cliente.getLocal());
         tempo = tempo + TempoDesloca(taxi.getVelMedia(),
                                     cliente.getLocal(),destino);
         return tempo;
     }*/
+
     public Viagem clone(){
         return new Viagem(this);
     }

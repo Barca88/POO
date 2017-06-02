@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Comparator;
 
 public class Umer implements Serializable {
     private HashMap<String,Utilizador> users;
@@ -115,8 +116,7 @@ public class Umer implements Serializable {
         if(this.taxis.containsKey(viatura.getMatricula())){
             throw new ViaturaExistenteException ("Viatura ja registada");
         }
-        else{
-            this.taxis.put(viatura.getMatricula(),viatura);
+        else{ this.taxis.put(viatura.getMatricula(),viatura);
         }
     }
     /*
@@ -138,40 +138,51 @@ public class Umer implements Serializable {
         Taxi taxi = this.compLoaclizacao();
         taxi.getMotorista().setDisponibilidade(false);
         Viagem viagem = criaViagem(lDest,taxi,(Cliente) this.utilizador.clone());
-
-
+        Motorista mot = (Motorista) taxi.getMotorista().clone();
+        Viagem viagem = criaViagem(lDest,taxi,(Cliente)this.utilizador.clone());
+        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail());
+        mot.setDisponibilidade(false);
+        mot.insereViagem(viagem);
+        cli.insereViagem(viagem);
+        this.taxis.replace(taxi.getMatricula(),taxi);
+        this.users.replace(mot.getEmail(),mot);
+        this.users.replace(cli.getEmail(),cli);
     }
-    // --TODO
-
-    /*public static void solicitarViagem(String matricula){
-
-    }*/
+    public void solicitarViagem(Localizacao lDest, String matricula) throws NaoExisteTaxiException, MotoristaNaoDispException{
+        if (!this.taxis.containsKey(matricula)) throw new NaoExisteTaxiException("Viatura nao registada");
+        Taxi taxi = this.taxis.get(matricula).clone();
+        Motorista mot = (Motorista) taxi.getMotorista().clone();
+        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
+        if (!mot.getDisponibilidade()) throw new MotoristaNaoDispException("Motorista nao disponivel");
+        Viagem viagem = criaViagem(lDest,taxi,cli);
+        mot.setDisponibilidade(false);
+        mot.insereViagem(viagem);
+        cli.insereViagem(viagem);
+        this.taxis.replace(taxi.getMatricula(),taxi);
+        this.users.replace(mot.getEmail(),mot);
+        this.users.replace(cli.getEmail(),cli);
+    }
     private Viagem criaViagem(Localizacao lDest, Taxi taxi, Cliente clie){
         Viagem viagem = new Viagem();
         viagem.setLiCliente(clie.getLocal());
         viagem.setLiTaxi(taxi.getLocal());
         viagem.setLiDestino(lDest);
-        viagem.setTaxi(taxi);
-        viagem.setCliente(clie);
+        viagem.setTaxi(this.taxis.get(taxi.getMatricula()).clone());
+        viagem.setCliente((Cliente)this.users.get(clie.getEmail()).clone());
         viagem.setMotorista(taxi.getMotorista());
+        viagem.setPreco(viagem.precoViagem(lDest));
         return viagem;
-
     }
     /*
     * Devolve o taxi mais proximo do cliente registado
     */
     private Taxi compLoaclizacao(){
-        double dist = 10000000000000000000.0;
-        Taxi taxi = null;
         Cliente c = (Cliente) this.utilizador;
-        this.taxis.values().stream()
-        .filter(t->t.getMotorista().getDisponibilidade()).forEach(t->{
-            if ((Localizacao.distancia(c.getLocal(),t.getLocal())) < dist){
-                taxi = t.clone();
-                dist = Localizacao.distancia(c.getLocal(),t.getLocal());
-            }
-        });
-        return taxi;
+        Comparator<Taxi> cD = new ComparadorDistancias(c.getLocal());
+        return this.taxis.values().stream()
+        .filter(t->t.getMotorista().getDisponibilidade())
+        .sorted(cD)
+        .findFirst().get().clone();
     }
     /*
     * Termina a sessão pondo o ulilizador null

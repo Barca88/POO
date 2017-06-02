@@ -56,6 +56,10 @@ public class Cliente extends Utilizador{
     public void setViagens (List<Viagem> viagens){
         this.viagens.stream().collect(Collectors.toCollection(ArrayList::new));
     }
+
+    public void insereViagem (Viagem viagem){
+        this.viagens.add(viagem);
+    }
     
     public Cliente clone (){
         return new Cliente(this);
