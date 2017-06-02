@@ -148,9 +148,9 @@ public class Umer implements Serializable {
     }
     public void solicitarViagem(Localizacao lDest) {
         Taxi taxi = this.compLoaclizacao();
-        Motorista mot = taxi.getMotorista().clone();
+        Motorista mot = (Motorista) taxi.getMotorista().clone();
         Viagem viagem = criaViagem(lDest,taxi,(Cliente)this.utilizador.clone());
-        Cliente cli = this.users.get(this.utilizador.getEmail()).insereViagem(viagem);
+        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail());
         mot.setDisponibilidade(false);
         mot.insereViagem(viagem);
         cli.insereViagem(viagem);
@@ -162,9 +162,9 @@ public class Umer implements Serializable {
     public void solicitarViagem(Localizacao lDest, String matricula) throws NaoExisteTaxiException, MotoristaNaoDispException{
         if (!this.taxis.containsKey(matricula)) throw new NaoExisteTaxiException("Viatura nao registada");
         Taxi taxi = this.taxis.get(matricula).clone();
-        Motorista mot = taxi.getMotorista().clone();
-        Cliente cli = this.users.get(this.utilizador.getEmail()).clone();
-        if (!mot.getDisponibilidade) throw new MotoristaNaoDispException("Motorista nao disponivel");
+        Motorista mot = (Motorista) taxi.getMotorista().clone();
+        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
+        if (!mot.getDisponibilidade()) throw new MotoristaNaoDispException("Motorista nao disponivel");
         Viagem viagem = criaViagem(lDest,taxi,cli);
         mot.setDisponibilidade(false);
         mot.insereViagem(viagem);
