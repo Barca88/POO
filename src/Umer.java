@@ -24,8 +24,8 @@ public class Umer implements Serializable{
         this.utilizador = utilizador;
     }
     public Umer (Umer e){
-        this.users = e.getUsers();
-        this.taxis = e.getTaxis();
+        this.users = (HashMap<String,Utilizador>) e.getUsers();
+        this.taxis = (HashMap<String,Taxi>) e.getTaxis();
         this.utilizador = e.getUtilizador();
     }
     public Umer clone(){
@@ -114,6 +114,17 @@ public class Umer implements Serializable{
         }
     }
 
+    public void insereViatura (Taxi viatura) throws ViaturaExistenteException{
+
+        if(this.taxis.containsKey(viatura.getMatricula())){
+            throw new ViaturaExistenteException ("Viatura ja registada");
+        }
+        else{
+            this.taxis.put(viatura.getMatricula(),viatura);
+        }
+    }
+
+
 
 
     public void iniciaSessao(String email, String password) throws SemAutorizacaoException {
@@ -139,25 +150,29 @@ public class Umer implements Serializable{
         Viagem viagem = new Viagem();
         viagem.setLiCliente(clie.getLocal());
         viagem.setLiTaxi(taxi.getLocal());
-        viagem.setLiDestino(lDest0);
+        viagem.setLiDestino(lDest);
         viagem.setTaxi(taxi);
         viagem.setCliente(clie);
         viagem.setMotorista(taxi.getMotorista());
 
     }
     /*
-    * recebe lista de taxi e um cliente e devolve o taxi mais proximo
+    * Devolve o taxi mais proximo do cliente registado
     */
-    public static String compLoaclizacao(Map taxis, Localizacao gps){
+     private String compLoaclizacao(){
         double dist = 10000000000000000000.0;
-        string matricula = null;
-        for(taxi t: taxis){
-            if ((Distancia(gps,t.getLocal())) < dist) {
+        String matricula = null;
+        Cliente c = (Cliente) this.utilizador;
+        this.taxis.values().stream().filter(t->t.getMotorista().getDisponibilidade()).forEach(t->{
+            if ((Localizacao.distancia(c.getLocal(),t.getLocal())) < dist){
                 matricula = t.getMatricula();
+                dist = Localizacao.distancia(c.getLocal(),t.getLocal());
             }
-        }
+        });
         return matricula;
     }
+
+
 
 
 
@@ -165,3 +180,4 @@ public class Umer implements Serializable{
         this.utilizador = null;
     }
 }
+
