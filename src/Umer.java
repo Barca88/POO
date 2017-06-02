@@ -18,7 +18,7 @@ public class Umer implements Serializable {
         this.utilizador = null;
     }
     public Umer (HashMap<String,Utilizador> users, HashMap<String,Taxi> taxis,
-        Utilizador utilizador) {
+        Utilizador utilizador){
         this.users = users;
         this.taxis = taxis;
         this.utilizador = utilizador;
@@ -33,28 +33,27 @@ public class Umer implements Serializable {
     }
 
     //Getters
-    
     public Map<String,Utilizador> getUsers(){
-        return this.users.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
+        return this.users.entrySet().stream()
+        .collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
     public Map<String,Taxi> getTaxis(){
-        return this.taxis.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
+        return this.taxis.entrySet().stream()
+        .collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
-    
     public Utilizador getUtilizador(){
         return utilizador;
     }
 
     //Setters
-   
     public void setUsers (HashMap<String,Utilizador> users){
-        this.users.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
+        this.users.entrySet().stream()
+        .collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
-
     public void setTaxis (HashMap<String,Taxi> taxis){
-        this.taxis.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
+        this.taxis.entrySet().stream()
+        .collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
-
     public void setUtilizador (Utilizador utilizador){
         this.utilizador = utilizador;
     }
@@ -62,10 +61,9 @@ public class Umer implements Serializable {
 
     // GRAVAR
     /**
-     * Gravar o estado da aplicação num determinado ficheiro.
-     * @param fich
-     */
-
+    * Gravar o estado da aplicação num determinado ficheiro.
+    * @param fich
+    */
     public void gravaObj(String fich) throws IOException {
         ObjectOutputStream sv = new ObjectOutputStream(new FileOutputStream(fich));
         sv.writeObject(this);
@@ -103,15 +101,13 @@ public class Umer implements Serializable {
         fw.close();
     } */
 
-
+    /*
+    * Invoca a função registarUtilizador
+    */
     public void registarUtilizador (Utilizador utilizador) throws UtilizadorExistenteException{
-
         if(this.users.containsKey(utilizador.getEmail())){
             throw new UtilizadorExistenteException ("Ja existe este Utilizador");
-        }
-        else {
-            this.users.put(utilizador.getEmail(),utilizador);
-        }
+        }else this.users.put(utilizador.getEmail(),utilizador);
     }
 
     public void insereViatura (Taxi viatura) throws ViaturaExistenteException{
@@ -123,35 +119,28 @@ public class Umer implements Serializable {
             this.taxis.put(viatura.getMatricula(),viatura);
         }
     }
-
-
-
-
+    /*
+    * Inicia a sessão
+    */
     public void iniciaSessao(String email, String password) throws SemAutorizacaoException {
-
         if(this.utilizador == null){
-
             if(users.containsKey(email)){
                 Utilizador user = users.get(email);
-                if (password.equals(user.getPassword())){
-                    utilizador = user;
-                }
-                else {
-                    throw new SemAutorizacaoException("Credenciais Erradas");
-                }
-            }else
-                throw new SemAutorizacaoException("Credenciais Erradas");
-        }else {
-            throw new SemAutorizacaoException("Ja tem sessão iniciada");
-        }
+                if(password.equals(user.getPassword())) utilizador = user;
+                else throw new SemAutorizacaoException("Credenciais Erradas");
+            }else throw new SemAutorizacaoException("Credenciais Erradas");
+        }else throw new SemAutorizacaoException("Ja tem sessão iniciada");
     }
+    /*
+    * Cria a viagem
+    */
     public void solicitarViagem(Localizacao lDest) {
         Taxi taxi = this.compLoaclizacao();
         taxi.getMotorista().setDisponibilidade(false);
         Viagem viagem = criaViagem(lDest,taxi,(Cliente) this.utilizador.clone());
 
 
-    }  
+    }
     // --TODO
 
     /*public static void solicitarViagem(String matricula){
@@ -175,7 +164,8 @@ public class Umer implements Serializable {
         double dist = 10000000000000000000.0;
         Taxi taxi = null;
         Cliente c = (Cliente) this.utilizador;
-        this.taxis.values().stream().filter(t->t.getMotorista().getDisponibilidade()).forEach(t->{
+        this.taxis.values().stream()
+        .filter(t->t.getMotorista().getDisponibilidade()).forEach(t->{
             if ((Localizacao.distancia(c.getLocal(),t.getLocal())) < dist){
                 taxi = t.clone();
                 dist = Localizacao.distancia(c.getLocal(),t.getLocal());
@@ -183,14 +173,10 @@ public class Umer implements Serializable {
         });
         return taxi;
     }
-
-
-
-
-
+    /*
+    * Termina a sessão pondo o ulilizador null
+    */
     public void terminaSessao(){
         this.utilizador = null;
     }
 }
-
-

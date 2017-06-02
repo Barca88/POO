@@ -31,9 +31,8 @@ public class UMeRApp{
         catch (IOException e) {
             System.out.println("Não consegui gravar os dados!");
         }
-        System.out.println("Volte sempre!");
+        System.out.println("Até á proxima!");
     }
-
     /**
      * Apresenta o menu principal.
      */
@@ -41,7 +40,7 @@ public class UMeRApp{
         int running = 1;
 
         do {
-            if(umer.getUser() != null){
+            if(umer.getUtilizador() != null){
                 menuLogado.executa();
                 switch(menuLogado.getOpcao()){
                     case 1: menu();
@@ -64,18 +63,13 @@ public class UMeRApp{
                 }
             }
         } while (running!=0);
-
     }
-
     /**
      * Apresenta o Menu consoante o tipo de utilizador com sessão iniciada.
      */
     private static void menu(){
-
-        if(umer.getUser() == null)
-            runMenu();
-        else{
-            Utilizador util = umer.getUser();
+        if(umer.getUtilizador() != null){
+            Utilizador util = umer.getUtilizador();
             if(util.getClass().getSimpleName().equals("Cliente"))
                 runMenuCliente();
             else runMenuMotorista();
@@ -95,6 +89,8 @@ public class UMeRApp{
                            "Cliente"};
         String [] menu3 = {"Disponibilidade",
                            "Histórico de Viagens",
+                           "Numero de Kms realizados",
+                           "Classificação",
                            "Total Faturado na Viatura",
                            "Associar-me a Viatura"};
         String [] menu4 = {"Solicitar Viagem",
@@ -117,15 +113,15 @@ public class UMeRApp{
         try {
             umer = Umer.leObj(fich);
         }
-        catch (IOException e) {
+        catch (IOException e){
             umer = new Umer();
             System.out.println("Error 404!\nErro de leitura do ficheiro.");
         }
-        catch (ClassNotFoundException e) {
+        catch (ClassNotFoundException e){
             umer = new Umer();
             System.out.println("Error 404!\nFicheiro com formato desconhecido do ficheiro.");
         }
-        catch (ClassCastException e) {
+        catch (ClassCastException e){
             umer = new Umer();
             System.out.println("Error 404!\nErro de formato do ficheiro.");
         }
@@ -139,7 +135,8 @@ public class UMeRApp{
 
         menuRegistar.executa();
         if(menuRegistar.getOpcao() !=0){
-            String nome,email,password,morada,dataNasc,info;
+            String nome, email, password, morada, dataNasc;
+
             System.out.print("Nome: ");
             nome = pt.nextLine();
             System.out.print("Email: ");
@@ -158,14 +155,11 @@ public class UMeRApp{
                         break;
                 default: user = new Utilizador();
             }
-            try{
-                umer.registarUtilizador(user);
-            }
-            catch(UtilizadorExistenteException e){
+            try{ umer.registarUtilizador(user);
+            } catch(UtilizadorExistenteException e){
                 System.out.println("Este utizador já existe!");
             }
-        }
-        else System.out.println("Registo cancelado!");
+        }else System.out.println("Registo cancelado!");
         pt.close();
     }
     /**
@@ -173,73 +167,66 @@ public class UMeRApp{
      */
     private static void iniciarSessao(){
         Scanner pt = new Scanner(System.in);
-        String email,password;
+        String email, password;
+
         System.out.print("E-mail: ");
         email = pt.nextLine();
         System.out.print("Password: ");
         password = pt.nextLine();
 
-        try{
-            umer.iniciaSessao(email,password);
-        }
-        catch(SemAutorizacaoException e){
+        try{ umer.iniciaSessao(email,password);
+        }catch(SemAutorizacaoException e){
             System.out.println(e.getMessage());
         }
 
         pt.close();
     }
-
     /**
      * Fechar sessão na ImobiliariaApp.
      */
     private static void terminarSessao(){
         umer.terminaSessao();
     }
-//====================================================
     /**
-     * Executar o menu para utilizadores não registados na ImobiliariaApp.
+     * Executar o menu para utilizadores Clientes
      */
-     private static void running_menu_comprador(){
+     private static void runMenuCliente(){
         do{
             menuCliente.executa();
             switch(menuCliente.getOpcao()){
-                case 1: consultarImoveisTipo();
+                case 1: runMenuSolicitaViagem();    // --TODO
                         break;
-                case 2: habitaveisPreco();
-                        break;
-                case 3: imoveisVendedores();
+                case 2: totalGastoViagens();        // --TODO
+                        break;  // nao sei se preciso dos breaks
+                case 3: runMenuHistorico();         // --TODO
                         break;
             }
         }while(menuCliente.getOpcao()!=0);
     }
-
     /**
-     * Executar menu para vendedores.
+     * Executar menu para Motoristas
      */
-    private static void running_menu_vendedor(){
+    private static void runMenuMotorista(){
         do{
+            u
             menuMotoristas.executa();
             switch(menuMotoristas.getOpcao()){
-                case 1: adicionaImovel();
+                case 1: disponibilidade();            // --TODO
                         break;
-                case 2: consultarImoveis();
+                case 2: historicoDeViagens();          // --TODO
                         break;
-                case 3: alterarEstado();
+                case 3: numeroDeKmsRealizados();       // --TODO
                         break;
-                case 4: topConsultados();
+                case 4: classificação();               // --TODO
                         break;
-                case 5: consultarImoveisTipo();
+                case 5: totalFaturadoNaViatura();      // --TODO
                         break;
-                case 6: habitaveisPreco();
-                        break;
-                case 7: imoveisVendedores();
-                        break;
-                case 8: running_menu_leilao_vendedor();
-                        break;
+                case 6: associarMotoristaViatura();    // --TODO
+                }
             }
         }while(menuMotoristas.getOpcao()!=0);
     }
-
+//====================================================
     /**
      * Executar menu para compradores registados na ImobiliariaApp.
      */
@@ -280,7 +267,7 @@ public class UMeRApp{
     private static void consultarFavoritos(){
 
         Map<String,Imovel> favoritos = new HashMap<String,Imovel>();
-        Comprador utilizador = (Comprador) umer.getUser();
+        Comprador utilizador = (Comprador) umer.getUtilizador();
         favoritos = utilizador.getFavoritos();
         for(Imovel i : favoritos.values())
             System.out.println(i);
@@ -345,7 +332,7 @@ public class UMeRApp{
     /**
      * Criar um Imóvel para ser adicionado à Imobiliária.
      * @return
-     
+
     private static Imovel criaImovel(){
         Imovel imovel = null;
         Scanner pt = new Scanner(System.in);
@@ -500,4 +487,5 @@ public class UMeRApp{
             }
         }
     }**/
+
 }
