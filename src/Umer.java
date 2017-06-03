@@ -147,7 +147,7 @@ public class Umer implements Serializable {
         Taxi taxi = this.compLoaclizacao();
         Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
-        double random = ThreadLocalRandom.current().nextDouble(1,1.5 + 0.1);
+        double random = ThreadLocalRandom.current().nextDouble(1.0,2.0+1.0);
         taxi.setFiab(random);
         Viagem viagem = criaViagem(lDest,cli.getLocal(),taxi);
         mot.setDisponibilidade(false);
@@ -161,7 +161,7 @@ public class Umer implements Serializable {
         Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
         if (!mot.getDisponibilidade()) throw new MotoristaNaoDispException("Motorista nao disponivel");
-        double random = ThreadLocalRandom.current().nextDouble(0.0,1.0+1.0);
+        double random = ThreadLocalRandom.current().nextDouble(1.0,2.0+1.0);
         taxi.setFiab(random);
         Viagem viagem = criaViagem(lDest,cli.getLocal(),taxi);
         mot.setDisponibilidade(false);

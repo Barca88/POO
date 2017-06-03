@@ -1,5 +1,4 @@
 import java.util.Comparator;
-import java.util.Map;
 
 public class ComparadorCustos implements Comparator<Utilizador>{
 
