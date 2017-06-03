@@ -8,13 +8,12 @@ import java.util.InputMismatchException;
 import java.util.TreeMap;
 import java.util.Set;
 import java.util.HashSet;
+import java.time.LocalDateTime;
 
 public class UMeRApp{
     private static Umer umer;
-    private static Menu menuPrincipal, menuRegistar, menuMotoristas,
-                   menuClientes, menuLogado;
-
-
+    private static Menu menuLogado, menuPrincipal, menuRegistar,
+            menuMotoristas, menuCliente, menuSolicitaViagem;
 
     /**
      * Função que faz executar toda a aplicação UMeRApp.
@@ -99,12 +98,12 @@ public class UMeRApp{
         String [] menu5 = {"Taxi Mais Próximo",
                            "Pedir Um Taxi"};
 
-        Menu menuLogado = new Menu(menu0);
-        Menu menuPrincipal = new Menu(menu1);
-        Menu menuRegistar = new Menu(menu2);
-        Menu menuMotoristas = new Menu(menu3);
-        Menu menuCliente = new Menu(menu4);
-        Menu menuSolicitaViagem = new Menu(menu5);
+        menuLogado = new Menu(menu0);
+        menuPrincipal = new Menu(menu1);
+        menuRegistar = new Menu(menu2);
+        menuMotoristas = new Menu(menu3);
+        menuCliente = new Menu(menu4);
+        menuSolicitaViagem = new Menu(menu5);
     }
     /**
      * Executar o menu para utilizadores Clientes
@@ -113,19 +112,54 @@ public class UMeRApp{
         do{
             menuCliente.executa();
             switch(menuCliente.getOpcao()){
-                case 1: runMenuSolicitaViagem();    // --TODO
+                case 1: runMenuSolicitaViagem();
                         break;
-                case 2: totalGastoViagens();        // --TODO
-                        break;  // nao sei se preciso dos breaks
-                case 3: runMenuHistorico();         // --TODO
+                case 2: totalPreco();
                         break;
+                //case 3: runMenuHistorico();         // --TODO
+            //            break;
+
             }
         }while(menuCliente.getOpcao()!=0);
+    }
+/*
+    private static void runMenuHistorico(){
+        LocalDateTime inicio, fim;
+            System.out.println("Insira a Data mais antiga:\n");
+            inicio = pedirData();
+            System.out.println("Insira a Data mais recente\n");
+            fim = pedirData();
+
+        }*/
+    }
+    /**
+    * Funçao para pedir um LocalDateTime
+    */
+    private static LocalDateTime pedirData(){
+        Scanner pt = new Scanner(System.in);
+        System.out.println("Ano:\n");
+        int year = pt.nextInt();
+
+        System.out.println("Formato: dd.MM. HH:mm\n");
+        pt.nextLine();
+        pt.findInLine("(\\d\\d)\\.(\\d\\d)\\. (\\d\\d):(\\d\\d)");
+        try{
+            MatchResult mr = sc.match();
+            int month = Integer.parseInt(mr.group(2));
+            int day = Integer.parseInt(mr.group(1));
+            int hour = Integer.parseInt(mr.group(3));
+            int minute = Integer.parseInt(mr.group(4));
+            LocalDateTime dt = LocalDateTime.of(year, month, day, hour, minute);
+            System.out.println(dt);
+        } catch(IllegalStateException e){
+            System.err.println("Invalid date-time format.");
+        }
+        return dt;
     }
     /**
      * Executar menu para Motoristas
      */
-    private static void runMenuMotorista(){
+    /*private static void runMenuMotorista(){
         do{
             menuMotoristas.executa();
             switch(menuMotoristas.getOpcao()){
@@ -142,7 +176,7 @@ public class UMeRApp{
                 case 6: associarMotoristaViatura();
                 }
             }while(menuMotoristas.getOpcao()!=0);
-    }
+    }*/
     /**
      * Executar o menu para utilizadores Clientes
      */
@@ -153,9 +187,9 @@ public class UMeRApp{
 
         System.out.print("Insira as Coordenadas do Destino\n");
         System.out.print("Insira o X.X:\n");
-        x = pt.nextLine();
+        x = pt.nextDouble();
         System.out.print("Insira o Y.Y:\n");
-        y = pt.nextLine();
+        y = pt.nextDouble();
         Localizacao local = new Localizacao(x,y);
         do{
             menuSolicitaViagem.executa();
@@ -202,15 +236,15 @@ public class UMeRApp{
             String nome, email, password, morada, dataNasc;
 
             System.out.print("Nome: ");
-            nome = pt.nextLine();
+            nome = pt.nextDouble();
             System.out.print("Email: ");
-            email = pt.nextLine();
+            email = pt.nextDouble();
             System.out.print("Password: ");
-            password = pt.nextLine();
+            password = pt.nextDouble();
             System.out.print("Morada: ");
-            morada = pt.nextLine();
+            morada = pt.nextDouble();
             System.out.print("Data de nascimento: ");
-            dataNasc = pt.nextLine();
+            dataNasc = pt.nextDouble();
 
             switch(menuRegistar.getOpcao()){
                 case 1: user = new Motorista(null,nome,email,password,morada,data,0,0,0,false);
@@ -234,9 +268,9 @@ public class UMeRApp{
         String email, password;
 
         System.out.print("E-mail: ");
-        email = pt.nextLine();
+        email = pt.nextDouble();
         System.out.print("Password: ");
-        password = pt.nextLine();
+        password = pt.nextDouble();
 
         try{ umer.iniciaSessao(email,password);
         }catch(SemAutorizacaoException e){
@@ -307,7 +341,7 @@ public class UMeRApp{
         Scanner pt = new Scanner(System.in);
         String idImovel;
         System.out.print("ID Imóvel: ");
-        idImovel = pt.nextLine();
+        idImovel = pt.nextDouble();
         try{
             umer.setFavorito(idImovel);
         }
@@ -327,9 +361,9 @@ public class UMeRApp{
         String id,estado;
         Scanner pt = new Scanner(System.in);
         System.out.print("ID do Imóvel: ");
-        id = pt.nextLine();
+        id = pt.nextDouble();
         System.out.print("Estado: ");
-        estado = pt.nextLine();
+        estado = pt.nextDouble();
         try{
             umer.setEstado(id,estado);
         }
@@ -368,7 +402,7 @@ public class UMeRApp{
             String rua,estado;
             Double preco, preco_Minimo; String id;
             System.out.print("Rua: ");
-            rua = pt.nextLine();
+            rua = pt.nextDouble();
             preco = inputPreco();
             preco_Minimo = inputPrecoMinimo();
             estado = "em venda";
