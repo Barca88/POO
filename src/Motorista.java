@@ -94,8 +94,8 @@ public class Motorista extends Utilizador{
     public void insereClassificacao (int aval) {
         this.classificacoes.add(aval);
     }
-    public int mediaClassificacoes (List<Integer> avals) {
-        return (avals.stream().mapToInt(Integer::intValue).sum() / avals.size());
+    public int mediaClassificacoes () {
+        return (this.classificacoes.stream().mapToInt(Integer::intValue).sum() / this.classificacoes.size());
     }
     public double totalPreco(){
         return this.viagens.stream().mapToDouble(t->t.getPreco()).sum();
