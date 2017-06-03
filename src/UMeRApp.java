@@ -224,11 +224,11 @@ public class UMeRApp{
                         umer.solicitarViagem(local, matricula);
                         }
                         catch (NaoExisteTaxiException | MotoristaNaoDispException e){
-                            System.out.println("Taxi Inexistente/Motorista Indesponivel de Momento");
+                            System.out.println("Taxi Inexistente/Motorista Indisponivel de Momento");
                         }
                         break;
                     }
-        }while(menuCliente.getOpcao()!=0);
+        }while(menuSolicitaViagem.getOpcao()!=0);
     }
     /**
      * Carrega o estado da aplicação da última vez que esta foi fechada.
@@ -320,7 +320,7 @@ public class UMeRApp{
         email = pt.nextLine();
     
         System.out.print("Password: ");
-        password = console.readPassword().toString();
+        password = pt.nextLine();
     
 
         try{ umer.iniciaSessao(email,password);

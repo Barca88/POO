@@ -183,8 +183,7 @@ public class Umer implements Serializable {
         Cliente c = (Cliente) this.users.get(this.utilizador.getEmail());
         return this.taxis.values().stream()
         .filter(t->t.getMotorista().getDisponibilidade())
-        .sorted(new ComparadorDistancias(c.getLocal()))
-        .findFirst().get().clone();
+        .max(new ComparadorDistancias(c.getLocal())).get();
     }
     /**
      * Funcao que classifica o motorista e atualiza apos viagem.
