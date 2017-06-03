@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 public class Viagem implements Serializable {
 
     private double preco;
-    private double diferença;
+    private double diferenca;
     private Localizacao liCliente;
     private Localizacao liTaxi;
     private Localizacao liDestino;
@@ -13,7 +13,7 @@ public class Viagem implements Serializable {
 
     public Viagem(){
         this.preco = 0.0;
-        this.diferença = 0.0;
+        this.diferenca = 0.0;
         this.liCliente = new Localizacao();
         this.liTaxi = new Localizacao();
         this.liDestino = new Localizacao();
@@ -21,9 +21,9 @@ public class Viagem implements Serializable {
         //falta data
     }
     public Viagem(double preco, Localizacao liCliente, Localizacao liTaxi,
-                  Localizacao liDestino, Taxi taxi, double diferença){
+                  Localizacao liDestino, Taxi taxi, double diferenca){
         this.preco = preco;
-        this.diferença = diferença;
+        this.diferenca = diferenca;
         this.liCliente = liCliente;
         this.liTaxi = liTaxi;
         this.liDestino = liDestino;
@@ -32,7 +32,7 @@ public class Viagem implements Serializable {
     }
     public Viagem(Viagem v){
     	this.preco = v.getPreco();
-        this.diferença = v.getDiferenca();
+        this.diferenca = v.getDiferenca();
     	this.liCliente = v.getLiCliente();
         this.liTaxi = v.getLiTaxi();
         this.liDestino = v.getLiDestino();
@@ -45,7 +45,7 @@ public class Viagem implements Serializable {
     	return preco;
     }
     public double getDiferenca(){
-        return diferença;
+        return diferenca;
     }
     public Localizacao getLiCliente(){
     	return liCliente;
@@ -67,8 +67,8 @@ public class Viagem implements Serializable {
     public void setPreco(double preco){
         this.preco = preco;
     }
-    public void setDiferenca(double diferença){
-        this.diferença = diferença;
+    public void setDiferenca(double diferenca){
+        this.diferenca = diferenca;
     }
     public void setLiCliente(Localizacao liCLiente){
         this.liCliente = liCliente;
@@ -91,11 +91,11 @@ public class Viagem implements Serializable {
         double custo = distanciaViagem();
         custo = custo * this.taxi.getPreco();
         if(this.taxi.getFiab() <= 1.25 ){
-            this.diferença = - (custo * this.taxi.getFiab());
+            this.diferenca = - (custo * this.taxi.getFiab());
             custo = custo * this.taxi.getFiab();
         }
         else 
-            this.diferença = (custo * this.taxi.getFiab()) - custo;
+            this.diferenca = (custo * this.taxi.getFiab()) - custo;
         return custo;
     }
 

@@ -100,6 +100,12 @@ public class Motorista extends Utilizador{
         return this.viagens.stream().mapToDouble(t->t.getPreco()).sum();
     }
 
+    public double totalDiferenca(){
+        return this.viagens.stream().mapToDouble(t->t.getDiferenca()).sum();
+    }
+
+
+
     public Motorista clone(){
         return new Motorista (this);
     }
