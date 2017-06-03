@@ -333,7 +333,7 @@ public class UMeRApp implements Serializable{
         y = pt.nextDouble();
 
         Localizacao l = new Localizacao(x,y);
-        umer.setPosicaoCliente(l);
+        umer.setNovaPos(l);
     }
     /**
      * Fechar sessão na Aplicaçao.
