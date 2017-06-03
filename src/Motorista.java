@@ -117,8 +117,8 @@ public class Motorista extends Utilizador{
     }
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Grau de Cumprimento: ").append(grauCump).append("\n");
-        sb.append("Classificacão: ").append(classiFinal).append("\n");
+        sb.append("Grau de Cumprimento:(0-100) ").append(grauCump).append("\n");
+        sb.append("Classificacão:(0-100) ").append(classiFinal).append("\n");
         sb.append("Total de kms: ").append(totalKms).append("\n");
         sb.append("Disponibilidade: ").append(disponibilidade).append("\n");
         return sb.toString();
