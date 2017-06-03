@@ -86,8 +86,7 @@ public class UMeRApp implements Serializable{
         String [] menu0 = {"Menu",
                            "Terminar sessão"};
         String [] menu1 = {"Registar Utilizador",
-                           "Iniciar sessão",
-                           "Menu"};
+                           "Iniciar sessão"};
         String [] menu2 = {"Motorista",
                            "Cliente"};
         String [] menu3 = {"Disponivel",
