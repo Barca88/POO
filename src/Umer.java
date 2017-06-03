@@ -250,6 +250,10 @@ public class Umer implements Serializable {
         return cli.getTotalGasto();
     }
 
+    public Motorista getMotorista(){
+        return (Motorista) this.users.get(this.utilizador.getEmail());
+    }
+
     public boolean existeTaxi(){
         return this.taxis.values().stream().anyMatch(t->t.getMotorista().equals(this.users.get(utilizador.getEmail())));
     }

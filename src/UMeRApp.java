@@ -7,10 +7,8 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.lang.ClassNotFoundException;
 import java.lang.IllegalStateException;
-import java.util.TreeMap;
-import java.util.Set;
-import java.util.HashSet;
 import java.time.LocalDateTime;
+import java.util.regex.MatchResult;
 public class UMeRApp{
     private static Umer umer;
     private static Menu menuLogado, menuPrincipal, menuRegistar,
@@ -56,7 +54,7 @@ public class UMeRApp{
                     case 1: registo();
                             break;
                     case 2: iniciarSessao();
-                            if((umer.getUtilizador() instanceof Motorista) && !(umer.temTaxi()) associarMotoristaViatura();
+                            if((umer.getUtilizador() instanceof Motorista) && !(umer.existeTaxi())) associarMotoristaViatura();
                             break;
                     case 3: menu();
                             break;
@@ -154,7 +152,10 @@ public class UMeRApp{
         System.out.println("A sua Classificação e: " + umer.motoristaClassificacao());
     }
     private static void clienteTotalGasto(){
-        System.out.println("Total gasto em viagens: " + umer.getTotalGasto());
+        System.out.println("Total gasto em viagens: " + umer.totalGasto());
+    }
+    private static void totalFaturadoNaViatura(){
+        System.out.println("Total Faturado: " + umer.totalFaturado());
     }
     /**
      * Mostra o historico entre 2 datas
@@ -166,7 +167,7 @@ public class UMeRApp{
         System.out.println("Insira a Data mais recente\n");
         fim = pedirData();
         for(Viagem v : umer.getViagensData(inicio,fim)){
-            System.out.println(toString(v));
+            System.out.println(v.toString());
         }
 
     }
@@ -177,17 +178,17 @@ public class UMeRApp{
         Scanner pt = new Scanner(System.in);
         System.out.println("Ano:\n");
         int ano = pt.nextInt();
-
+        LocalDateTime dt = null; 
         System.out.println("Formato: dd.MM. HH:mm\n");
         pt.nextLine();
         pt.findInLine("(\\d\\d)\\.(\\d\\d)\\. (\\d\\d):(\\d\\d)");
         try{
-            MatchResult mr = sc.match();
+            MatchResult mr = pt.match();
             int mes = Integer.parseInt(mr.group(2));
             int dia = Integer.parseInt(mr.group(1));
             int hora = Integer.parseInt(mr.group(3));
             int minuto = Integer.parseInt(mr.group(4));
-            LocalDateTime dt = LocalDateTime.of(ano, mes, dia, hora, minuto);
+            dt = LocalDateTime.of(ano, mes, dia, hora, minuto);
             System.out.println(dt);
         } catch(IllegalStateException e){
             System.err.println("Invalid date-time format.");
@@ -212,15 +213,15 @@ public class UMeRApp{
         do{
             menuSolicitaViagem.executa();
             switch(menuSolicitaViagem.getOpcao()){
-                case 1: solicitarViagem(local);              // --TODO
+                case 1: umer.solicitarViagem(local);              // --TODO
                         break;
                 case 2: System.out.println("Insira a Matricula do Taxi: ");
                         matricula = pt.nextLine();
                         try{
-                        solicitarViagem(local, matricula);
+                        umer.solicitarViagem(local, matricula);
                         }
                         catch (NaoExisteTaxiException | MotoristaNaoDispException e){
-                            throw e;
+                            System.out.println("Taxi Inexistente/Motorista Indesponivel de Momento");
                         }
                         break;
                     }
@@ -251,7 +252,7 @@ public class UMeRApp{
      * Registo na UMeRApp.
      */
     private static void registo(){
-        Utilizador user;
+        Utilizador user = null;
         Scanner pt = new Scanner(System.in);
 
         menuRegistar.executa();
@@ -270,11 +271,10 @@ public class UMeRApp{
             dataNasc = pt.nextLine();
 
             switch(menuRegistar.getOpcao()){
-                case 1: user = new Motorista(nome,email,password,morada,data,0,0,0,true);
+                case 1: user = new Motorista(nome,email,password,morada,dataNasc,0,0,0,true);
                         break;
-                case 2: user = new Cliente(null,nome,email,password,morada,data,0.0);
+                case 2: user = new Cliente(null,nome,email,password,morada,dataNasc,0.0);
                         break;
-                default: user = new Utilizador();
             }
             try{ umer.registarUtilizador(user);
             } catch(UtilizadorExistenteException e){
@@ -296,12 +296,13 @@ public class UMeRApp{
         System.out.println("Insira Y.Y: " );
         y = pt.nextDouble();
         Localizacao gps = new Localizacao(x,y);
-        taxi = new Taxi(matricula,umer.getUtilizador(),70,4.5,0,gps);
+        Taxi taxi = new Taxi(matricula,(Motorista) umer.getMotorista(),70,4.5,0,gps);
         try{
             umer.registarViatura(taxi);
         }
-        catch(ViaturaExistenteException e)
+        catch(ViaturaExistenteException e){
         System.out.println("Viatura ja registada");
+        }   
     }
     /**
      * Inicio de sessão na UMeRApp.
@@ -317,7 +318,7 @@ public class UMeRApp{
 
         try{ umer.iniciaSessao(email,password);
         }catch(SemAutorizacaoException e){
-            throw e;
+            System.out.println("Credenciais Incorretas, tente outra vez");
         }
 
         pt.close();
