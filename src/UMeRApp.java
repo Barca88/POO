@@ -93,7 +93,6 @@ public class UMeRApp{
                            "Classificação",
                            "Total Faturado na Viatura",
                            "Associar-me a Viatura"};
-    /*
         String [] menu4 = {"Solicitar Viagem",
                            "Total Gasto em Viagens",
                            "Histórico de Viagens",
@@ -137,13 +136,14 @@ public class UMeRApp{
                         break;
                 case 3: runMenuHistorico();
                         break;
-                case 4: numeroDeKmsRealizados();       
+                case 4: numeroDeKmsRealizados();
                         break;
-                case 5: classificacao();              
+                case 5: motoristaClassificacao();
                         break;
                 case 6: totalFaturadoNaViatura();      // --TODO
                         break;
                 case 7: associarMotoristaViatura();
+                        break;
                 }
             }while(menuMotoristas.getOpcao()!=0);
     }
@@ -167,7 +167,7 @@ public class UMeRApp{
         System.out.println("Insira a Data mais recente\n");
         fim = pedirData();
         for(Viagem v : umer.getViagensData(inicio,fim)){
-            System.out.println(toString(v)); 
+            System.out.println(toString(v));
         }
 
     }

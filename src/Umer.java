@@ -167,12 +167,12 @@ public class Umer implements Serializable {
         mot.setDisponibilidade(false);
         mot.insereViagem(viagem);
         cli.insereViagem(viagem);
-        
+
     }
-    
+
     }
     private Viagem criaViagem(Localizacao lDest, Localizacao cDest, Taxi taxi){
-        Viagem viagem = new Viagem(); 
+        Viagem viagem = new Viagem();
         viagem.setLiCliente(cDest);
         viagem.setLiTaxi(taxi.getLocal());
         viagem.setLiDestino(lDest);
@@ -234,7 +234,7 @@ public class Umer implements Serializable {
         return cli.getViagens().stream()
         .filter(v->v.getDia().isBefore(d2) && v.getDia().isAfter(d1))
         .map(c->c.clone())
-        .collect(Collectors.toCollection(ArrayList :: new)); 
+        .collect(Collectors.toCollection(ArrayList :: new));
         }
         else{
         Motorista mot = (Motorista) user;
@@ -251,26 +251,22 @@ public class Umer implements Serializable {
         Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
         mot.setDisponibilidade(b);
     }
-
     public double numeroDeKmsRealizados(){
         Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
         return mot.getTotalKms();
     }
-
     public int motoristaClassificacao(){
         Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
         return mot.getclassiFinal();
-    }
-
-    /*
-        public double totalFaturado(){
+    }/*
+    public double totalFaturado(){
         Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
         Taxi taxi = this.taxis.values().stream().filter(t->t.getMotorista().equals(mot)).;
-    }
+    }*/
 
 
  //TODO
- */ 
+ 
 
     public void terminaSessao(){
         this.utilizador = null;
