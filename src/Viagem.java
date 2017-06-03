@@ -7,9 +7,7 @@ public class Viagem implements Serializable {
     private Localizacao liCliente;
     private Localizacao liTaxi;
     private Localizacao liDestino;
-    private Cliente cliente;
     private Taxi taxi;
-    private Motorista motorista;
     private LocalDateTime dia;
 
     public Viagem(){
@@ -17,29 +15,25 @@ public class Viagem implements Serializable {
         this.liCliente = new Localizacao();
         this.liTaxi = new Localizacao();
         this.liDestino = new Localizacao();
-        this.cliente = new Cliente();
         this.taxi = new Taxi();
-        this.motorista = new Motorista();
+        //falta data
     }
     public Viagem(double preco, Localizacao liCliente, Localizacao liTaxi,
-                  Localizacao liDestino, Cliente cliente,
-                  Taxi taxi, Motorista motorista){
+                  Localizacao liDestino, Taxi taxi){
         this.preco = preco;
         this.liCliente = liCliente;
         this.liTaxi = liTaxi;
         this.liDestino = liDestino;
-        this.cliente = cliente;
         this.taxi = taxi;
-        this.motorista = motorista;
+        //data
     }
     public Viagem(Viagem v){
     	this.preco = v.getPreco();
     	this.liCliente = v.getLiCliente();
         this.liTaxi = v.getLiTaxi();
         this.liDestino = v.getLiDestino();
-        this.cliente = v.getCliente();
         this.taxi = v.getTaxi();
-        this.motorista = v.getMotorista();
+        //data
     }
 
     //Getters
@@ -55,14 +49,8 @@ public class Viagem implements Serializable {
     public Localizacao getLiDestino(){
     	return liDestino;
     }
-    public Cliente getCliente(){
-        return cliente;
-    }
     public Taxi getTaxi(){
         return taxi;
-    }
-    public Motorista getMotorista(){
-    	return motorista;
     }
     public LocalDateTime getDia(){
         return dia;
@@ -84,25 +72,15 @@ public class Viagem implements Serializable {
     public void setTaxi(Taxi taxi){
         this.taxi = taxi;
     }
-    public void setCliente(Cliente cliente){
-    	this.cliente = cliente;
-    }
-    public void setMotorista(Motorista motorista){
-    	this.motorista = motorista;
-    }
     public void setDia(LocalDateTime dia){
         this.dia = dia;
     }
 
-    public void avaliaMotorista(int aval){
-        motorista.insereClassificacao(aval);
-    }
-
     //Metodos
-    public double precoViagem(Localizacao destino){
+    public double precoViagem(){
         double custo;
-        custo = Localizacao.distancia(this.taxi.getLocal(),cliente.getLocal());
-        custo += Localizacao.distancia(this.cliente.getLocal(),destino);
+        custo = Localizacao.distancia(liTaxi,liCliente);
+        custo += Localizacao.distancia(liCliente,liDestino);
         custo = custo * this.taxi.getPreco();
         return custo;
     }
@@ -131,9 +109,7 @@ public class Viagem implements Serializable {
         o.getLiCliente() == this.getLiCliente() &&
         o.getLiTaxi() == this.getLiTaxi() &&
         o.getLiDestino() == this.getLiDestino() &&
-        o.getCliente() == this.getCliente() &&
-        o.getTaxi() == this.getTaxi() &&
-        o.getMotorista() == this.getMotorista();
+        o.getTaxi() == this.getTaxi();
     }
     public String toString(){
         StringBuilder sb = new StringBuilder();
