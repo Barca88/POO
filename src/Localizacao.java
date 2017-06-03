@@ -1,6 +1,6 @@
 import java.lang.Math;
-
-public class Localizacao{
+import java.io.Serializable;
+public class Localizacao implements Serializable{
     // instance variables - replace the example below with your own
     private double x;
     private double y;

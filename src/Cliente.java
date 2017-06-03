@@ -1,8 +1,8 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-public class Cliente extends Utilizador{
+import java.io.Serializable;
+public class Cliente extends Utilizador implements Serializable{
 
     private Localizacao gps;
     private double totalGasto;
