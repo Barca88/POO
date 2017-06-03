@@ -294,7 +294,7 @@ public class UMeRApp implements Serializable{
         System.out.println("Insira a posiçao da sua Viatura");
         System.out.println("Insira X.X: ");
         x = pt.nextDouble();
-        System.out.println("Insira Y.Y: " );
+        System.out.println("Insira Y.Y: ");
         y = pt.nextDouble();
         Localizacao gps = new Localizacao(x,y);
         Taxi taxi = new Taxi(matricula,(Motorista) umer.getMotorista(),70,4.5,0,gps);
@@ -339,11 +339,17 @@ public class UMeRApp implements Serializable{
     }
     private static void classificar(){
         Scanner pt = new Scanner(System.in);
-        int x;
-        System.out.println("Insira a Classificação do Motorista 0 a 5");
+        int x=0;
+        System.out.println("Insira a Classificação do Motorista 0 a 100");
+        while(x!=-1){
         x = pt.nextInt();
+        if((x<=100 && x>=0)){
         umer.classificaMotorista(x);
+        x = -1;       
+        }
+        else System.out.println("Insira um numero de 0-100");
     }
+}
     /**
      * Fechar sessão na Aplicaçao.
      */
