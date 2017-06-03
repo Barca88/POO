@@ -82,6 +82,10 @@ public class Taxi implements Serializable{
     public void setLocal(Localizacao gps){
         this.gps = gps;
     }
+    public void setTotalFaturado(double total){
+        this.totalFaturado = total;
+
+    }
     public Taxi clone(){
         return new Taxi(this);
     }

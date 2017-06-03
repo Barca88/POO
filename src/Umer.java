@@ -169,11 +169,8 @@ public class Umer implements Serializable {
         cli.insereViagem(viagem);
         
     }
-    // --TODO
-
-    /*public static void solicitarViagem(String matricula){
-
-    }*/
+    
+    }
     private Viagem criaViagem(Localizacao lDest, Localizacao cDest, Taxi taxi){
         Viagem viagem = new Viagem(); 
         viagem.setLiCliente(cDest);
@@ -206,6 +203,7 @@ public class Umer implements Serializable {
         mot.setClassiFinal(mot.mediaClassificacoes());
         mot.setDisponibilidade(true);
         taxi.setLocal(vig.getLiDestino());
+        taxi.setTotalFaturado(taxi.getTotalFaturado() + vig.getPreco());
         cli.setTotalGasto(cli.getTotalGasto() + vig.getPreco());
         mot.setTotalKms(mot.getTotalKms() + vig.distanciaViagem());
     }
@@ -218,6 +216,14 @@ public class Umer implements Serializable {
     public ArrayList<Utilizador> top10Gastos (){
         return this.users.values().stream().filter(t->t instanceof Cliente)
         .sorted(new ComparadorCustos()).limit(10)
+        .map(t->t.clone())
+        .collect(Collectors.toCollection(ArrayList :: new));
+    }
+
+    public ArrayList<Utilizador> top5EstimadoFinal(){
+        this.users.values().stream().filter.(t->t instanceof Motorista)
+        .sorted(new ComparadorDiferencaCustos()).limit(5)
+        .map(m->m.clone())
         .collect(Collectors.toCollection(ArrayList :: new));
     }
 
@@ -227,12 +233,14 @@ public class Umer implements Serializable {
         Cliente cli = (Cliente) user;
         return cli.getViagens().stream()
         .filter(v->v.getDia().isBefore(d2) && v.getDia().isAfter(d1))
+        .map(c->c.clone())
         .collect(Collectors.toCollection(ArrayList :: new)); 
         }
         else{
         Motorista mot = (Motorista) user;
         return mot.getViagens().stream()
         .filter(v->v.getDia().isBefore(d2) && v.getDia().isAfter(d1))
+        .map(v->v.clone())
         .collect(Collectors.toCollection(ArrayList :: new));
         }
     }
@@ -244,6 +252,25 @@ public class Umer implements Serializable {
         mot.setDisponibilidade(b);
     }
 
+    public double numeroDeKmsRealizados(){
+        Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
+        return mot.getTotalKms();
+    }
+
+    public int motoristaClassificacao(){
+        Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
+        return mot.getclassiFinal();
+    }
+
+    /*
+        public double totalFaturado(){
+        Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
+        Taxi taxi = this.taxis.values().stream().filter(t->t.getMotorista().equals(mot)).;
+    }
+
+
+ //TODO
+ */ 
 
     public void terminaSessao(){
         this.utilizador = null;

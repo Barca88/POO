@@ -93,9 +93,11 @@ public class UMeRApp{
                            "Classificação",
                            "Total Faturado na Viatura",
                            "Associar-me a Viatura"};
+    /*
         String [] menu4 = {"Solicitar Viagem",
                            "Total Gasto em Viagens",
-                           "Histórico de Viagens"};
+                           "Histórico de Viagens",
+                           };
         String [] menu5 = {"Taxi Mais Próximo",
                            "Pedir Um Taxi"};
 
@@ -122,17 +124,39 @@ public class UMeRApp{
             }
         }while(menuCliente.getOpcao()!=0);
     }
-
 /*
-    private static void runMenuHistorico(){
-        LocalDateTime inicio, fim;
-            System.out.println("Insira a Data mais antiga:\n");
-            inicio = pedirData();
-            System.out.println("Insira a Data mais recente\n");
-            fim = pedirData();
-
-        }*/
+     * Executar menu para Motoristas
+     */
+    private static void runMenuMotorista(){
+        do{
+            menuMotoristas.executa();
+            switch(menuMotoristas.getOpcao()){
+                case 1: umer.disponibilidade(true);
+                        break;
+                case 2: umer.disponibilidade(false);
+                        break;
+                case 3: runMenuHistorico();
+                        break;
+                case 4: numeroDeKmsRealizados();       
+                        break;
+                case 5: classificacao();              
+                        break;
+                case 6: totalFaturadoNaViatura();      // --TODO
+                        break;
+                case 7: associarMotoristaViatura();
+                }
+            }while(menuMotoristas.getOpcao()!=0);
     }
+
+    private static void numeroDeKmsRealizados(){
+        System.out.println("Numero de Kilometros efectuado: " + umer.numeroDeKmsRealizados() + "Kms");
+    }
+
+    private static void classificacao(){
+        System.out.println("A sua Classificação e: " + umer.motoristaClassificacao());
+    }
+
+
    /**
      * Mostra o historico entre 2 datas
      */
@@ -171,32 +195,13 @@ public class UMeRApp{
         }
         return dt;
     }
-    /*
-     * Executar menu para Motoristas
-     */
-    /*private static void runMenuMotorista(){
-        do{
-            menuMotoristas.executa();
-            switch(menuMotoristas.getOpcao()){
-                case 1: disponibilidade(true);
-                        break;
-                case 2: disponibilidade(false);
-                        break;
-                case 3: runMenuHistorico();
-                        break;
-                case 4: numeroDeKmsRealizados();       // --TODO
-                        break;
-                case 5: classificação();               // --TODO
-                        break;
-                case 6: totalFaturadoNaViatura();      // --TODO
-                        break;
-                case 7: associarMotoristaViatura();
-                }
-            }while(menuMotoristas.getOpcao()!=0);
-    }*/
+    }
+
     /**
      * Executar o menu para utilizadores Clientes
      */
+
+
      private static void runMenuSolicitaViagem(){
         Scanner pt = new Scanner(System.in);
         double x,y;
@@ -215,7 +220,10 @@ public class UMeRApp{
                         break;
                 case 2: System.out.println("Insira a Matricula do Taxi: ");
                         matricula = pt.nextLine();
+                        try{
                         solicitarViagem(local, matricula);
+                        }
+                        catch (NaoExisteTaxiException e1, MotoristaNaoDispException e2);
                         break;
                     }
         }while(menuCliente.getOpcao()!=0);
@@ -301,9 +309,9 @@ public class UMeRApp{
         String email, password;
 
         System.out.print("E-mail: ");
-        email = pt.nextDouble();
+        email = pt.nextLine();
         System.out.print("Password: ");
-        password = pt.nextDouble();
+        password = pt.nextLine();
 
         try{ umer.iniciaSessao(email,password);
         }catch(SemAutorizacaoException e){
@@ -313,7 +321,7 @@ public class UMeRApp{
         pt.close();
     }
     /**
-     * Fechar sessão na ImobiliariaApp.
+     * Fechar sessão na Aplicaçao.
      */
     private static void terminarSessao(){
         umer.terminaSessao();
