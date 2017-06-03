@@ -132,7 +132,7 @@ public class Umer implements Serializable {
         }else throw new SemAutorizacaoException("Ja tem sessão iniciada");
     }
     public void solicitarViagem(Localizacao lDest) {
-        Taxi taxi = this.compLoaclizacao();
+        Taxi taxi = this.compLocalizacao();
         Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
         double random = ThreadLocalRandom.current().nextDouble(1.0,2.0+1.0);
@@ -170,12 +170,17 @@ public class Umer implements Serializable {
     /*
     * Devolve o taxi mais proximo do cliente registado
     */
-    private Taxi compLoaclizacao(){
+    private Taxi compLocalizacao(){
         Cliente c = (Cliente) this.users.get(this.utilizador.getEmail());
-        return this.taxis.values().stream()
-        .filter(t->t.getMotorista().getDisponibilidade())
-        .sorted(new ComparadorDistancias(c.getLocal()))
-        .findFirst().get().clone();
+        double dist = 10000000000000000000.0;
+        Taxi taxi = null;
+        for(Taxi t : this.taxis.values()){
+            if ((Localizacao.distancia(c.getLocal(),t.getLocal())) < dist) {
+                taxi = t;
+                dist = Localizacao.distancia(c.getLocal(),t.getLocal());
+            }
+        }
+        return taxi;
     }
     public void classificaMotorista(int aval){
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
