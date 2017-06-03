@@ -131,6 +131,7 @@ public class Viagem implements Serializable {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Preço da Viagem: ").append(preco).append("\n");
+        sb.append(liDestino.toString());
         return sb.toString();
     }
 }

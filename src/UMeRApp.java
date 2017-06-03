@@ -86,7 +86,8 @@ public class UMeRApp{
                            "Menu"};
         String [] menu2 = {"Motorista",
                            "Cliente"};
-        String [] menu3 = {"Disponibilidade",
+        String [] menu3 = {"Disponivel",
+                           "Não Disponivel",
                            "Histórico de Viagens",
                            "Numero de Kms realizados",
                            "Classificação",
@@ -108,7 +109,7 @@ public class UMeRApp{
     /**
      * Executar o menu para utilizadores Clientes
      */
-     private static void runMenuCliente(){
+    private static void runMenuCliente(){
         do{
             menuCliente.executa();
             switch(menuCliente.getOpcao()){
@@ -116,12 +117,12 @@ public class UMeRApp{
                         break;
                 case 2: totalPreco();
                         break;
-                //case 3: runMenuHistorico();         // --TODO
-            //            break;
-
+                case 3: runMenuHistorico();
+                        break;
             }
         }while(menuCliente.getOpcao()!=0);
     }
+
 /*
     private static void runMenuHistorico(){
         LocalDateTime inicio, fim;
@@ -132,48 +133,64 @@ public class UMeRApp{
 
         }*/
     }
+   /**
+     * Mostra o historico entre 2 datas
+     */
+    private static void runMenuHistorico(){
+        LocalDateTime inicio, fim;
+        System.out.println("Insira a Data mais antiga:\n");
+        inicio = pedirData();
+        System.out.println("Insira a Data mais recente\n");
+        fim = pedirData();
+        for(Viagem v : umer.getViagensData(inicio,fim)){
+            System.out.println(toString(v)); 
+        }
+
+    }
     /**
-    * Funçao para pedir um LocalDateTime
-    */
+     * Funçao para pedir um LocalDateTime
+     */
     private static LocalDateTime pedirData(){
         Scanner pt = new Scanner(System.in);
         System.out.println("Ano:\n");
-        int year = pt.nextInt();
+        int ano = pt.nextInt();
 
         System.out.println("Formato: dd.MM. HH:mm\n");
         pt.nextLine();
         pt.findInLine("(\\d\\d)\\.(\\d\\d)\\. (\\d\\d):(\\d\\d)");
         try{
             MatchResult mr = sc.match();
-            int month = Integer.parseInt(mr.group(2));
-            int day = Integer.parseInt(mr.group(1));
-            int hour = Integer.parseInt(mr.group(3));
-            int minute = Integer.parseInt(mr.group(4));
-            LocalDateTime dt = LocalDateTime.of(year, month, day, hour, minute);
+            int mes = Integer.parseInt(mr.group(2));
+            int dia = Integer.parseInt(mr.group(1));
+            int hora = Integer.parseInt(mr.group(3));
+            int minuto = Integer.parseInt(mr.group(4));
+            LocalDateTime dt = LocalDateTime.of(ano, mes, dia, hora, minuto);
             System.out.println(dt);
         } catch(IllegalStateException e){
             System.err.println("Invalid date-time format.");
         }
         return dt;
     }
-    /**
+    /*
      * Executar menu para Motoristas
      */
     /*private static void runMenuMotorista(){
         do{
             menuMotoristas.executa();
             switch(menuMotoristas.getOpcao()){
-                case 1: disponibilidade();             // --TODO
+                case 1: disponibilidade(true);
                         break;
-                case 2: historicoDeViagens();          // --TODO
+                case 2: disponibilidade(false);
                         break;
-                case 3: numeroDeKmsRealizados();       // --TODO
+                case 3: runMenuHistorico();
                         break;
-                case 4: classificação();               // --TODO
+                case 4: numeroDeKmsRealizados();       // --TODO
                         break;
-                case 5: totalFaturadoNaViatura();      // --TODO
+                case 5: classificação();               // --TODO
                         break;
-                case 6: associarMotoristaViatura();
+                case 6: totalFaturadoNaViatura();      // --TODO
+                        break;
+                case 7: associarMotoristaViatura();
                 }
             }while(menuMotoristas.getOpcao()!=0);
     }*/
@@ -236,13 +253,13 @@ public class UMeRApp{
             String nome, email, password, morada, dataNasc;
 
             System.out.print("Nome: ");
-            nome = pt.nextLine();
+            nome = pt.nextDouble();
             System.out.print("Email: ");
-            email = pt.nextLine();
+            email = pt.nextDouble();
             System.out.print("Password: ");
-            password = pt.nextLine();
+            password = pt.nextDouble();
             System.out.print("Morada: ");
-            morada = pt.nextLine();
+            morada = pt.nextDouble();
             System.out.print("Data de nascimento: ");
             dataNasc = pt.nextDouble();
 

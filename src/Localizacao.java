@@ -67,7 +67,7 @@ public class Localizacao{
         if(obj == null || obj.getClass() != this.getClass())
             return false;
         Localizacao l = (Localizacao) obj;
-        return super.equals(l) && l.getX() == this.getX() && l.getY() == this.getY();
+        return l.getX() == this.getX() && l.getY() == this.getY();
     }
     
     public Localizacao clone(){
