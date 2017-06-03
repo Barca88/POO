@@ -294,4 +294,17 @@ public class Umer implements Serializable {
     public void terminaSessao(){
         this.utilizador = null;
     }
+    /**
+      *
+      * Funcao que retorna motorista do catalogo.
+      */		
+    public Motorista getMotorista(){
+         return (Motorista) this.users.get(this.utilizador.getEmail());
+    }
+    /**
+     * Funcao que verifica se o taxi do motorista existe no catalogo.
+     */
+    public boolean existeTaxi(){
+         return this.taxis.values().stream().anyMatch(t->t.getMotorista().equals(this.users.get(utilizador.getEmail())));
+    }
 }
