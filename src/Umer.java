@@ -143,31 +143,25 @@ public class Umer implements Serializable {
     }
     public void solicitarViagem(Localizacao lDest) {
         Taxi taxi = this.compLoaclizacao();
-        Motorista mot = (Motorista) taxi.getMotorista().clone();
-        Viagem viagem = criaViagem(lDest,taxi,(Cliente)this.utilizador.clone());
-        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail());
+        Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
+        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
+        Viagem viagem = criaViagem(lDest,taxi,cli);
         mot.setDisponibilidade(false);
         mot.insereViagem(viagem);
         cli.insereViagem(viagem);
-        this.taxis.replace(taxi.getMatricula(),taxi);
-        this.users.replace(mot.getEmail(),mot);
-        this.users.replace(cli.getEmail(),cli);
     }
 
     public void solicitarViagem(Localizacao lDest, String matricula) throws NaoExisteTaxiException, MotoristaNaoDispException{
         if (!this.taxis.containsKey(matricula)) throw new NaoExisteTaxiException("Viatura nao registada");
         Taxi taxi = this.taxis.get(matricula).clone();
-        Motorista mot = (Motorista) taxi.getMotorista().clone();
+        Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
         if (!mot.getDisponibilidade()) throw new MotoristaNaoDispException("Motorista nao disponivel");
         Viagem viagem = criaViagem(lDest,taxi,cli);
         mot.setDisponibilidade(false);
         mot.insereViagem(viagem);
         cli.insereViagem(viagem);
-        this.taxis.replace(taxi.getMatricula(),taxi);
-        this.users.replace(mot.getEmail(),mot);
-        this.users.replace(cli.getEmail(),cli);
-    }  
+    }
     // --TODO
 
     /*public static void solicitarViagem(String matricula){
@@ -189,10 +183,9 @@ public class Umer implements Serializable {
     */
     private Taxi compLoaclizacao(){
         Cliente c = (Cliente) this.utilizador;
-        Comparator<Taxi> cD = new ComparadorDistancias(c.getLocal());
         return this.taxis.values().stream()
         .filter(t->t.getMotorista().getDisponibilidade())
-        .sorted(cD)
+        .sorted(new ComparadorDistancias(c.getLocal()))
         .findFirst().get().clone();
     }
     public void associaMotTaxi (Motorista mot, Taxi taxi){
