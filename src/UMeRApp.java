@@ -210,7 +210,7 @@ public class UMeRApp implements Serializable{
         do{
             menuSolicitaViagem.executa();
             switch(menuSolicitaViagem.getOpcao()){
-                case 1: umer.solicitarViagem(local);             
+                case 1: umer.solicitarViagem(local);
                         break;
                 case 2: System.out.println("Insira a Matricula do Taxi: ");
                         matricula = pt.nextLine();
@@ -300,22 +300,21 @@ public class UMeRApp implements Serializable{
         }
         catch(ViaturaExistenteException e){
         System.out.println("Viatura ja registada");
-        }   
+        }
     }
     /**
      * Inicio de sessão na UMeRApp.
      */
     private static void iniciarSessao(){
         Scanner pt = new Scanner(System.in);
-        Console console = System.console();
         String email, password;
 
         System.out.print("E-mail: ");
         email = pt.nextLine();
-    
+
         System.out.print("Password: ");
-        password = console.readPassword().toString();
-    
+        password = pt.nextLine();
+
 
         try{ umer.iniciaSessao(email,password);
         }catch(SemAutorizacaoException e){
