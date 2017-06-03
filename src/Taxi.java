@@ -56,9 +56,7 @@ public class Taxi implements Serializable{
     public double getFiab(){
         return fiabilidade;
     }
-    public Localizacao getLocal() throws NullPointerException{
-        if(this.gps == null)
-            throw new NullPointerException("No location is defined");
+    public Localizacao getLocal(){
         return this.gps;
     }
     public double getTotalFaturado(){

@@ -1,12 +1,16 @@
 import java.io.Serializable;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
 import java.io.FileOutputStream;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.OutputStream;
 import java.util.stream.Collectors;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Comparator;
+import java.util.ArrayList;
 
 public class Umer implements Serializable {
     private HashMap<String,Utilizador> users;
@@ -34,20 +38,20 @@ public class Umer implements Serializable {
     }
 
     //Getters
-    
+
     public Map<String,Utilizador> getUsers(){
         return this.users.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
     public Map<String,Taxi> getTaxis(){
         return this.taxis.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
-    
+
     public Utilizador getUtilizador(){
         return utilizador;
     }
 
     //Setters
-   
+
     public void setUsers (HashMap<String,Utilizador> users){
         this.users.entrySet().stream().collect(Collectors.toMap(c->c.getKey(),c->c.getValue()));
     }
@@ -59,7 +63,6 @@ public class Umer implements Serializable {
     public void setUtilizador (Utilizador utilizador){
         this.utilizador = utilizador;
     }
-
 
     // GRAVAR
     /**
@@ -79,22 +82,19 @@ public class Umer implements Serializable {
      * @param fich
      * @return
      */
-    /*
      public static Umer leObj(String fich) throws IOException, ClassNotFoundException {
         ObjectInputStream oi = new ObjectInputStream(new FileInputStream(fich));
 
         Umer um = (Umer) oi.readObject();
 
-        ois.close();
+        oi.close();
         return um;
     }
-
     /**
      * Fazer um ficheiro de texto log com toda a informação na Imobiliária no momento em que é fechada.
      * @param f
      * @param ap
      */
-    /*
     public void log(String f, boolean ap) throws IOException {
         FileWriter fw = new FileWriter(f, ap);
         fw.write("\n========================= LOG ==========================\n");
@@ -102,8 +102,7 @@ public class Umer implements Serializable {
         fw.write("\n========================= LOG ==========================\n");
         fw.flush();
         fw.close();
-    } */
-
+    }
 
     public void registarUtilizador (Utilizador utilizador) throws UtilizadorExistenteException{
 
@@ -124,10 +123,6 @@ public class Umer implements Serializable {
             this.taxis.put(viatura.getMatricula(),viatura);
         }
     }
-
-
-
-
     public void iniciaSessao(String email, String password) throws SemAutorizacaoException {
 
         if(this.utilizador == null){
@@ -150,7 +145,7 @@ public class Umer implements Serializable {
         Taxi taxi = this.compLoaclizacao();
         Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
-        Viagem viagem = criaViagem(lDest,taxi,cli);
+        Viagem viagem = criaViagem(lDest,cli.getLocal(),taxi);
         mot.setDisponibilidade(false);
         mot.insereViagem(viagem);
         cli.insereViagem(viagem);
@@ -175,10 +170,10 @@ public class Umer implements Serializable {
     private Viagem criaViagem(Localizacao lDest, Localizacao cDest, Taxi taxi){
         Viagem viagem = new Viagem();
         viagem.setLiCliente(cDest);
-        viagem.setLiTaxi(tDest);
+        viagem.setLiTaxi(taxi.getLocal());
         viagem.setLiDestino(lDest);
         viagem.setTaxi(taxi);
-        viagem.setPreco(viagem.precoViagem(lDest),precoKM);
+        viagem.setPreco(viagem.precoViagem());
         return viagem;
     }
     /*
@@ -192,12 +187,13 @@ public class Umer implements Serializable {
         .findFirst().get().clone();
     }
 
+
     public void classificaMotorista(int aval){
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
         Motorista mot = (Motorista) this.users.get(cli.getViagens().get(cli.getViagens().size()).getTaxi().getMotorista().getEmail()).clone();
         Taxi taxi = this.taxis.get(cli.getViagens().get(cli.getViagens().size()).getTaxi().getMatricula()).clone();
-        mot.insereClassificacao(class);
-        mot.setClassiFinal(mot.mediaClassificacoes(aval));
+        mot.insereClassificacao(aval);
+        mot.setClassiFinal(mot.mediaClassificacoes());
         mot.setDisponibilidade(true);
         taxi.setLocal(cli.getViagens().get(cli.getViagens().size()).getLiDestino());
     }
@@ -208,23 +204,15 @@ public class Umer implements Serializable {
     }
 
     public ArrayList<String> top10Gastos (){
-        return this.users.entrySet().stream().filter(t->t.getValue() instanceof Cliente).sort(new ComparadorCustos())
-        .limit(10).collect(toCollection(ArrayList :: new));
+        return this.users.entrySet().stream().filter(t->t.getValue() instanceof Cliente).sort(new ComparadorCustos()).limit(10).collect(Collectors.toCollection(ArrayList :: new));
     }
 
-    
 
-
-
-
-
-
-
-
+    public void associaMotTaxi (Motorista mot, Taxi taxi){
+        taxi.setMotorista(mot);
+    }
 
     public void terminaSessao(){
         this.utilizador = null;
     }
 }
-
-
