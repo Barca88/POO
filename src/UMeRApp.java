@@ -9,6 +9,7 @@ import java.lang.ClassNotFoundException;
 import java.lang.IllegalStateException;
 import java.time.LocalDateTime;
 import java.util.regex.MatchResult;
+import java.io.Console;
 public class UMeRApp{
     private static Umer umer;
     private static Menu menuLogado, menuPrincipal, menuRegistar,
@@ -309,12 +310,15 @@ public class UMeRApp{
      */
     private static void iniciarSessao(){
         Scanner pt = new Scanner(System.in);
+        Console console = System.console();
         String email, password;
 
         System.out.print("E-mail: ");
         email = pt.nextLine();
+    
         System.out.print("Password: ");
-        password = pt.nextLine();
+        password = console.readPassword().toString();
+    
 
         try{ umer.iniciaSessao(email,password);
         }catch(SemAutorizacaoException e){
