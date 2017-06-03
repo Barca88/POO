@@ -160,6 +160,7 @@ public class Umer implements Serializable {
         taxi.setFiab(random);
         Viagem viagem = criaViagem(lDest,cli.getLocal(),taxi);
         mot.setDisponibilidade(false);
+
         mot.insereViagem(viagem);
         cli.insereViagem(viagem);
     }
@@ -196,7 +197,7 @@ public class Umer implements Serializable {
      */
     public void classificaMotorista(int aval){
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail());
-        Viagem vig = cli.getViagens().get(cli.getViagens().size());
+        Viagem vig = cli.getViagens().get(cli.getViagens().size() - 1);
         Motorista mot = (Motorista) this.users.get(vig.getTaxi().getMotorista().getEmail());
         Taxi taxi = this.taxis.get(vig.getTaxi().getMatricula());
         mot.insereClassificacao(aval);
