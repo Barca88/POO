@@ -131,8 +131,10 @@ public class UMeRApp{
             menuMotoristas.executa();
             switch(menuMotoristas.getOpcao()){
                 case 1: umer.disponibilidade(true);
+                        System.out.println("Disponivel");
                         break;
                 case 2: umer.disponibilidade(false);
+                        System.out.println("Indisponivel");
                         break;
                 case 3: runMenuHistorico();
                         break;
@@ -140,7 +142,7 @@ public class UMeRApp{
                         break;
                 case 5: motoristaClassificacao();
                         break;
-                case 6: totalFaturadoNaViatura();      // --TODO
+                case 6: totalFaturadoNaViatura();
                         break;
                 }
             }while(menuMotoristas.getOpcao()!=0);
@@ -213,7 +215,7 @@ public class UMeRApp{
         do{
             menuSolicitaViagem.executa();
             switch(menuSolicitaViagem.getOpcao()){
-                case 1: umer.solicitarViagem(local);              // --TODO
+                case 1: umer.solicitarViagem(local);             
                         break;
                 case 2: System.out.println("Insira a Matricula do Taxi: ");
                         matricula = pt.nextLine();
@@ -229,7 +231,6 @@ public class UMeRApp{
     }
     /**
      * Carrega o estado da aplicação da última vez que esta foi fechada.
-     * @param fich
      */
     private static void carregaEstado(String fich){
         try {
@@ -283,7 +284,9 @@ public class UMeRApp{
         }else System.out.println("Registo cancelado!");
         pt.close();
     }
-
+    /**
+     * Funcao que associa motorista a viatura.
+     */
     public static void associarMotoristaViatura(){
         Scanner pt = new Scanner(System.in);
         String matricula;
