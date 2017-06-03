@@ -57,6 +57,7 @@ public class UMeRApp{
                     case 1: registo();
                             break;
                     case 2: iniciarSessao();
+                            if((umer.getUtilizador() instanceof Motorista) && !(umer.temTaxi()) associarMotoristaViatura();
                             break;
                     case 3: menu();
                             break;
@@ -93,8 +94,7 @@ public class UMeRApp{
                            "Histórico de Viagens",
                            "Numero de Kms realizados",
                            "Classificação",
-                           "Total Faturado na Viatura",
-                           "Associar-me a Viatura"};
+                           "Total Faturado na Viatura"};
         String [] menu4 = {"Solicitar Viagem",
                            "Total Gasto em Viagens",
                            "Histórico de Viagens",
@@ -144,28 +144,26 @@ public class UMeRApp{
                         break;
                 case 6: totalFaturadoNaViatura();      // --TODO
                         break;
-                case 7: associarMotoristaViatura();
-                        break;
                 }
             }while(menuMotoristas.getOpcao()!=0);
     }
-
     private static void numeroDeKmsRealizados(){
         System.out.println("Numero de Kilometros efectuado: " + umer.numeroDeKmsRealizados() + "Kms");
     }
-
     private static void motoristaClassificacao(){
         System.out.println("A sua Classificação e: " + umer.motoristaClassificacao());
     }
-
     private static void clienteTotalGasto(){
         System.out.println("Total gasto em viagens: " + umer.getTotalGasto());
     }
+<<<<<<< HEAD
 
     private static void associarMotoristaViatura(){
 
     }
     
+=======
+>>>>>>> a8e346764421fcc1053dc84f31b02dd78f019aed
     /**
      * Mostra o historico entre 2 datas
      */
@@ -180,7 +178,7 @@ public class UMeRApp{
         }
 
     }
-    
+
     /**
     * Funçao para pedir um LocalDateTime
     */
