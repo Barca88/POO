@@ -211,11 +211,13 @@ public class UMeRApp implements Serializable{
             menuSolicitaViagem.executa();
             switch(menuSolicitaViagem.getOpcao()){
                 case 1: umer.solicitarViagem(local);
+                        classificar();
                         break;
                 case 2: System.out.println("Insira a Matricula do Taxi: ");
                         matricula = pt.nextLine();
                         try{
                         umer.solicitarViagem(local, matricula);
+                        classificar();
                         }
                         catch (NaoExisteTaxiException | MotoristaNaoDispException e){
                             System.out.println("Taxi Inexistente/Motorista Indesponivel de Momento");
@@ -333,6 +335,13 @@ public class UMeRApp implements Serializable{
 
         Localizacao l = new Localizacao(x,y);
         umer.setNovaPos(l);
+    }
+    private static void classificar(){
+        Scanner pt = new Scanner(System.in);
+        int x;
+        System.out.println("Insira a Classificação do Motorista 0 a 5");
+        x = pt.nextInt();
+        umer.classificaMotorista(x);
     }
     /**
      * Fechar sessão na Aplicaçao.
