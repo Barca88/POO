@@ -23,10 +23,10 @@ public class UMeRApp implements Serializable{
     public static void main(String[] args) {
         String file_name = "umer_estado";
         carregaMenus();
-        carregaEstado(file_name);
+        carregaEstado();
         apresentarMenu();
         try {
-            umer.gravaObj(file_name);
+            umer.gravaObj();
             umer.log("log.txt", true);
         }
         catch (IOException e) {
@@ -228,9 +228,9 @@ public class UMeRApp implements Serializable{
     /**
      * Carrega o estado da aplicação da última vez que esta foi fechada.
      */
-    private static void carregaEstado(String fich){
+    private static void carregaEstado(){
         try {
-            umer = Umer.leObj(fich);
+            umer = Umer.leObj();
         }
         catch (IOException e){
             umer = new Umer();

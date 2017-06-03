@@ -71,8 +71,8 @@ public class Umer implements Serializable {
      * Gravar o estado da aplicação num determinado ficheiro.
      */
 
-    public void gravaObj(String fich) throws IOException {
-        ObjectOutputStream sv = new ObjectOutputStream(new FileOutputStream(fich));
+    public void gravaObj() throws IOException {
+        ObjectOutputStream sv = new ObjectOutputStream(new FileOutputStream("umer_estado"));
         sv.writeObject(this);
         sv.flush();
         sv.close();
@@ -81,8 +81,8 @@ public class Umer implements Serializable {
     /**
      * Iniciar a aplicação com o estado guardado num determinado ficheiro.
      */
-     public static Umer leObj(String fich) throws IOException, ClassNotFoundException {
-        ObjectInputStream oi = new ObjectInputStream(new FileInputStream(fich));
+     public static Umer leObj() throws IOException, ClassNotFoundException {
+        ObjectInputStream oi = new ObjectInputStream(new FileInputStream("umer_estado"));
 
         Umer um = (Umer) oi.readObject();
 
