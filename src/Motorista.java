@@ -1,8 +1,8 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
-
-public class Motorista extends Utilizador{
+import java.io.Serializable;
+public class Motorista extends Utilizador implements Serializable{
     //var. de instancia
 
     private int grauCump;

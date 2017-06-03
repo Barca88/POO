@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Comparator;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Umer implements Serializable {
@@ -66,7 +66,7 @@ public class Umer implements Serializable {
         this.utilizador = utilizador;
     }
 
-    
+
     /**
      * Gravar o estado da aplicação num determinado ficheiro.
      */
@@ -137,7 +137,7 @@ public class Umer implements Serializable {
      * Solicita uma viagem ao Taxi mais proximo.
      */
     public void solicitarViagem(Localizacao lDest) {
-        Taxi taxi = this.compLoaclizacao();
+        Taxi taxi = this.compLocalizacao();
         Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
         double random = ThreadLocalRandom.current().nextDouble(1.0,2.0+1.0);
@@ -173,17 +173,23 @@ public class Umer implements Serializable {
         viagem.setLiDestino(lDest);
         viagem.setTaxi(taxi);
         viagem.setPreco(viagem.precoViagem());
-        viagem.setDia(LocalDateTime.now());
+        viagem.setDia(LocalDate.now());
         return viagem;
     }
     /*
     * Devolve o taxi mais proximo do cliente registado.
     */
-    private Taxi compLoaclizacao(){
+    private Taxi compLocalizacao(){
         Cliente c = (Cliente) this.users.get(this.utilizador.getEmail());
-        return this.taxis.values().stream()
-        .filter(t->t.getMotorista().getDisponibilidade())
-        .max(new ComparadorDistancias(c.getLocal())).get();
+        double dist = 10000000000000000000.0;
+        Taxi taxi = null;
+        for(Taxi t : this.taxis.values()){
+            if ((Localizacao.distancia(c.getLocal(),t.getLocal())) < dist) {
+                taxi = t;
+                dist = Localizacao.distancia(c.getLocal(),t.getLocal());
+            }
+        }
+        return taxi;
     }
     /**
      * Funcao que classifica o motorista e atualiza apos viagem.
@@ -229,7 +235,7 @@ public class Umer implements Serializable {
     /**
      * Funcao que lista viagens efetuadas entre datas de cliente ou motorista.
      */
-    public ArrayList<Viagem> getViagensData(LocalDateTime d1, LocalDateTime d2){
+        public ArrayList<Viagem> getViagensData(LocalDate d1, LocalDate d2){
         Utilizador user = this.users.get(this.utilizador.getEmail()).clone();
         if(user instanceof Cliente){
         Cliente cli = (Cliente) user;
