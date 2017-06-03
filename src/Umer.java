@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Comparator;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 public class Umer implements Serializable {
     private HashMap<String,Utilizador> users;
@@ -168,12 +169,14 @@ public class Umer implements Serializable {
 
     }*/
     private Viagem criaViagem(Localizacao lDest, Localizacao cDest, Taxi taxi){
-        Viagem viagem = new Viagem();
+        Viagem viagem = new Viagem(); 
         viagem.setLiCliente(cDest);
         viagem.setLiTaxi(taxi.getLocal());
         viagem.setLiDestino(lDest);
         viagem.setTaxi(taxi);
         viagem.setPreco(viagem.precoViagem());
+        viagem.setDia(LocalDateTime.now());
+
         return viagem;
     }
     /*
@@ -203,8 +206,26 @@ public class Umer implements Serializable {
         cli.setLocal(nova);
     }
 
-    public ArrayList<String> top10Gastos (){
-        return this.users.entrySet().stream().filter(t->t.getValue() instanceof Cliente).sort(new ComparadorCustos()).limit(10).collect(Collectors.toCollection(ArrayList :: new));
+    public ArrayList<Utilizador> top10Gastos (){
+        return this.users.entrySet().stream().filter(t->t.getValue() instanceof Cliente)
+        .sorted(new ComparadorCustos()).limit(10)
+        .map(t->t.getValue()).collect(Collectors.toCollection(ArrayList :: new));
+    }
+
+    public ArrayList<Viagem> getViagensData(LocalDateTime d1, LocalDateTime d2){
+        Utilizador user = this.users.get(this.utilizador.getEmail()).clone();
+        if(user instanceof Cliente){
+        Cliente cli = (Cliente) user;
+        return cli.getViagens().stream()
+        .filter(v->v.getDia().isBefore(d2) && v.getDia().isAfter(d1))
+        .collect(Collectors.toCollection(ArrayList :: new)); 
+        }
+        else{
+        Motorista mot = (Motorista) user;
+        return mot.getViagens().stream()
+        .filter(v->v.getDia().isBefore(d2) && v.getDia().isAfter(d1))
+        .collect(Collectors.toCollection(ArrayList :: new));
+        }
     }
 
 
