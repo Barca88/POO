@@ -245,6 +245,11 @@ public class Umer implements Serializable {
         return taxi.getTotalFaturado();
     }
 
+    public double totalGasto(){
+        Cliente cli = (Cliente) this.users.get(utilizador.getEmail()).clone();
+        return cli.getTotalGasto();
+    }
+
     public boolean existeTaxi(){
         return this.taxis.values().stream().anyMatch(t->t.getMotorista().equals(this.users.get(utilizador.getEmail())));
     }
