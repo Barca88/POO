@@ -3,8 +3,8 @@ import java.time.LocalDateTime;
 
 public class Viagem implements Serializable {
 
-    private double preco;
-    private double diferenca;
+    private double preco;  // custo da viagem
+    private double diferenca;  // diferença entre gasto reais e estimados
     private Localizacao liCliente;
     private Localizacao liTaxi;
     private Localizacao liDestino;
@@ -31,9 +31,9 @@ public class Viagem implements Serializable {
         //data
     }
     public Viagem(Viagem v){
-    	this.preco = v.getPreco();
+        this.preco = v.getPreco();
         this.diferenca = v.getDiferenca();
-    	this.liCliente = v.getLiCliente();
+        this.liCliente = v.getLiCliente();
         this.liTaxi = v.getLiTaxi();
         this.liDestino = v.getLiDestino();
         this.taxi = v.getTaxi();
@@ -42,19 +42,19 @@ public class Viagem implements Serializable {
 
     //Getters
     public double getPreco(){
-    	return preco;
+        return preco;
     }
     public double getDiferenca(){
         return diferenca;
     }
     public Localizacao getLiCliente(){
-    	return liCliente;
+        return liCliente;
     }
     public Localizacao getLiTaxi(){
-    	return liTaxi;
+        return liTaxi;
     }
     public Localizacao getLiDestino(){
-    	return liDestino;
+        return liDestino;
     }
     public Taxi getTaxi(){
         return taxi;
@@ -131,8 +131,18 @@ public class Viagem implements Serializable {
     }
     public String toString(){
         StringBuilder sb = new StringBuilder();
+        sb.append("Destino, ").append(liDestio.toString()).append("Taxi, ");
+        sb.append(liTaxi.toString()).append("A Minha, ").append(liCliente.toString())
         sb.append("Preço da Viagem: ").append(preco).append("\n");
+        sb.append("Diferença de preço entre o preço real e o estimado: ").append(diferenca);
         sb.append(liDestino.toString());
         return sb.toString();
     }
 }
+    private double preco; // custo da viagem
+    private  double diferenca; //
+    private Localizacao liCliente;
+    private Localizacao liTaxi;
+    private Localizacao liDestino;
+    private Taxi taxi;
+    private LocalDateTime dia;

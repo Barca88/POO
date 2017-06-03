@@ -103,6 +103,7 @@ public class Taxi implements Serializable{
     }
     public String toString(){
         StringBuilder sb = new StringBuilder();
+        sb.append("Taxi:\n");
         sb.append("Matricula do taxi: ").append(matricula).append("\n");
         sb.append("Velocidade média: ").append(velMedia).append("\n");
         sb.append("Preço base por km: ").append(preco).append("\n");
