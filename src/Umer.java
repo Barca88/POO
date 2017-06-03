@@ -60,7 +60,6 @@ public class Umer implements Serializable {
         this.utilizador = utilizador;
     }
 
-
     // GRAVAR
     /**
      * Gravar o estado da aplicação num determinado ficheiro.
