@@ -218,7 +218,7 @@ public class UMeRApp implements Serializable{
                         umer.solicitarViagem(local, matricula);
                         }
                         catch (NaoExisteTaxiException | MotoristaNaoDispException e){
-                            System.out.println("Taxi Inexistente/Motorista Indesponivel de Momento");
+                            System.out.println("Taxi Inexistente/Motorista Indisponivel de Momento");
                         }
                         break;
                     }
