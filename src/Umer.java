@@ -301,6 +301,14 @@ public class Umer implements Serializable {
         return this.taxis.values().stream().anyMatch(t->t.getMotorista().equals(this.users.get(utilizador.getEmail())));
     }
     /**
+     * Funcao que faz set da posiçao do Utilizador
+     */
+    public void setPosicaoCliente(Localizacao gps){
+        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail());
+        cli.setLocal(gps);
+    }
+
+    /**
      * Funcao que termina a sessao do utilizador logado.
      */
     public void terminaSessao(){
