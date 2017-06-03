@@ -171,7 +171,7 @@ public class Umer implements Serializable {
     }
 
     }
-    private Viagem criaViagem(Localizacao lDest, Localizacao cDest, Taxi taxi){
+    private static Viagem criaViagem(Localizacao lDest, Localizacao cDest, Taxi taxi){
         Viagem viagem = new Viagem();
         viagem.setLiCliente(cDest);
         viagem.setLiTaxi(taxi.getLocal());
