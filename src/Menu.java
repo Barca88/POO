@@ -36,7 +36,7 @@ public class Menu
     private void showMenu() {
         System.out.println("\n|============= UMeRApp =============| ");
         for (int i=0; i<this.opcoes.size(); i++) {
-            System.out.print("   "+i+1);
+            System.out.print("   "+(i+1));
             System.out.print(" - ");
             System.out.println(this.opcoes.get(i));
         }
