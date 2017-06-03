@@ -97,15 +97,14 @@ public class UMeRApp{
                            "Total Gasto em Viagens",
                            "Histórico de Viagens"};
         String [] menu5 = {"Taxi Mais Próximo",
-                           "Pedir Um Taxi"}
-        String [] menu6 = {"Taxi Mais "}
+                           "Pedir Um Taxi"};
 
-        menuLogado = new Menu(menu0);
-        menuPrincipal = new Menu(menu1);
-        menuRegistar = new Menu(menu2);
-        menuMotoristas = new Menu(menu3);
-        menuCliente = new Menu(menu4);
-        menuSolicitaViagem = new Menu(menu5);
+        Menu menuLogado = new Menu(menu0);
+        Menu menuPrincipal = new Menu(menu1);
+        Menu menuRegistar = new Menu(menu2);
+        Menu menuMotoristas = new Menu(menu3);
+        Menu menuCliente = new Menu(menu4);
+        Menu menuSolicitaViagem = new Menu(menu5);
     }
     /**
      * Executar o menu para utilizadores Clientes
@@ -142,22 +141,34 @@ public class UMeRApp{
                         break;
                 case 6: associarMotoristaViatura();
                 }
-            }
-        }while(menuMotoristas.getOpcao()!=0);
+            }while(menuMotoristas.getOpcao()!=0);
     }
     /**
      * Executar o menu para utilizadores Clientes
      */
      private static void runMenuSolicitaViagem(){
+        Scanner pt = new Scanner(System.in);
+        double x,y;
+        String matricula;
+
+        System.out.print("Insira as Coordenadas do Destino\n");
+        System.out.print("Insira o X.X:\n");
+        x = pt.nextLine();
+        System.out.print("Insira o Y.Y:\n");
+        y = pt.nextLine();
+        Localizacao local = new Localizacao(x,y);
         do{
             menuSolicitaViagem.executa();
             switch(menuSolicitaViagem.getOpcao()){
-                case 1: solicitarViagem();              // --TODO
+                case 1: solicitarViagem(local);              // --TODO
                         break;
+                case 2: System.out.print("Insira a Matricula do Taxi:\n");
+                        matricula = pt.nextLine();
+                        solicitarViagem(local, matricula);
+                        break;
+                    }
         }while(menuCliente.getOpcao()!=0);
     }
-
-
     /**
      * Carrega o estado da aplicação da última vez que esta foi fechada.
      * @param fich
