@@ -131,18 +131,11 @@ public class Viagem implements Serializable {
     }
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("Destino, ").append(liDestio.toString()).append("Taxi, ");
-        sb.append(liTaxi.toString()).append("A Minha, ").append(liCliente.toString())
+        sb.append("Destino, ").append(liDestino.toString()).append("Taxi, ");
+        sb.append(liTaxi.toString()).append("A Minha, ").append(liCliente.toString());
         sb.append("Preço da Viagem: ").append(preco).append("\n");
         sb.append("Diferença de preço entre o preço real e o estimado: ").append(diferenca);
         sb.append(liDestino.toString());
         return sb.toString();
     }
 }
-    private double preco; // custo da viagem
-    private  double diferenca; //
-    private Localizacao liCliente;
-    private Localizacao liTaxi;
-    private Localizacao liDestino;
-    private Taxi taxi;
-    private LocalDateTime dia;
