@@ -201,7 +201,7 @@ public class Umer implements Serializable {
         .collect(Collectors.toCollection(ArrayList :: new));
     }
     public ArrayList<Utilizador> top5EstimadoFinal(){
-        this.users.values().stream().filter.(t->t instanceof Motorista)
+         return this.users.values().stream().filter(t->t instanceof Motorista)
         .sorted(new ComparadorDiferencaCustos()).limit(5)
         .map(m->m.clone())
         .collect(Collectors.toCollection(ArrayList :: new));
@@ -237,11 +237,17 @@ public class Umer implements Serializable {
     public int motoristaClassificacao(){
         Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
         return mot.getclassiFinal();
-    }/*
+    }
+
     public double totalFaturado(){
         Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
-        Taxi taxi = this.taxis.values().stream().filter(t->t.getMotorista().equals(mot)).;
-    }*/
+        Taxi taxi = this.taxis.values().stream().filter(t->t.getMotorista().equals(mot)).findFirst().get().clone();
+        return taxi.getTotalFaturado();
+    }
+
+    public boolean existeTaxi(){
+        return this.taxis.values().stream().anyMatch(t->t.getMotorista().equals(this.users.get(utilizador.getEmail())));
+    }
 
     public void terminaSessao(){
         this.utilizador = null;

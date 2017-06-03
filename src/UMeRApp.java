@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.List;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.lang.ClassNotFoundException;
+import java.lang.IllegalStateException;
 import java.util.TreeMap;
 import java.util.Set;
 import java.util.HashSet;
@@ -154,7 +156,6 @@ public class UMeRApp{
     private static void clienteTotalGasto(){
         System.out.println("Total gasto em viagens: " + umer.getTotalGasto());
     }
-
     /**
      * Mostra o historico entre 2 datas
      */
