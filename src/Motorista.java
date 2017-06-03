@@ -90,13 +90,17 @@ public class Motorista extends Utilizador{
     public void insereViagem (Viagem viagem){
         this.viagens.add(viagem);
     }
-    
+
     public void insereClassificacao (int aval) {
         this.classificacoes.add(aval);
     }
     public int mediaClassificacoes (List<Integer> avals) {
         return (avals.stream().mapToInt(Integer::intValue).sum() / avals.size());
     }
+    public double totalPreco(){
+        return this.viagens.stream().mapToDouble(t->t.getPreco()).sum();
+    }
+
     public Motorista clone(){
         return new Motorista (this);
     }
