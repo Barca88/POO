@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
@@ -7,10 +8,11 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.lang.ClassNotFoundException;
 import java.lang.IllegalStateException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.regex.MatchResult;
 import java.io.Console;
-public class UMeRApp{
+
+public class UMeRApp implements Serializable{
     private static Umer umer;
     private static Menu menuLogado, menuPrincipal, menuRegistar,
             menuMotoristas, menuCliente, menuSolicitaViagem;
@@ -96,8 +98,7 @@ public class UMeRApp{
                            };
         String [] menu4 = {"Solicitar Viagem",
                            "Total Gasto em Viagens",
-                           "Histórico de Viagens",
-                           };
+                           "Histórico de Viagens"};
         String [] menu5 = {"Taxi Mais Próximo",
                            "Pedir Um Taxi"};
 
@@ -162,7 +163,7 @@ public class UMeRApp{
      * Mostra o historico entre 2 datas
      */
     private static void runMenuHistorico(){
-        LocalDateTime inicio, fim;
+        LocalDate inicio, fim;
         System.out.println("Insira a Data mais antiga:\n");
         inicio = pedirData();
         System.out.println("Insira a Data mais recente\n");
@@ -175,21 +176,14 @@ public class UMeRApp{
     /**
     * Funçao para pedir um LocalDateTime
     */
-    private static LocalDateTime pedirData(){
+    private static LocalDate pedirData(){
+        String str;
         Scanner pt = new Scanner(System.in);
-        System.out.println("Ano:\n");
-        int ano = pt.nextInt();
-        LocalDateTime dt = null; 
-        System.out.println("Formato: dd.MM. HH:mm\n");
-        pt.nextLine();
-        pt.findInLine("(\\d\\d)\\.(\\d\\d)\\. (\\d\\d):(\\d\\d)");
+        System.out.println("Formato:\nAAAA-MM-DD");
+        str = pt.nextLine();
+        LocalDate dt = null;
         try{
-            MatchResult mr = pt.match();
-            int mes = Integer.parseInt(mr.group(2));
-            int dia = Integer.parseInt(mr.group(1));
-            int hora = Integer.parseInt(mr.group(3));
-            int minuto = Integer.parseInt(mr.group(4));
-            dt = LocalDateTime.of(ano, mes, dia, hora, minuto);
+            dt = LocalDate.parse(str);
             System.out.println(dt);
         } catch(IllegalStateException e){
             System.err.println("Invalid date-time format.");
@@ -226,7 +220,7 @@ public class UMeRApp{
                         }
                         break;
                     }
-        }while(menuCliente.getOpcao()!=0);
+        }while(menuSolicitaViagem.getOpcao()!=0);
     }
     /**
      * Carrega o estado da aplicação da última vez que esta foi fechada.

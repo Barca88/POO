@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Comparator;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Umer implements Serializable {
@@ -163,7 +163,7 @@ public class Umer implements Serializable {
         viagem.setLiDestino(lDest);
         viagem.setTaxi(taxi);
         viagem.setPreco(viagem.precoViagem());
-        viagem.setDia(LocalDateTime.now());
+        viagem.setDia(LocalDate.now());
 
         return viagem;
     }
@@ -206,7 +206,7 @@ public class Umer implements Serializable {
         .map(m->m.clone())
         .collect(Collectors.toCollection(ArrayList :: new));
     }
-    public ArrayList<Viagem> getViagensData(LocalDateTime d1, LocalDateTime d2){
+    public ArrayList<Viagem> getViagensData(LocalDate d1, LocalDate d2){
         Utilizador user = this.users.get(this.utilizador.getEmail()).clone();
         if(user instanceof Cliente){
         Cliente cli = (Cliente) user;

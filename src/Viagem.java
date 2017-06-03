@@ -1,5 +1,5 @@
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Viagem implements Serializable {
 
@@ -9,7 +9,7 @@ public class Viagem implements Serializable {
     private Localizacao liTaxi;
     private Localizacao liDestino;
     private Taxi taxi;
-    private LocalDateTime dia;
+    private LocalDate dia;
 
     public Viagem(){
         this.preco = 0.0;
@@ -59,7 +59,7 @@ public class Viagem implements Serializable {
     public Taxi getTaxi(){
         return taxi;
     }
-    public LocalDateTime getDia(){
+    public LocalDate getDia(){
         return dia;
     }
 
@@ -82,7 +82,7 @@ public class Viagem implements Serializable {
     public void setTaxi(Taxi taxi){
         this.taxi = taxi;
     }
-    public void setDia(LocalDateTime dia){
+    public void setDia(LocalDate dia){
         this.dia = dia;
     }
 
