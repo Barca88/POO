@@ -116,7 +116,7 @@ public class UMeRApp{
             switch(menuCliente.getOpcao()){
                 case 1: runMenuSolicitaViagem();
                         break;
-                case 2: totalPreco();
+                case 2: clienteTotalGasto();
                         break;
                 case 3: runMenuHistorico();
                         break;
@@ -152,8 +152,12 @@ public class UMeRApp{
         System.out.println("Numero de Kilometros efectuado: " + umer.numeroDeKmsRealizados() + "Kms");
     }
 
-    private static void classificacao(){
+    private static void motoristaClassificacao(){
         System.out.println("A sua Classificação e: " + umer.motoristaClassificacao());
+    }
+
+    private static void clienteTotalGasto(){
+        System.out.println("Total gasto em viagens: " + umer.getTotalGasto());
     }
     
     /**
@@ -220,7 +224,9 @@ public class UMeRApp{
                         try{
                         solicitarViagem(local, matricula);
                         }
-                        catch (NaoExisteTaxiException e1, MotoristaNaoDispException e2);
+                        catch (NaoExisteTaxiException | MotoristaNaoDispException e){
+                            throw e;
+                        }
                         break;
                     }
         }while(menuCliente.getOpcao()!=0);
@@ -253,7 +259,7 @@ public class UMeRApp{
         Utilizador user;
         Scanner pt = new Scanner(System.in);
 
-        menuRegistar.executa()
+        menuRegistar.executa();
         if(menuRegistar.getOpcao() !=0){
             String nome, email, password, morada, dataNasc;
 
@@ -284,8 +290,10 @@ public class UMeRApp{
                         try{
                             umer.registarViatura(taxi);
                         }
-                        catch(ViaturaExistenteException e)
-                        System.out.println("Viatura ja registada")
+                        catch(ViaturaExistenteException e){
+                            throw e;
+                        }
+                        System.out.println("Viatura ja registada");
                         break;
                 case 2: user = new Cliente(null,nome,email,password,morada,data,0.0);
                         break;
@@ -299,7 +307,7 @@ public class UMeRApp{
         pt.close();
     }
     /**
-     * Inicio de sessão na ImobiliariaApp.
+     * Inicio de sessão na UMeRApp.
      */
     private static void iniciarSessao(){
         Scanner pt = new Scanner(System.in);
@@ -312,7 +320,7 @@ public class UMeRApp{
 
         try{ umer.iniciaSessao(email,password);
         }catch(SemAutorizacaoException e){
-            System.out.println(e.getMessage());
+            throw e;
         }
 
         pt.close();
