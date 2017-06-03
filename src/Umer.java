@@ -138,8 +138,8 @@ public class Umer implements Serializable {
      */
     public void solicitarViagem(Localizacao lDest) {
         Taxi taxi = this.compLocalizacao();
-        Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
-        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
+        Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail());
+        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail());
         double random = ThreadLocalRandom.current().nextDouble(1.0,2.0+1.0);
         taxi.setFiab(random);
         Viagem viagem = criaViagem(lDest,cli.getLocal(),taxi);
@@ -153,8 +153,8 @@ public class Umer implements Serializable {
     public void solicitarViagem(Localizacao lDest, String matricula) throws NaoExisteTaxiException, MotoristaNaoDispException{
         if (!this.taxis.containsKey(matricula)) throw new NaoExisteTaxiException("Viatura nao registada");
         Taxi taxi = this.taxis.get(matricula).clone();
-        Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
-        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
+        Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail());
+        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail());
         if (!mot.getDisponibilidade()) throw new MotoristaNaoDispException("Motorista nao disponivel");
         double random = ThreadLocalRandom.current().nextDouble(1.0,2.0+1.0);
         taxi.setFiab(random);
@@ -195,10 +195,10 @@ public class Umer implements Serializable {
      * Funcao que classifica o motorista e atualiza apos viagem.
      */
     public void classificaMotorista(int aval){
-        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
-        Viagem vig = cli.getViagens().get(cli.getViagens().size()).clone();
-        Motorista mot = (Motorista) this.users.get(vig.getTaxi().getMotorista().getEmail()).clone();
-        Taxi taxi = this.taxis.get(vig.getTaxi().getMatricula()).clone();
+        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail());
+        Viagem vig = cli.getViagens().get(cli.getViagens().size());
+        Motorista mot = (Motorista) this.users.get(vig.getTaxi().getMotorista().getEmail());
+        Taxi taxi = this.taxis.get(vig.getTaxi().getMatricula());
         mot.insereClassificacao(aval);
         mot.setClassiFinal(mot.mediaClassificacoes());
         mot.setDisponibilidade(true);
@@ -211,7 +211,7 @@ public class Umer implements Serializable {
      *  Atualiza posicao do cliente.
      */
     public void setNovaPos(Localizacao nova){
-        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
+        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail());
         cli.setLocal(nova);
     }
     /**
@@ -256,7 +256,7 @@ public class Umer implements Serializable {
      * Funcao que altera disponibilidade do motorista.
      */
     public void disponibilidade(boolean b){
-        Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
+        Motorista mot = (Motorista) this.users.get(utilizador.getEmail());
         mot.setDisponibilidade(b);
     }
     /**
@@ -288,26 +288,6 @@ public class Umer implements Serializable {
         Cliente cli = (Cliente) this.users.get(utilizador.getEmail()).clone();
         return cli.getTotalGasto();
     }
-    /**
-     * Funcao que retorna motorista do catalogo.
-     */
-    public Motorista getMotorista(){
-        return (Motorista) this.users.get(this.utilizador.getEmail());
-    }
-    /**
-     * Funcao que verifica se o taxi do motorista existe no catalogo.
-     */
-    public boolean existeTaxi(){
-        return this.taxis.values().stream().anyMatch(t->t.getMotorista().equals(this.users.get(utilizador.getEmail())));
-    }
-    /**
-     * Funcao que faz set da posiçao do Utilizador
-     */
-    public void setPosicaoCliente(Localizacao gps){
-        Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail());
-        cli.setLocal(gps);
-    }
-
     /**
      * Funcao que termina a sessao do utilizador logado.
      */
