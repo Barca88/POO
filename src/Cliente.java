@@ -59,11 +59,6 @@ public class Cliente extends Utilizador{
     public void insereViagem (Viagem viagem){
         this.viagens.add(viagem);
     }
-
-    public double totalPreco(){
-        return this.viagens.stream().mapToDouble(t->t.getPreco()).sum();
-    }
-
     
     public Cliente clone (){
         return new Cliente(this);

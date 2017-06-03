@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.Comparator;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Umer implements Serializable {
     private HashMap<String,Utilizador> users;
@@ -146,6 +147,8 @@ public class Umer implements Serializable {
         Taxi taxi = this.compLoaclizacao();
         Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
+        double random = ThreadLocalRandom.current().nextDouble(1,1.5 + 0.1);
+        taxi.setFiab(random);
         Viagem viagem = criaViagem(lDest,cli.getLocal(),taxi);
         mot.setDisponibilidade(false);
         mot.insereViagem(viagem);
@@ -158,6 +161,8 @@ public class Umer implements Serializable {
         Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
         if (!mot.getDisponibilidade()) throw new MotoristaNaoDispException("Motorista nao disponivel");
+        double random = ThreadLocalRandom.current().nextDouble(1,1.5 + 0.1);
+        taxi.setFiab(random);
         Viagem viagem = criaViagem(lDest,cli.getLocal(),taxi);
         mot.setDisponibilidade(false);
         mot.insereViagem(viagem);
@@ -199,6 +204,7 @@ public class Umer implements Serializable {
         mot.setClassiFinal(mot.mediaClassificacoes());
         mot.setDisponibilidade(true);
         taxi.setLocal(cli.getViagens().get(cli.getViagens().size()).getLiDestino());
+        cli.setTotalGasto(cli.getTotalGasto() + cli.getViagens().get(cli.getViagens().size()).getPreco());
     }
 
     public void setNovaPos(Localizacao nova){
@@ -207,9 +213,9 @@ public class Umer implements Serializable {
     }
 
     public ArrayList<Utilizador> top10Gastos (){
-        return this.users.entrySet().stream().filter(t->t.getValue() instanceof Cliente)
+        return this.users.values().stream().filter(t->t instanceof Cliente)
         .sorted(new ComparadorCustos()).limit(10)
-        .map(t->t.getValue()).collect(Collectors.toCollection(ArrayList :: new));
+        .collect(Collectors.toCollection(ArrayList :: new));
     }
 
     public ArrayList<Viagem> getViagensData(LocalDateTime d1, LocalDateTime d2){
@@ -227,6 +233,8 @@ public class Umer implements Serializable {
         .collect(Collectors.toCollection(ArrayList :: new));
         }
     }
+
+
 
 
     public void associaMotTaxi (Motorista mot, Taxi taxi){
