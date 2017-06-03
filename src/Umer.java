@@ -110,20 +110,14 @@ public class Umer implements Serializable {
 
         if(this.users.containsKey(utilizador.getEmail())){
             throw new UtilizadorExistenteException ("Ja existe este Utilizador");
-        }
-        else {
-            this.users.put(utilizador.getEmail(),utilizador);
-        }
+        }else this.users.put(utilizador.getEmail(),utilizador);
     }
 
     public void registarViatura (Taxi viatura) throws ViaturaExistenteException{
 
         if(this.taxis.containsKey(viatura.getMatricula())){
             throw new ViaturaExistenteException ("Viatura ja registada");
-        }
-        else{
-            this.taxis.put(viatura.getMatricula(),viatura);
-        }
+        }else this.taxis.put(viatura.getMatricula(),viatura);
     }
     public void iniciaSessao(String email, String password) throws SemAutorizacaoException {
 
@@ -133,15 +127,9 @@ public class Umer implements Serializable {
                 Utilizador user = users.get(email);
                 if (password.equals(user.getPassword())){
                     utilizador = user;
-                }
-                else {
-                    throw new SemAutorizacaoException("Credenciais Erradas");
-                }
-            }else
-                throw new SemAutorizacaoException("Credenciais Erradas");
-        }else {
-            throw new SemAutorizacaoException("Ja tem sessão iniciada");
-        }
+                }else throw new SemAutorizacaoException("Credenciais Erradas");
+            }else throw new SemAutorizacaoException("Credenciais Erradas");
+        }else throw new SemAutorizacaoException("Ja tem sessão iniciada");
     }
     public void solicitarViagem(Localizacao lDest) {
         Taxi taxi = this.compLoaclizacao();
@@ -154,7 +142,6 @@ public class Umer implements Serializable {
         mot.insereViagem(viagem);
         cli.insereViagem(viagem);
     }
-
     public void solicitarViagem(Localizacao lDest, String matricula) throws NaoExisteTaxiException, MotoristaNaoDispException{
         if (!this.taxis.containsKey(matricula)) throw new NaoExisteTaxiException("Viatura nao registada");
         Taxi taxi = this.taxis.get(matricula).clone();
@@ -169,7 +156,6 @@ public class Umer implements Serializable {
         cli.insereViagem(viagem);
 
     }
-
     private static Viagem criaViagem(Localizacao lDest, Localizacao cDest, Taxi taxi){
         Viagem viagem = new Viagem();
         viagem.setLiCliente(cDest);
@@ -191,8 +177,6 @@ public class Umer implements Serializable {
         .sorted(new ComparadorDistancias(c.getLocal()))
         .findFirst().get().clone();
     }
-
-
     public void classificaMotorista(int aval){
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
         Viagem vig = cli.getViagens().get(cli.getViagens().size()).clone();
@@ -206,26 +190,22 @@ public class Umer implements Serializable {
         cli.setTotalGasto(cli.getTotalGasto() + vig.getPreco());
         mot.setTotalKms(mot.getTotalKms() + vig.distanciaViagem());
     }
-
     public void setNovaPos(Localizacao nova){
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
         cli.setLocal(nova);
     }
-
     public ArrayList<Utilizador> top10Gastos (){
         return this.users.values().stream().filter(t->t instanceof Cliente)
         .sorted(new ComparadorCustos()).limit(10)
         .map(t->t.clone())
         .collect(Collectors.toCollection(ArrayList :: new));
     }
-
     public ArrayList<Utilizador> top5EstimadoFinal(){
         this.users.values().stream().filter.(t->t instanceof Motorista)
         .sorted(new ComparadorDiferencaCustos()).limit(5)
         .map(m->m.clone())
         .collect(Collectors.toCollection(ArrayList :: new));
     }
-
     public ArrayList<Viagem> getViagensData(LocalDateTime d1, LocalDateTime d2){
         Utilizador user = this.users.get(this.utilizador.getEmail()).clone();
         if(user instanceof Cliente){
@@ -262,10 +242,6 @@ public class Umer implements Serializable {
         Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
         Taxi taxi = this.taxis.values().stream().filter(t->t.getMotorista().equals(mot)).;
     }*/
-
-
- //TODO
- 
 
     public void terminaSessao(){
         this.utilizador = null;
