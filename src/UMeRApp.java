@@ -332,8 +332,8 @@ public class UMeRApp implements Serializable{
         System.out.println("Insira as suas coordenadas Y.Y");
         y = pt.nextDouble();
 
-        Localizacao l = Localizacao(x,y);
-        umer.setLocalizacaoCliente(l);
+        Localizacao l = new Localizacao(x,y);
+        umer.setPosicaoCliente(l);
     }
     /**
      * Fechar sessão na Aplicaçao.
