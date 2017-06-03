@@ -12,7 +12,6 @@ public class Motorista extends Utilizador{
     private List<Integer> classificacoes;
     private List<Viagem> viagens;
 
-
     //Construtor
     public Motorista (){
         super("","","","","");

@@ -211,7 +211,11 @@ public class Umer implements Serializable {
     public void associaMotTaxi (Motorista mot, Taxi taxi){
         taxi.setMotorista(mot);
     }
-
+    public void disponibilidade(boolean b){
+        Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
+        not.setDisponibilidade(b);
+    }
+    public
     public void terminaSessao(){
         this.utilizador = null;
     }
