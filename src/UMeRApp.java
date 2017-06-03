@@ -58,6 +58,7 @@ public class UMeRApp implements Serializable{
                             break;
                     case 2: iniciarSessao();
                             if((umer.getUtilizador() instanceof Motorista) && !(umer.existeTaxi())) associarMotoristaViatura();
+                            pedirLocalizacao();
                             break;
                     case 3: menu();
                             break;
@@ -218,7 +219,7 @@ public class UMeRApp implements Serializable{
                         umer.solicitarViagem(local, matricula);
                         }
                         catch (NaoExisteTaxiException | MotoristaNaoDispException e){
-                            System.out.println("Taxi Inexistente/Motorista Indisponivel de Momento");
+                            System.out.println("Taxi Inexistente/Motorista Indesponivel de Momento");
                         }
                         break;
                     }
@@ -322,6 +323,17 @@ public class UMeRApp implements Serializable{
         }
 
         pt.close();
+    }
+    private static void pedirLocalizacao(){
+        Scanner pt = new Scanner(System.in);
+        double x,y;
+        System.out.println("Insira as suas coordenadas X.X");
+        x = pt.nextDouble();
+        System.out.println("Insira as suas coordenadas Y.Y");
+        y = pt.nextDouble();
+
+        Localizacao l = Localizacao(x,y);
+        umer.setLocalizacaoCliente(l);
     }
     /**
      * Fechar sessão na Aplicaçao.
