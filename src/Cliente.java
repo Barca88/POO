@@ -31,9 +31,8 @@ public class Cliente extends Utilizador{
     
     //Getters
 
-    public Localizacao getLocal() throws NullPointerException{
-        if (this.gps == null)
-            throw new NullPointerException("No location is defined");
+    public Localizacao getLocal(){
+            
         return this.gps;
     }
 
@@ -45,11 +44,11 @@ public class Cliente extends Utilizador{
         return this.viagens.stream().collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public void setLocalizacao(){
+    public void setLocal(Localizacao gps){
         this.gps = gps;
     }
 
-    public void setTotalGasto(){
+    public void setTotalGasto(Double totalGasto){
         this.totalGasto = totalGasto;
     }
 
