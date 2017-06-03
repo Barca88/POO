@@ -104,7 +104,6 @@ public class Umer implements Serializable {
         fw.close();
     } */
 
-
     public void registarUtilizador (Utilizador utilizador) throws UtilizadorExistenteException{
 
         if(this.users.containsKey(utilizador.getEmail())){
@@ -124,10 +123,6 @@ public class Umer implements Serializable {
             this.taxis.put(viatura.getMatricula(),viatura);
         }
     }
-
-
-
-
     public void iniciaSessao(String email, String password) throws SemAutorizacaoException {
 
         if(this.utilizador == null){
@@ -200,11 +195,9 @@ public class Umer implements Serializable {
         .sorted(cD)
         .findFirst().get().clone();
     }
-
-
-
-
-
+    public void associaMotTaxi (Motorista mot, Taxi taxi){
+        taxi.setMotorista(mot);
+    }
     public void terminaSessao(){
         this.utilizador = null;
     }
