@@ -7,7 +7,7 @@ public class Motorista extends Utilizador{
 
     private int grauCump;
     private int classiFinal;
-    private int totalKms;
+    private double totalKms;
     private boolean disponibilidade;
     private List<Integer> classificacoes;
     private List<Viagem> viagens;
@@ -25,15 +25,15 @@ public class Motorista extends Utilizador{
     public Motorista (String nome,
         String email, String password, String morada,
         String dataNasc, int grauCump, int classiFinal,
-        int totalKms, boolean disponibilidade, ArrayList<Integer> classificacoes, ArrayList<Viagem> viagens){
+        double totalKms, boolean disponibilidade){
 
         super(nome, email, password, morada, dataNasc);
         this.grauCump = grauCump;
         this.classiFinal = classiFinal;
         this.totalKms = totalKms;
         this.disponibilidade = disponibilidade;
-        this.classificacoes = classificacoes;
-        this.viagens = viagens;
+        this.classificacoes = new ArrayList<Integer>();
+        this.viagens = new ArrayList<Viagem>();
     }
     public Motorista (Motorista m){
         super(m);
@@ -52,7 +52,7 @@ public class Motorista extends Utilizador{
     public int getclassiFinal(){
         return classiFinal;
     }
-    public int getTotalKms(){
+    public double getTotalKms(){
         return totalKms;
     }
     public boolean getDisponibilidade(){
@@ -72,7 +72,7 @@ public class Motorista extends Utilizador{
     public void setClassiFinal(int classiFinal){
         this.classiFinal = classiFinal;
     }
-    public void setTotalKms(int totalKms){
+    public void setTotalKms(double totalKms){
         this.totalKms = totalKms;
     }
     public void setDisponibilidade(boolean disponibilidade){

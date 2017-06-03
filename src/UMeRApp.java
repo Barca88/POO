@@ -202,10 +202,10 @@ public class UMeRApp{
         double x,y;
         String matricula;
 
-        System.out.print("Insira as Coordenadas do Destino\n");
-        System.out.print("Insira o X.X:\n");
+        System.out.println("Insira as Coordenadas do Destino");
+        System.out.println("Insira o X.X: ");
         x = pt.nextDouble();
-        System.out.print("Insira o Y.Y:\n");
+        System.out.println("Insira o Y.Y: ");
         y = pt.nextDouble();
         Localizacao local = new Localizacao(x,y);
         do{
@@ -213,7 +213,7 @@ public class UMeRApp{
             switch(menuSolicitaViagem.getOpcao()){
                 case 1: solicitarViagem(local);              // --TODO
                         break;
-                case 2: System.out.print("Insira a Matricula do Taxi:\n");
+                case 2: System.out.println("Insira a Matricula do Taxi: ");
                         matricula = pt.nextLine();
                         solicitarViagem(local, matricula);
                         break;
@@ -253,18 +253,34 @@ public class UMeRApp{
             String nome, email, password, morada, dataNasc;
 
             System.out.print("Nome: ");
-            nome = pt.nextDouble();
+            nome = pt.nextLine();
             System.out.print("Email: ");
-            email = pt.nextDouble();
+            email = pt.nextLine();
             System.out.print("Password: ");
-            password = pt.nextDouble();
+            password = pt.nextLine();
             System.out.print("Morada: ");
-            morada = pt.nextDouble();
+            morada = pt.nextLine();
             System.out.print("Data de nascimento: ");
-            dataNasc = pt.nextDouble();
+            dataNasc = pt.nextLine();
 
             switch(menuRegistar.getOpcao()){
-                case 1: user = new Motorista(null,nome,email,password,morada,data,0,0,0,false);
+                case 1: user = new Motorista(nome,email,password,morada,data,0,0,0,true);
+                        String matricula;
+                        double x,y;
+                        System.out.println("Matricula do Veiculo: ");
+                        matricula = pt.nextLine();
+                        System.out.println("Insira a posiçao da sua Viatura");
+                        System.out.println("Insira X.X: ");
+                        x = pt.nextDouble();
+                        System.out.println("Insira Y.Y: " );
+                        y = pt.nextDouble();
+                        Localizacao gps = new Localizacao(x,y);
+                        taxi = new Taxi(matricula,user,70,4.5,0,gps);
+                        try{
+                            umer.registarViatura(taxi);
+                        }
+                        catch(ViaturaExistenteException e)
+                        System.out.println("Viatura ja registada")
                         break;
                 case 2: user = new Cliente(null,nome,email,password,morada,data,0.0);
                         break;

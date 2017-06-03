@@ -88,10 +88,7 @@ public class Viagem implements Serializable {
 
     //Metodos
     public double precoViagem(){
-        double custo;
-
-        custo = Localizacao.distancia(liTaxi,liCliente);
-        custo += Localizacao.distancia(liCliente,liDestino);
+        double custo = distanciaViagem();
         custo = custo * this.taxi.getPreco();
         if(this.taxi.getFiab() <= 1.25 ){
             this.diferença = - (custo * this.taxi.getFiab());
@@ -100,6 +97,10 @@ public class Viagem implements Serializable {
         else 
             this.diferença = (custo * this.taxi.getFiab()) - custo;
         return custo;
+    }
+
+    public double distanciaViagem(){
+        return Localizacao.distancia(liTaxi,liCliente) + Localizacao.distancia(liCliente,liDestino);
     }
     
     /*public double tempoViagem(Taxi taxi, Cliente cliente, Localizacao destino){

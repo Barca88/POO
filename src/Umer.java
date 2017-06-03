@@ -116,7 +116,7 @@ public class Umer implements Serializable {
         }
     }
 
-    public void insereViatura (Taxi viatura) throws ViaturaExistenteException{
+    public void registarViatura (Taxi viatura) throws ViaturaExistenteException{
 
         if(this.taxis.containsKey(viatura.getMatricula())){
             throw new ViaturaExistenteException ("Viatura ja registada");
@@ -161,12 +161,13 @@ public class Umer implements Serializable {
         Motorista mot = (Motorista) this.users.get(taxi.getMotorista().getEmail()).clone();
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
         if (!mot.getDisponibilidade()) throw new MotoristaNaoDispException("Motorista nao disponivel");
-        double random = ThreadLocalRandom.current().nextDouble(1,1.5 + 0.1);
+        double random = ThreadLocalRandom.current().nextDouble(0.0,1.0+1.0);
         taxi.setFiab(random);
         Viagem viagem = criaViagem(lDest,cli.getLocal(),taxi);
         mot.setDisponibilidade(false);
         mot.insereViagem(viagem);
         cli.insereViagem(viagem);
+        
     }
     // --TODO
 
@@ -198,13 +199,15 @@ public class Umer implements Serializable {
 
     public void classificaMotorista(int aval){
         Cliente cli = (Cliente) this.users.get(this.utilizador.getEmail()).clone();
-        Motorista mot = (Motorista) this.users.get(cli.getViagens().get(cli.getViagens().size()).getTaxi().getMotorista().getEmail()).clone();
-        Taxi taxi = this.taxis.get(cli.getViagens().get(cli.getViagens().size()).getTaxi().getMatricula()).clone();
+        Viagem vig = cli.getViagens().get(cli.getViagens().size()).clone();
+        Motorista mot = (Motorista) this.users.get(vig.getTaxi().getMotorista().getEmail()).clone();
+        Taxi taxi = this.taxis.get(vig.getTaxi().getMatricula()).clone();
         mot.insereClassificacao(aval);
         mot.setClassiFinal(mot.mediaClassificacoes());
         mot.setDisponibilidade(true);
-        taxi.setLocal(cli.getViagens().get(cli.getViagens().size()).getLiDestino());
-        cli.setTotalGasto(cli.getTotalGasto() + cli.getViagens().get(cli.getViagens().size()).getPreco());
+        taxi.setLocal(vig.getLiDestino());
+        cli.setTotalGasto(cli.getTotalGasto() + vig.getPreco());
+        mot.setTotalKms(mot.getTotalKms() + vig.distanciaViagem());
     }
 
     public void setNovaPos(Localizacao nova){
@@ -233,18 +236,15 @@ public class Umer implements Serializable {
         .collect(Collectors.toCollection(ArrayList :: new));
         }
     }
-
-
-
-
     public void associaMotTaxi (Motorista mot, Taxi taxi){
         taxi.setMotorista(mot);
     }
     public void disponibilidade(boolean b){
         Motorista mot = (Motorista) this.users.get(utilizador.getEmail()).clone();
-        not.setDisponibilidade(b);
+        mot.setDisponibilidade(b);
     }
-    public
+
+
     public void terminaSessao(){
         this.utilizador = null;
     }

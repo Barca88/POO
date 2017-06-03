@@ -16,11 +16,11 @@ public class Cliente extends Utilizador{
     }
 
     public Cliente (Localizacao gps, String nome, String email,
-        String password,String morada,String dataNasc, double totalGasto, List<Viagem> viagens){
+        String password,String morada,String dataNasc, double totalGasto){
         super(nome, email, password, morada, dataNasc);
         this.gps = gps;
         this.totalGasto = totalGasto;
-        this.viagens = viagens;
+        this.viagens = new ArrayList<Viagem>();
     }
     public Cliente (Cliente c){
         super(c);
@@ -58,7 +58,7 @@ public class Cliente extends Utilizador{
     public Cliente clone (){
         return new Cliente(this);
     }
-    
+
     public boolean equals (Object obj) {
         if(this == obj)
             return true;
