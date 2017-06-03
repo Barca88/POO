@@ -58,7 +58,7 @@ public class UMeRApp implements Serializable{
                             break;
                     case 2: iniciarSessao();
                             if((umer.getUtilizador() instanceof Motorista) && !(umer.existeTaxi())) associarMotoristaViatura();
-                            if(umer.getUtilizador() != null) pedirLocalizacao();
+                            if(umer.getUtilizador() != null && umer.getUtilizador() instanceof Cliente) pedirLocalizacao();
                             break;
                     case 3: menu();
                             break;
