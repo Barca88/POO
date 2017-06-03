@@ -45,7 +45,7 @@ public class Taxi implements Serializable{
         return matricula;
     }
     public Motorista getMotorista(){
-        return motorista.clone();
+        return motorista;
     }
     public double getVelMedia(){
         return velMedia;
