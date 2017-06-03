@@ -96,12 +96,65 @@ public class UMeRApp{
         String [] menu4 = {"Solicitar Viagem",
                            "Total Gasto em Viagens",
                            "Histórico de Viagens"};
+        String [] menu5 = {"Taxi Mais Próximo",
+                           "Pedir Um Taxi"}
+        String [] menu6 = {"Taxi Mais "}
 
         menuLogado = new Menu(menu0);
         menuPrincipal = new Menu(menu1);
         menuRegistar = new Menu(menu2);
         menuMotoristas = new Menu(menu3);
         menuCliente = new Menu(menu4);
+        menuSolicitaViagem = new Menu(menu5);
+    }
+    /**
+     * Executar o menu para utilizadores Clientes
+     */
+     private static void runMenuCliente(){
+        do{
+            menuCliente.executa();
+            switch(menuCliente.getOpcao()){
+                case 1: runMenuSolicitaViagem();    // --TODO
+                        break;
+                case 2: totalGastoViagens();        // --TODO
+                        break;  // nao sei se preciso dos breaks
+                case 3: runMenuHistorico();         // --TODO
+                        break;
+            }
+        }while(menuCliente.getOpcao()!=0);
+    }
+    /**
+     * Executar menu para Motoristas
+     */
+    private static void runMenuMotorista(){
+        do{
+            menuMotoristas.executa();
+            switch(menuMotoristas.getOpcao()){
+                case 1: disponibilidade();             // --TODO
+                        break;
+                case 2: historicoDeViagens();          // --TODO
+                        break;
+                case 3: numeroDeKmsRealizados();       // --TODO
+                        break;
+                case 4: classificação();               // --TODO
+                        break;
+                case 5: totalFaturadoNaViatura();      // --TODO
+                        break;
+                case 6: associarMotoristaViatura();
+                }
+            }
+        }while(menuMotoristas.getOpcao()!=0);
+    }
+    /**
+     * Executar o menu para utilizadores Clientes
+     */
+     private static void runMenuSolicitaViagem(){
+        do{
+            menuSolicitaViagem.executa();
+            switch(menuSolicitaViagem.getOpcao()){
+                case 1: solicitarViagem();              // --TODO
+                        break;
+        }while(menuCliente.getOpcao()!=0);
     }
 
 
@@ -187,46 +240,8 @@ public class UMeRApp{
     private static void terminarSessao(){
         umer.terminaSessao();
     }
-    /**
-     * Executar o menu para utilizadores Clientes
-     */
-     private static void runMenuCliente(){
-        do{
-            menuCliente.executa();
-            switch(menuCliente.getOpcao()){
-                case 1: runMenuSolicitaViagem();    // --TODO
-                        break;
-                case 2: totalGastoViagens();        // --TODO
-                        break;  // nao sei se preciso dos breaks
-                case 3: runMenuHistorico();         // --TODO
-                        break;
-            }
-        }while(menuCliente.getOpcao()!=0);
-    }
-    /**
-     * Executar menu para Motoristas
-     */
-    private static void runMenuMotorista(){
-        do{
-            u
-            menuMotoristas.executa();
-            switch(menuMotoristas.getOpcao()){
-                case 1: disponibilidade();            // --TODO
-                        break;
-                case 2: historicoDeViagens();          // --TODO
-                        break;
-                case 3: numeroDeKmsRealizados();       // --TODO
-                        break;
-                case 4: classificação();               // --TODO
-                        break;
-                case 5: totalFaturadoNaViatura();      // --TODO
-                        break;
-                case 6: associarMotoristaViatura();    // --TODO
-                }
-            }
-        }while(menuMotoristas.getOpcao()!=0);
-    }
 //====================================================
+
     /**
      * Executar menu para compradores registados na ImobiliariaApp.
      */
@@ -423,7 +438,7 @@ public class UMeRApp{
         pt.close();
        }
        return imovel;
-    }*/
+   }*/
     /**
      * Input de informação para um preço.
      * @return
